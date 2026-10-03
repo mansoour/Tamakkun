@@ -2,6 +2,18 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-06 — v0.3 Learning content
+
+1. **One general `contents` table** with a `section` (quantitative, verbal or tahsili). Qudurat content hangs off a category, and Tahsili content off subject, then optional chapter, then optional topic. Fields that don't apply to the section are cleared on save.
+2. **The structure is seeded by an idempotent migration** from the stakeholder's lists (sources, 17 quantitative and 7 verbal categories, 4 subjects), so it exists in production. No provider URL is seeded, and no important links are seeded.
+3. **The source-to-stage mapping** (المعاصر → تأسيس, and so on) is set per content item, not hard-coded.
+4. **Videos are never hosted.** Only whitelisted YouTube or Vimeo URLs are accepted, embedded via `youtube-nocookie.com` or `player.vimeo.com`. iframe HTML is never accepted.
+5. **The lesson body is plain text.** Rich text and HTML are deferred to avoid XSS and sanitiser complexity.
+6. **Content slugs keep Arabic letters** (for example `/student/content/شرح-النسب`) for readable URLs, with a numeric suffix on clashes.
+7. **The ابدأ / أنجزت (start / done) buttons are not shown yet.** Progress tracking is v0.4, so no fake buttons.
+8. **`content.manage` goes to admins only by default.** The brief says counselors manage content "if permission exists", and it can be granted per role.
+9. **Simple catalog screens share `CatalogController`** and generic views, to avoid six copies of the same CRUD code.
+
 ## 2026-10-05 — Stakeholder answers after v0.2
 
 1. **Forced password change is admin-controlled.** The `force_password_change` setting (default on) is toggled at `/admin/settings`. The per-user flag is always recorded, so turning the setting back on takes effect immediately.
@@ -43,7 +55,7 @@ Newest first. Each entry records what was decided and why.
 |---|---|
 | **v0.1** | Foundation/Auth ✅ |
 | **v0.2** | Users and school structure: schools, academic years, grades, classrooms, student/counselor profiles, assignment, `AccountActivation`, policies, CSV import ✅ |
-| v0.3 | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD |
+| **v0.3** | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD ✅ |
 | v0.4 | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs |
 | v0.5 | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown |
 | v0.6 | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts |

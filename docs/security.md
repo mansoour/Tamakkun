@@ -38,9 +38,17 @@ CSP notes:
 - The policy is **enforced** in testing and production. In `local` it is sent as **Report-Only**, because Laravel Boost injects an inline browser-logging script. While `npm run dev` is running, no policy is sent, because Vite serves from another origin.
 - When video embeds arrive (Phase 2), `frame-src` will list only the whitelisted providers.
 
+## Uploads and external content (v0.3)
+
+- Content thumbnails are validated (image, jpg/png/webp, at most 2 MB and 6000px) and then decoded and re-encoded to WebP by `ImageOptimizer`. A disguised file fails to decode, and SVG is rejected.
+- Video URLs must be whitelisted YouTube or Vimeo links. CSP `frame-src` allows only `youtube-nocookie.com` and `player.vimeo.com`.
+- Content, source and link URLs must be `https`, so `javascript:` and `http:` are rejected.
+- External links open with `target="_blank" rel="noopener noreferrer"`.
+- The lesson body is plain text, escaped and rendered with `nl2br(e(...))`. No HTML is accepted.
+- Students only ever see visible content. Draft, scheduled and archived content pages return 404.
+
 ## Planned (later phases)
 
-- `ImageOptimizer` for uploads: MIME, extension, size and dimension checks, WebP conversion, no unsanitised SVG.
 - Private storage for sensitive files.
 - Read-only "view as user" for admins, with a banner and audit entry.
 - Rate limit on the contact form when it exists.

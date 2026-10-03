@@ -156,3 +156,45 @@ All parent foreign keys use `restrictOnDelete`, so a level that still has childr
 | error_message | text, nullable | |
 | completed_at | timestamp, nullable | |
 | timestamps | | |
+
+## Learning content (v0.3)
+
+```text
+sources ─┐
+categories (quantitative | verbal) ─┤
+subjects → chapters → topics ───────┴→ contents
+important_links (standalone)
+```
+
+### sources
+`id, name, slug (unique), website_url (nullable, only after verification), logo_path, description, is_active, timestamps`
+
+### categories
+`id, section (quantitative|verbal), name, slug, description, sort_order, is_active, timestamps`. Unique on `(section, slug)`.
+
+### subjects / chapters / topics
+`subjects`: `id, name, slug (unique), sort_order, is_active`. `chapters`: `id, subject_id (restrict), name, sort_order`, unique per subject. `topics`: `id, chapter_id (restrict), name, sort_order`, unique per chapter.
+
+### contents
+
+| Column | Notes |
+|---|---|
+| title, slug (unique, Arabic allowed) | slug is generated from the title, with a numeric suffix if taken |
+| description, body | body is plain text, shown escaped with line breaks |
+| content_type | `ContentType`: video, lesson, link, article, practice, quiz |
+| section | `ContentSection`: quantitative, verbal, tahsili |
+| category_id | quantitative and verbal only (restrict) |
+| subject_id, chapter_id, topic_id | tahsili only (restrict). The chapter must belong to the subject and the topic to the chapter |
+| source_id | nullable, null on delete |
+| stage, difficulty | `ContentStage` / `ContentDifficulty`, nullable |
+| video_url | whitelisted YouTube or Vimeo URL (see `App\Support\VideoEmbed`) |
+| external_url | https only |
+| thumbnail_path | WebP on the `public` disk (`content-thumbnails/`) |
+| duration_seconds, sort_order | |
+| is_published, published_at, archived_at | visible = published, not archived, and `published_at` is null or in the past |
+| created_by | FK users, null on delete |
+
+Indexes: `(section, is_published, sort_order)`, `title`, `content_type`, `stage`, `archived_at`.
+
+### important_links
+`id, title, description, url (https), icon, category (LinkCategory: qiyas, qudurat, tahsili, official_services, learning_resources), is_official, sort_order, is_active, timestamps`

@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.2 — Users and school structure.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.3 — Learning content.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -96,7 +96,8 @@ APP_TIMEZONE=Asia/Riyadh
 ### Migrations and seeders
 
 ```bash
-php artisan migrate           # creates tables, roles and permissions
+php artisan migrate           # creates tables, roles, permissions and the seeded content structure
+php artisan storage:link      # serves uploaded thumbnails
 php artisan db:seed           # local/testing only: fake demo users
 # or both from scratch:
 php artisan migrate:fresh --seed
@@ -220,6 +221,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Email | [docs/email.md](docs/email.md) |
 | Testing | [docs/testing.md](docs/testing.md) |
 | Student CSV import | [docs/imports.md](docs/imports.md) |
+| Content sources and copyright | [docs/content-sources.md](docs/content-sources.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

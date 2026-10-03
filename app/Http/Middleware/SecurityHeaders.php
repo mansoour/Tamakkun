@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Support\VideoEmbed;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Vite;
@@ -54,7 +55,8 @@ class SecurityHeaders
             "font-src 'self' https://fonts.bunny.net",
             "img-src 'self' data:",
             "connect-src 'self'",
-            "frame-src 'none'",
+            // Only whitelisted video players may be embedded (App\Support\VideoEmbed).
+            'frame-src '.implode(' ', VideoEmbed::FRAME_HOSTS),
             "object-src 'none'",
             "base-uri 'self'",
             "form-action 'self'",

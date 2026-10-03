@@ -45,6 +45,13 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `SchoolStructureService` | Create, update and delete for schools, academic years, grades and classrooms. Audits each change, keeps one current year per school, and blocks deleting a level that has children. |
 | `StudentImportService` | CSV parse, validate, preview, confirm and run. See [imports.md](imports.md). |
 | `DashboardMetricsService` | Real counts for the admin and counselor dashboards. |
+| `ContentService` | Create and update content (slug, section clean-up, minutes to seconds, thumbnail), plus publish, unpublish, archive and restore. All audited. |
+| `ContentStructureService` | Sources, categories, subjects, chapters, topics and important links. Audited, and deletion is blocked while content depends on the record. |
+| `ImageOptimizer` | Decodes uploaded raster images, resizes them to at most 1280px wide, re-encodes them as WebP (which strips metadata) and stores them on the `public` disk. SVG is never accepted. |
+
+`App\Support\VideoEmbed` turns a YouTube or Vimeo URL into a privacy-friendly embed URL and rejects everything else.
+
+`App\Http\Controllers\Admin\CatalogController` is a small base class for simple list, create, edit and delete screens (sources, categories, subjects, chapters, topics, links). Each subclass declares its fields and columns and keeps its own Form Request. The views are `admin/catalog/{index,form}`.
 
 ## Settings
 
@@ -113,6 +120,8 @@ Supported widths: 360, 375, 390, 414, 768, 1024, and 1280px and up.
 | `<x-stat-card label value icon>` | KPI tile |
 | `<x-form.select>`, `<x-form.checkbox>` | Labelled form controls with errors |
 | `<x-delete-button action>` | DELETE form with a confirmation dialog |
+| `<x-content-card :content>` | Student content tile (type icon or thumbnail, stage, duration, source) |
+| `<x-source-badge :source>` | Source name badge |
 | `<x-flash>` | Session `success` message and `delete`/`account_status`/`import` errors. Included in the app layout |
 | `<x-text-input>`, `<x-input-label>`, `<x-input-error>`, `<x-primary-button>`, `<x-auth-session-status>` | Restyled Breeze components |
 

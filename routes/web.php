@@ -20,6 +20,13 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
         ->middleware('can:'.PermissionName::ACCESS_STUDENT_AREA->value)
         ->group(function () {
             Route::get('/dashboard', Student\DashboardController::class)->name('dashboard');
+            Route::get('/quantitative', [Student\LearningController::class, 'quantitative'])->name('quantitative');
+            Route::get('/verbal', [Student\LearningController::class, 'verbal'])->name('verbal');
+            Route::get('/achievement', [Student\LearningController::class, 'achievement'])->name('achievement');
+            Route::get('/achievement/{subject:slug}', [Student\LearningController::class, 'subject'])->name('achievement.subject');
+            Route::get('/videos', [Student\LearningController::class, 'videos'])->name('videos');
+            Route::get('/content/{content:slug}', [Student\LearningController::class, 'show'])->name('content.show');
+            Route::get('/links', Student\ImportantLinkController::class)->name('links');
         });
 
     Route::prefix('counselor')->name('counselor.')
@@ -47,6 +54,22 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
                 Route::resource('students', Admin\StudentController::class)->except(['show', 'destroy']);
                 Route::resource('counselors', Admin\CounselorController::class)->except(['show', 'destroy']);
                 Route::patch('/users/{user}/status', Admin\UserStatusController::class)->name('users.status');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_CONTENT->value)->group(function () {
+                Route::resource('content', Admin\ContentController::class)->except(['show', 'destroy']);
+                foreach (['publish', 'unpublish', 'archive', 'restore'] as $action) {
+                    Route::post("/content/{content}/{$action}", [Admin\ContentController::class, $action])->name("content.{$action}");
+                }
+                Route::resource('sources', Admin\SourceController::class)->except('show');
+                Route::resource('categories', Admin\CategoryController::class)->except('show');
+                Route::resource('subjects', Admin\SubjectController::class)->except('show');
+                Route::resource('chapters', Admin\ChapterController::class)->except('show');
+                Route::resource('topics', Admin\TopicController::class)->except('show');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_LINKS->value)->group(function () {
+                Route::resource('links', Admin\ImportantLinkController::class)->except('show');
             });
 
             Route::middleware('can:'.PermissionName::MANAGE_SETTINGS->value)->group(function () {

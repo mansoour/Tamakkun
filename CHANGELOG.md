@@ -2,6 +2,21 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.3.0] — 2026-10-06 — Learning content
+
+### Added
+- Content model with sections (quantitative, verbal, Tahsili), types, stages, difficulty, scheduled publishing and archiving.
+- Sources, quantitative and verbal categories, and the Tahsili tree (subject → chapter → topic), seeded from the stakeholder brief by an idempotent migration. No URLs are invented.
+- Admin content management with dependent category, subject, chapter and topic selects, filters, and publish, unpublish, archive and restore actions. All audited.
+- Admin screens for sources, categories, subjects, chapters, topics and important links, sharing `CatalogController`.
+- `ImageOptimizer`: thumbnails are re-encoded to WebP, resized and stripped of metadata. SVG is rejected.
+- Video whitelist (`VideoEmbed`): YouTube (via youtube-nocookie) and Vimeo only, with a matching CSP `frame-src`.
+- Student pages: القدرات الكمي and القدرات اللفظي (grouped by category, with stage, source and search filters), التحصيلي (subject → chapter → topic), مكتبة المقاطع, روابط مهمة (with a مصدر رسمي badge) and a content page.
+- The student dashboard now links to the learning areas.
+- New permissions `content.manage` and `links.manage`, added by migration.
+- Fake demo lessons in the seeder.
+- Docs: `docs/content-sources.md`, plus updates to the schema, permissions, architecture, security, testing and decisions docs.
+
 ## [v0.2.1] — 2026-10-05
 
 ### Added

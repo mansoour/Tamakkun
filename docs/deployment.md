@@ -53,7 +53,7 @@ cp .env.example .env && php artisan key:generate
 # edit .env (values below)
 php artisan migrate --force
 npm ci && npm run build
-php artisan storage:link
+php artisan storage:link        # required: content thumbnails are served from /storage
 php artisan optimize
 ```
 

@@ -15,7 +15,7 @@ Tamakkun uses `spatie/laravel-permission`.
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
 | `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned` |
-| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage` |
+| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
 ## Permissions
@@ -31,6 +31,8 @@ Tamakkun uses `spatie/laravel-permission`.
 | `students.view-assigned` | عرض الطالبات المسندات | `/counselor/students`; Policy `view` only when `counselor_id` is the user |
 | `students.import` | استيراد الطالبات من ملف | `/admin/imports/students/*` |
 | `settings.manage` | إدارة إعدادات المنصة | `/admin/settings` |
+| `content.manage` | إدارة المحتوى التعليمي ومصادره وتصنيفاته | `/admin/content`, `/admin/sources`, `/admin/categories`, `/admin/subjects`, `/admin/chapters`, `/admin/topics` |
+| `links.manage` | إدارة الروابط المهمة | `/admin/links` |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).
 
@@ -43,6 +45,8 @@ Area permissions and feature permissions are independent. A user with only `admi
 | `StudentProfilePolicy` | `StudentProfile` | `viewAny`: view-all or view-assigned · `view`: view-all, or view-assigned **and** assigned counselor · `create`/`update`: users.manage |
 
 The sidebar (`App\Support\Navigation::visibleTo`) hides links the user is not permitted to open.
+
+Counselors do not get `content.manage` by default. An admin can grant it to the counselor role or to individual counselors through a migration, or later through the roles UI.
 
 Admins do **not** automatically get the student or counselor areas. Grant those explicitly if needed.
 

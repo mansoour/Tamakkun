@@ -40,4 +40,8 @@ Classroom::factory()->create();            // also creates grade → current aca
 | `Admin/StudentManagementTest` | Create a student who can then log in, pending until activated, classroom and counselor must match the school, uniqueness, counselor reassignment audited with no password in logs, no self-disable, search and filters, counselor management, real dashboard counts |
 | `Admin/StudentImportTest` | Preview, confirm and import; Arabic headers and BOM; Windows-1256; semicolons; per-row errors block confirmation; missing columns; full rollback; non-CSV rejected; template download; permission |
 | `Counselor/AssignedStudentsTest` | Only assigned students are listed and viewable, 403 for others, view-all policy, dashboard counts |
+| `Admin/ContentManagementTest` | Create video content, unique slugs, video whitelist (no iframe or other hosts), required URLs per type, category and section match, Tahsili subject → chapter → topic consistency, WebP thumbnails, SVG and disguised files rejected, publish lifecycle audited, list filters, permission |
+| `Admin/ContentCatalogTest` | Seeded structure without invented URLs, sources, categories unique per section, Tahsili hierarchy, important links (https only), blocked deletes, permissions |
+| `Student/LearningAreasTest` | Only visible content per section, hidden categories, stage and source filters, privacy-friendly embed and escaped body, 404 for drafts, Tahsili grouping, video library, links page and official badge, empty states, student-area permission, CSP `frame-src` |
+| `Unit/VideoEmbedTest` | Supported YouTube and Vimeo forms; rejects http, other or lookalike hosts, iframe HTML, bad IDs and `javascript:` |
 | `Auth/*` (Breeze) | Email verification, password confirmation, reset and update |

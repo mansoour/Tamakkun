@@ -2,13 +2,20 @@
 
 namespace Database\Seeders;
 
+use App\Enums\ContentSection;
+use App\Enums\ContentStage;
 use App\Enums\UserStatus;
 use App\Models\AcademicYear;
+use App\Models\Category;
+use App\Models\Chapter;
 use App\Models\Classroom;
+use App\Models\Content;
 use App\Models\CounselorProfile;
 use App\Models\Grade;
 use App\Models\School;
 use App\Models\StudentProfile;
+use App\Models\Subject;
+use App\Models\Topic;
 use App\Models\User;
 use Illuminate\Database\Seeder;
 use RuntimeException;
@@ -75,5 +82,43 @@ class DemoSeeder extends Seeder
 
         // A few students without a counselor, to exercise the "unassigned" filter.
         StudentProfile::factory()->count(2)->inClassroom($classrooms[1])->create();
+
+        $this->seedDemoContent();
+    }
+
+    /**
+     * Clearly labelled demo lessons in the stakeholder's real categories.
+     * No external URLs are invented; demo items carry text only.
+     */
+    private function seedDemoContent(): void
+    {
+        $stages = ContentStage::cases();
+
+        foreach ([ContentSection::QUANTITATIVE, ContentSection::VERBAL] as $section) {
+            Category::where('section', $section)->ordered()->limit(3)->get()->each(function (Category $category) use ($stages) {
+                foreach (range(0, 1) as $i) {
+                    Content::factory()->forCategory($category)->create([
+                        'title' => "درس تجريبي: {$category->name} ".($i + 1),
+                        'description' => 'محتوى تجريبي لأغراض العرض فقط.',
+                        'body' => "هذا نص تجريبي.\nسيُستبدل بمحتوى حقيقي من مصدر مصرّح به.",
+                        'stage' => $stages[$i],
+                        'duration_seconds' => 600,
+                    ]);
+                }
+            });
+        }
+
+        $math = Subject::where('slug', 'الرياضيات')->first();
+
+        if ($math) {
+            $chapter = Chapter::create(['subject_id' => $math->id, 'name' => 'باب تجريبي: الدوال']);
+            $topic = Topic::create(['chapter_id' => $chapter->id, 'name' => 'موضوع تجريبي: مجال الدالة']);
+            Content::factory()->tahsili($math)->create([
+                'title' => 'درس تجريبي: مجال الدالة',
+                'chapter_id' => $chapter->id,
+                'topic_id' => $topic->id,
+                'description' => 'محتوى تجريبي لأغراض العرض فقط.',
+            ]);
+        }
     }
 }

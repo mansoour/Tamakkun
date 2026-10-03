@@ -2,6 +2,11 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [Unreleased]
+
+### Fixed
+- CI: the production-cache step now uses the file cache store, because `optimize:clear` flushed the database cache and CI has no MySQL server.
+
 ## [v0.8.0] — 2026-10-11 — Reports, email and hardening
 
 ### Added

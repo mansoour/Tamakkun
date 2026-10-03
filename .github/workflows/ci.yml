@@ -48,6 +48,9 @@ jobs:
         run: vendor/bin/phpunit
 
       - name: Production caches build (routes, config, views, events)
+        # CI has no MySQL server; optimize:clear also flushes the cache store.
+        env:
+          CACHE_STORE: file
         run: |
           php artisan optimize
           php artisan optimize:clear

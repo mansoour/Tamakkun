@@ -9,6 +9,7 @@ use App\Notifications\DailyChallengeAvailable;
 use App\Notifications\ExamReminder;
 use App\Services\SettingsService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Str;
 use Tests\TestCase;
 
 class NotificationsTest extends TestCase
@@ -73,5 +74,17 @@ class NotificationsTest extends TestCase
         app(SettingsService::class)->set('enable_gamification', true);
         $this->actingAs($this->student)->get('/student/progress')
             ->assertSee('أوسمتي')->assertSee('أول اختبار')->assertSee('تم الحصول عليه');
+    }
+
+    public function test_opening_a_notification_never_redirects_off_site(): void
+    {
+        $this->student->notifications()->create([
+            'id' => (string) Str::uuid(),
+            'type' => DailyChallengeAvailable::class,
+            'data' => ['title' => 'x', 'body' => 'x', 'url' => rtrim(url('/'), '/').'.evil.example/phish'],
+        ]);
+
+        $id = $this->student->notifications()->first()->id;
+        $this->actingAs($this->student)->get("/student/notifications/{$id}")->assertRedirect(route('student.notifications'));
     }
 }

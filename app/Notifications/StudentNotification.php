@@ -2,14 +2,18 @@
 
 namespace App\Notifications;
 
+use App\Services\SettingsService;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 
 /**
- * Base for in-app (database) notifications shown on /student/notifications.
- * Queued so creating many never slows a web request (brief §16). Email can
- * be added per notification in v0.8 by extending via().
+ * Base for platform notifications: always in-app (database), and also by
+ * email when the recipient has an address and the admin setting
+ * `email_notifications` is on. Queued so sending never slows a request
+ * (brief §16). Sent emails are logged by LogSentEmail; failed deliveries by
+ * LogFailedEmail.
  */
 abstract class StudentNotification extends Notification implements ShouldQueue
 {
@@ -26,7 +30,20 @@ abstract class StudentNotification extends Notification implements ShouldQueue
      */
     public function via(object $notifiable): array
     {
-        return ['database'];
+        $channels = ['database'];
+
+        if (! empty($notifiable->email) && app(SettingsService::class)->get('email_notifications')) {
+            $channels[] = 'mail';
+        }
+
+        return $channels;
+    }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject($this->title().' — تمكّن')
+            ->view('emails.notification', ['title' => $this->title(), 'body' => $this->body(), 'url' => $this->url()]);
     }
 
     /**

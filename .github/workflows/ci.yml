@@ -46,3 +46,14 @@ jobs:
 
       - name: Run tests
         run: vendor/bin/phpunit
+
+      - name: Production caches build (routes, config, views, events)
+        run: |
+          php artisan optimize
+          php artisan optimize:clear
+
+      - name: Dependency security audit (PHP)
+        run: composer audit --locked --no-dev
+
+      - name: Dependency security audit (JS, runtime only)
+        run: npm audit --omit=dev

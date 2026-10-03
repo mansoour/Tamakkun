@@ -4,8 +4,10 @@ namespace Tests\Feature;
 
 use App\Enums\PermissionName;
 use App\Models\User;
+use App\Support\Navigation;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Blade;
+use Illuminate\Support\Facades\Route;
 use Tests\TestCase;
 
 class LayoutTest extends TestCase
@@ -32,13 +34,18 @@ class LayoutTest extends TestCase
             ->assertSee('دخول الموجهة الطلابية');
     }
 
-    public function test_planned_sections_are_not_rendered_as_links(): void
+    public function test_every_navigation_item_points_to_a_real_route(): void
     {
-        $response = $this->actingAs(User::factory()->admin()->create())->get('/admin/dashboard');
+        foreach (['student', 'counselor', 'admin'] as $area) {
+            foreach (Navigation::for($area) as $item) {
+                if ($item['route'] !== null) {
+                    $this->assertTrue(Route::has($item['route']), "Missing route {$item['route']}");
+                }
+            }
+        }
 
-        $response->assertSee('قريبًا');
-        // "Planned" items must never point anywhere — no fake buttons.
-        $response->assertDontSee('href="#"', false);
+        // No fake buttons anywhere: nothing links to "#".
+        $this->actingAs(User::factory()->admin()->create())->get('/admin/dashboard')->assertDontSee('href="#"', false);
     }
 
     public function test_navigation_only_links_to_permitted_sections(): void

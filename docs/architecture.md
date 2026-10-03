@@ -20,6 +20,7 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector`, `AccountActivation`, `SchoolMembershipService`, `SchoolStructureService`, `StudentImportService`, `DashboardMetricsService` |
 | `app/Policies` | `StudentProfilePolicy` (incl. `followUp`), `ExamAttemptPolicy`, `CounselorNotePolicy`, `StudentAlertPolicy` |
 | `app/Jobs` | `ImportStudents` (queued CSV import) |
+| `app/Listeners` | `LogSentEmail`, `LogFailedEmail`, `RecordLastLogin` |
 | `app/Notifications` | `StudentNotification` base (queued, database) plus `AnnouncementPublished`, `DailyChallengeAvailable`, `ExamReminder` |
 | `app/Http/Middleware` | `SecurityHeaders` (global web), `EnsureUserIsActive` (alias `active`) |
 | `app/Http/Controllers/{Student,Counselor,Admin}` | Area controllers |
@@ -61,6 +62,8 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `AnnouncementService` | Targeting, student visibility, recipients and notification dispatch (immediate or scheduled) |
 | `ReminderService` | Morning reminders: today's challenge, and exams 7 days and 1 day away (de-duplicated) |
 | `BadgeService` | Computed personal badges behind `enable_gamification` |
+| `ReportService` | The 10 reports as columns and rows, scoped by viewer. See [reports.md](reports.md). |
+| `PdfRenderer` | mPDF RTL rendering with the bundled Arabic font |
 | `ActivityLogger` | Writes `activity_logs` for student learning actions and logins |
 | `ImageOptimizer` | Decodes uploaded raster images, resizes them to at most 1280px wide, re-encodes them as WebP (which strips metadata) and stores them on the `public` disk. SVG is never accepted. |
 
@@ -79,7 +82,7 @@ $settings->set('inactivity_days', 10);        // saves, clears cache, writes aud
 ```
 
 - Defaults and the list of allowed keys live in `config/tamakkun.php`. Unknown keys are rejected.
-- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently `force_password_change` and `weekly_content_goal`.
+- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently `force_password_change`, `weekly_content_goal`, `enable_gamification` and `email_notifications`.
 - The whole table is cached forever under `settings.all`. Saving through the service clears that cache.
 - Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `weekly_content_goal`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
 

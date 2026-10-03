@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.7 — Challenge, motivation, announcements and notifications.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.8 — Reports, email and hardening.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -226,6 +226,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Exam tracking | [docs/exams.md](docs/exams.md) |
 | Counselor follow-up and alerts | [docs/alerts.md](docs/alerts.md) |
 | Challenge, motivation, announcements, notifications | [docs/engagement.md](docs/engagement.md) |
+| Reports (PDF/CSV) | [docs/reports.md](docs/reports.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

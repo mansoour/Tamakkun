@@ -2,6 +2,16 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-11 — v0.8 Reports, email, hardening
+
+1. **One data source for reports.** `ReportService` returns columns and rows, rendered identically as HTML, CSV and PDF. It reuses the roster and progress services, so reports never disagree with dashboards.
+2. **The PDF font is bundled.** IBM Plex Sans Arabic TTF was converted losslessly from IBM's official npm package (only WOFF ships there) and is licensed under the OFL. mPDF never fetches remote fonts.
+3. **Reports render synchronously**, which is fast at school scale. Queued generation is documented as a future option.
+4. **Email complements in-app notifications.** It is sent only to users with an address, behind an admin switch. Failed queued emails are logged from `JobFailed`, so each recipient is recorded.
+5. **Two vulnerabilities were fixed in review:** a notification open redirect (prefix check replaced by an exact scheme and host match) and CSV formula injection.
+6. **Admin "view as user" (brief §19) is not built.** The brief says to build it only if needed; the read-only counselor views cover inspection needs for now.
+7. **CI now also checks production caching and runs dependency audits.**
+
 ## 2026-10-10 — v0.7 Challenge, motivation, announcements, notifications
 
 1. **The challenge has one attempt per question**, only on its own date, and answers count toward the streak. Questions lock once anyone has answered, to keep results honest.
@@ -101,7 +111,7 @@ Newest first. Each entry records what was decided and why.
 | **v0.5** | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown ✅ |
 | **v0.6** | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts ✅ |
 | **v0.7** | Challenge, motivation, announcements, notifications ✅ |
-| v0.8 | Reports (mPDF/CSV), email via Resend, hardening |
+| **v0.8** | Reports (mPDF/CSV), email via Resend, hardening ✅ |
 | v0.9 | Pilot |
 | v1.0 | Production |
 

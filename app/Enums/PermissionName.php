@@ -27,6 +27,9 @@ enum PermissionName: string
     case MANAGE_MOTIVATIONS = 'motivations.manage';
     case ANNOUNCE_TO_ALL = 'announcements.manage-all';
     case SEND_ANNOUNCEMENTS = 'announcements.send';
+    case VIEW_REPORTS = 'reports.view';
+    case VIEW_AUDIT_LOGS = 'audit-logs.view';
+    case VIEW_EMAIL_LOGS = 'email-logs.view';
 
     public function label(): string
     {
@@ -47,6 +50,9 @@ enum PermissionName: string
             self::MANAGE_MOTIVATIONS => 'إدارة دفعة اليوم',
             self::ANNOUNCE_TO_ALL => 'إرسال إعلانات لجميع الطالبات',
             self::SEND_ANNOUNCEMENTS => 'إرسال إعلانات للطالبات المسندات',
+            self::VIEW_REPORTS => 'عرض التقارير وتصديرها',
+            self::VIEW_AUDIT_LOGS => 'عرض سجل التدقيق',
+            self::VIEW_EMAIL_LOGS => 'عرض سجل البريد',
         };
     }
 }

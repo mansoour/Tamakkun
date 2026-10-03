@@ -14,8 +14,8 @@ Tamakkun uses `spatie/laravel-permission`.
 | Role | Arabic | Permissions |
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
-| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up`, `announcements.send` |
-| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage`, `challenges.manage`, `motivations.manage`, `announcements.manage-all` |
+| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up`, `announcements.send`, `reports.view` |
+| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage`, `challenges.manage`, `motivations.manage`, `announcements.manage-all`, `reports.view`, `audit-logs.view`, `email-logs.view` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
 ## Permissions
@@ -37,6 +37,9 @@ Tamakkun uses `spatie/laravel-permission`.
 | `motivations.manage` | إدارة دفعة اليوم | `/admin/motivations` |
 | `announcements.manage-all` | إرسال إعلانات لجميع الطالبات | `/admin/announcements` (all, any class, any student) |
 | `announcements.send` | إرسال إعلانات للطالبات المسندات | `/counselor/announcements` (own students only) |
+| `reports.view` | عرض التقارير وتصديرها | `/counselor/reports` (own students) and `/admin/reports` (all, via `students.view-all`) |
+| `audit-logs.view` | عرض سجل التدقيق | `/admin/audit-logs` |
+| `email-logs.view` | عرض سجل البريد | `/admin/email-logs` |
 | `students.follow-up` | متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة) | Notes, follow-up status, alert actions. Combined with viewing the student (`StudentProfilePolicy::followUp`) |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).

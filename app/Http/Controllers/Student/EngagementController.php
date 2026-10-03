@@ -84,6 +84,11 @@ class EngagementController extends Controller
 
         $url = $notification->data['url'] ?? null;
 
-        return $url && str_starts_with($url, url('/')) ? redirect($url) : to_route('student.notifications');
+        // Only follow links back into this site (exact scheme + host), never elsewhere.
+        $internal = is_string($url)
+            && parse_url($url, PHP_URL_HOST) === parse_url(url('/'), PHP_URL_HOST)
+            && parse_url($url, PHP_URL_SCHEME) === parse_url(url('/'), PHP_URL_SCHEME);
+
+        return $internal ? redirect($url) : to_route('student.notifications');
     }
 }

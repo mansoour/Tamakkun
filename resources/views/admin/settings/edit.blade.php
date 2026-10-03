@@ -20,6 +20,12 @@
                 hint="أوسمة شخصية إيجابية تظهر للطالبة في صفحة تقدّمي فقط. لا يوجد ترتيب عام بين الطالبات." />
         </section>
 
+        <section aria-labelledby="email-title" class="space-y-3 border-t border-line pt-6">
+            <h2 id="email-title" class="font-heading text-lg font-semibold text-ink">البريد</h2>
+            <x-form.checkbox name="email_notifications" label="إرسال الإشعارات بالبريد أيضًا" :checked="$settings['email_notifications']"
+                hint="يُرسل البريد فقط لمن لديها بريد إلكتروني في حسابها. الإشعارات داخل المنصة تُرسل دائمًا." />
+        </section>
+
         <x-primary-button>حفظ الإعدادات</x-primary-button>
     </form>
 </x-app-layout>

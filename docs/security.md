@@ -53,10 +53,29 @@ CSP notes:
 - Counselors see a student's progress only through `StudentProfilePolicy` (assigned students).
 - `activity_logs` holds only the minimal events listed in [progress.md](progress.md).
 
+## Security review (v0.8)
+
+| Check | Result |
+|---|---|
+| Routes without auth | Only `/`, login, password reset, `/up` (health) and Boost's local-only browser log route |
+| Authorization | Every area is gated by `can:` middleware. Record access goes through policies (students, exams, notes, alerts). Tests cover cross-student and cross-counselor denial |
+| Mass assignment | `status`, `must_change_password` and `follow_up_status` are not fillable. Controllers pass only validated data |
+| SQL | Eloquent bindings only. Search uses bound `like` parameters |
+| XSS | Blade escaping everywhere. The one `{!! !!}` is `nl2br(e($body))` |
+| Open redirect | Notification links are followed only when scheme and host match the site **exactly** (fixed in v0.8; the earlier prefix check allowed `site.com.evil.net`) |
+| CSV injection | Formula-like cells are neutralised in exports (fixed in v0.8) |
+| Uploads | Images are decoded and re-encoded to WebP. SVG is rejected. CSV import is validated and size-limited |
+| Secrets in logs | Passwords never appear in audit or activity logs. Note text is never copied into audit logs |
+| Rate limits | Login, password reset, challenge answers (30/min) |
+| Production caches | `php artisan optimize` (routes, config, views, events) succeeds; CI checks it |
+| Dependencies | `composer audit` and `npm audit --omit=dev` run in CI. The only npm finding is a dev-only build dependency (`braces` via Tailwind 3's watcher), which never ships to users |
+
+Server-side recommendations: set `expose_php = Off` in lsphp83's `php.ini`, keep `APP_DEBUG=false`, and keep `.env` at mode `600`.
+
 ## Planned (later phases)
 
 - Private storage for sensitive files.
-- Read-only "view as user" for admins, with a banner and audit entry.
+- Read-only "view as user" for admins, with a banner and audit entry (brief §19: only if needed; not built).
 - Rate limit on the contact form when it exists.
 - Third-party API keys stored encrypted in the database (exception: `RESEND_API_KEY`, see [email.md](email.md)).
 

@@ -49,6 +49,8 @@ Failure and unhealthy-backup notifications are emailed to `BACKUP_NOTIFICATION_E
 
 ## Verification
 
+- **Verified in v0.8:** `backup:run --only-db` produced an AES-encrypted archive (plain `unzip` refuses it, as expected) and `backup:list` reported it healthy. Production needs `mysqldump` (part of MariaDB) on the PATH.
+
 - Check `php artisan backup:list` weekly. The newest backup must be under 24 hours old.
 - **Once a month**, do a test restore into a separate, temporary database and check that row counts for `users` and later core tables look right. Record the date in the ops log.
 - A backup is not considered working until a restore has been tested.

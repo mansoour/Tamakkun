@@ -7,7 +7,8 @@
 - Rocky Linux VPS with CyberPanel, OpenLiteSpeed, `lsphp83` and MariaDB 10.3.
 - The website, database and SSL certificate are created in CyberPanel.
 - The PHP CLI on the server is `/usr/local/lsws/lsphp83/bin/php`. The commands below write `php`. Use the full path, or alias it, if `php` is not lsphp83.
-- Required PHP extensions include `bcmath`, `intl`, `gd`, `zip`, `mbstring` and `pdo_mysql`.
+- Required PHP extensions include `bcmath`, `intl`, `gd` (WebP support for image optimisation), `zip`, `mbstring` and `pdo_mysql`. mPDF (PDF reports) needs `mbstring` and `gd`.
+- `mysqldump` must be on the PATH for backups.
 
 ## File layout
 

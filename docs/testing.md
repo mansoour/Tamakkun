@@ -53,5 +53,8 @@ Classroom::factory()->create();            // also creates grade → current aca
 | `Engagement/MotivationTest` | Dated item wins, stable rotation, hidden inactive and future items, whitelisted video, WebP image, permissions |
 | `Engagement/AnnouncementTest` | Admin to all, counselor to own students only, class and student targeting, counselor restrictions, scheduled dispatch exactly once, expired and withdrawn hidden |
 | `Engagement/NotificationsTest` | Morning reminders once (challenge, 7-day and 1-day exam), page, bell, open and mark read, no access to others' notifications, badges follow the setting |
+| `Reports/ReportsTest` | All 10 reports render for counselors and admins, counselor scope, CSV (BOM, Arabic, signed numbers, audit), PDF (`%PDF` and bundled font embedded), content and challenge counts, class grouping, CSV formula injection, permissions and 404 |
+| `EmailDeliveryTest` | Notification emailed and logged when an address exists, none without an address or when disabled, RTL layout, queued Arabic password reset, failed delivery logged as failed |
+| `Admin/LogViewerTest` | Audit log browse and filter, email log, counselor denial |
 | `Unit/VideoEmbedTest` | Supported YouTube and Vimeo forms; rejects http, other or lookalike hosts, iframe HTML, bad IDs and `javascript:` |
 | `Auth/*` (Breeze) | Email verification, password confirmation, reset and update |

@@ -2,6 +2,23 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.8.0] — 2026-10-11 — Reports, email and hardening
+
+### Added
+- 10 reports (student progress, class progress, Qudurat scores, Tahsili scores, improvement, upcoming exams, not booked, inactive, content completion, challenge participation) for counselors (own students) and admins (all). On-screen view, CSV (UTF-8 BOM) and Arabic RTL PDF via mPDF, with the bundled IBM Plex Sans Arabic font (OFL). Exports are audited.
+- Email: notifications also go by email to users with an address (admin switch **إرسال الإشعارات بالبريد أيضًا**), using the RTL `<x-mail.layout>`. The Arabic password-reset email is now queued. Failed queued emails are logged as `failed`.
+- Admin viewers for the audit log (with filters) and the email log.
+- Permissions `reports.view`, `audit-logs.view` and `email-logs.view` (migration).
+- CI: production cache check (`php artisan optimize`), `composer audit` and `npm audit --omit=dev`.
+- Docs: `docs/reports.md`, plus updates to email, security (review table), backups (verified run), deployment, permissions, architecture, testing and decisions.
+
+### Fixed
+- Open redirect: notification links are now followed only for this exact host.
+- CSV exports neutralise spreadsheet formula injection.
+
+### Changed
+- Every navigation section is now built, so no "قريبًا" placeholders remain.
+
 ## [v0.7.0] — 2026-10-10 — Challenge, motivation, announcements, notifications
 
 ### Added

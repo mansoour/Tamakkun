@@ -59,6 +59,11 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             Route::get('/exams', [Counselor\ExamOverviewController::class, 'exams'])->name('exams');
             Route::get('/results', [Counselor\ExamOverviewController::class, 'results'])->name('results');
 
+            Route::middleware('can:'.PermissionName::VIEW_REPORTS->value)->group(function () {
+                Route::get('/reports', [Shared\ReportController::class, 'index'])->name('reports.index');
+                Route::get('/reports/{report}', [Shared\ReportController::class, 'show'])->name('reports.show');
+            });
+
             Route::middleware('can:'.PermissionName::SEND_ANNOUNCEMENTS->value)->group(function () {
                 Route::get('/announcements', [Shared\AnnouncementController::class, 'index'])->name('announcements.index');
                 Route::get('/announcements/create', [Shared\AnnouncementController::class, 'create'])->name('announcements.create');
@@ -114,6 +119,16 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
                 Route::post('/announcements', [Shared\AnnouncementController::class, 'store'])->name('announcements.store');
                 Route::post('/announcements/{announcement}/withdraw', [Shared\AnnouncementController::class, 'withdraw'])->name('announcements.withdraw');
             });
+
+            Route::middleware('can:'.PermissionName::VIEW_REPORTS->value)->group(function () {
+                Route::get('/reports', [Shared\ReportController::class, 'index'])->name('reports.index');
+                Route::get('/reports/{report}', [Shared\ReportController::class, 'show'])->name('reports.show');
+            });
+
+            Route::get('/audit-logs', [Admin\LogController::class, 'audit'])
+                ->middleware('can:'.PermissionName::VIEW_AUDIT_LOGS->value)->name('audit-logs');
+            Route::get('/email-logs', [Admin\LogController::class, 'email'])
+                ->middleware('can:'.PermissionName::VIEW_EMAIL_LOGS->value)->name('email-logs');
 
             Route::middleware('can:'.PermissionName::MANAGE_LINKS->value)->group(function () {
                 Route::resource('links', Admin\ImportantLinkController::class)->except('show');

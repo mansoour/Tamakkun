@@ -11,6 +11,13 @@
         </p>
     </section>
 
+    <div class="mt-6 grid gap-4 lg:grid-cols-3">
+        <x-exam-countdown :next="$nextExam" editable />
+        @foreach ($exams as $exam)
+            <x-score-summary :exam="$exam" />
+        @endforeach
+    </div>
+
     <x-student-progress-card :summary="$summary" class="mt-6" />
 
     @if ($continue)
@@ -33,10 +40,6 @@
             @endforeach
         </div>
     </section>
-
-    <x-dev-notice class="mt-8">
-        ستظهر هنا قريبًا مواعيد اختباراتك ودرجاتك وهدفك.
-    </x-dev-notice>
 
     @include('partials.upcoming-sections', ['navigation' => \App\Support\Navigation::for('student')])
 </x-app-layout>

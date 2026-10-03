@@ -42,6 +42,7 @@ Area permissions and feature permissions are independent. A user with only `admi
 
 | Policy | Model | Rules |
 |---|---|---|
+| `ExamAttemptPolicy` | `ExamAttempt` | `view`: owner, or anyone who may view the student · `update`/`delete`: owner only |
 | `StudentProfilePolicy` | `StudentProfile` | `viewAny`: view-all or view-assigned · `view`: view-all, or view-assigned **and** assigned counselor · `create`/`update`: users.manage |
 
 The sidebar (`App\Support\Navigation::visibleTo`) hides links the user is not permitted to open.

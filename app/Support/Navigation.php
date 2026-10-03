@@ -41,7 +41,7 @@ class Navigation
                 ['label' => 'تحدي اليوم', 'icon' => 'bolt', 'route' => null],
                 ['label' => 'مكتبة المقاطع', 'icon' => 'play-circle', 'route' => 'student.videos'],
                 ['label' => 'روابط مهمة', 'icon' => 'link', 'route' => 'student.links'],
-                ['label' => 'موعدي ودرجتي', 'icon' => 'calendar-days', 'route' => null],
+                ['label' => 'موعدي ودرجتي', 'icon' => 'calendar-days', 'route' => 'student.exams.index', 'active' => 'student.exams.*'],
                 ['label' => 'دفعة اليوم', 'icon' => 'sparkles', 'route' => null],
                 ['label' => 'تقدمي', 'icon' => 'chart-bar', 'route' => 'student.progress'],
                 ['label' => 'الإشعارات', 'icon' => 'bell', 'route' => null],

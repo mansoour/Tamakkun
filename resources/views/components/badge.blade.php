@@ -10,6 +10,6 @@
     ][$color] ?? 'bg-brand-100 text-brand-800';
 @endphp
 
-<span {{ $attributes->merge(['class' => "inline-flex items-center gap-1 rounded-full px-2.5 py-0.5 text-xs font-medium {$classes}"]) }}>
+<span {{ $attributes->merge(['class' => "inline-flex items-center gap-1 whitespace-nowrap rounded-full px-2.5 py-0.5 text-xs font-medium {$classes}"]) }}>
     {{ $slot }}
 </span>

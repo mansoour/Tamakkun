@@ -28,6 +28,7 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             Route::get('/content/{content:slug}', [Student\LearningController::class, 'show'])->name('content.show');
             Route::get('/links', Student\ImportantLinkController::class)->name('links');
             Route::get('/progress', Student\ProgressController::class)->name('progress');
+            Route::resource('exams', Student\ExamController::class)->except('show')->parameters(['exams' => 'attempt']);
             Route::get('/favorites', Student\FavoriteController::class)->name('favorites');
             foreach (['start', 'complete', 'uncomplete', 'favorite'] as $action) {
                 Route::post("/content/{content:slug}/{$action}", [Student\ContentProgressController::class, $action])->name("content.{$action}");

@@ -63,6 +63,14 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany<ExamAttempt, $this>
+     */
+    public function examAttempts(): HasMany
+    {
+        return $this->hasMany(ExamAttempt::class, 'student_id');
+    }
+
+    /**
      * Students assigned to this user as their counselor.
      *
      * @return HasMany<StudentProfile, $this>

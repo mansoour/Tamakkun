@@ -2,6 +2,15 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-08 — v0.5 Exam tracking
+
+1. **Students own their exam records** (the brief says the student enters dates and scores). Counselors can view but not edit them in this version.
+2. **Scores are 0–100 integers** for both exams. A score is accepted only with "ظهرت النتيجة" (result received), and "taken" statuses cannot have future dates.
+3. **The target is per exam type and takes the latest value the student set.** It falls back to the admin `default_target_score` (85), and the UI labels that case as the default target.
+4. **Improvement compares the latest result with the previous one** (brief §58: "latest score > previous score"). Best score drives the gap to target.
+5. **Score and date changes are audited even when the student makes them** (brief §15 lists them), and are also logged as student activity.
+6. **No exam dates, fees or policies are invented.** Official booking and results go through admin-verified important links.
+
 ## 2026-10-07 — v0.4 Progress
 
 1. **Progress is explicit.** Only ابدأ and أنجزت change it, never page views or external clicks (brief §52). An undo exists for accidental clicks.
@@ -67,7 +76,7 @@ Newest first. Each entry records what was decided and why.
 | **v0.2** | Users and school structure: schools, academic years, grades, classrooms, student/counselor profiles, assignment, `AccountActivation`, policies, CSV import ✅ |
 | **v0.3** | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD ✅ |
 | **v0.4** | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs ✅ |
-| v0.5 | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown |
+| **v0.5** | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown ✅ |
 | v0.6 | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts |
 | v0.7 | Challenge, motivation, announcements, notifications |
 | v0.8 | Reports (mPDF/CSV), email via Resend, hardening |

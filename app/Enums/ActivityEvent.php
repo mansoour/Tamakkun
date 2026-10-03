@@ -12,6 +12,7 @@ enum ActivityEvent: string
     case CONTENT_STARTED = 'content_started';
     case CONTENT_COMPLETED = 'content_completed';
     case CONTENT_UNCOMPLETED = 'content_uncompleted';
+    case EXAM_UPDATED = 'exam_updated';
 
     public function label(): string
     {
@@ -20,6 +21,7 @@ enum ActivityEvent: string
             self::CONTENT_STARTED => 'بدء محتوى',
             self::CONTENT_COMPLETED => 'إنجاز محتوى',
             self::CONTENT_UNCOMPLETED => 'التراجع عن إنجاز محتوى',
+            self::EXAM_UPDATED => 'تحديث موعد أو درجة اختبار',
         };
     }
 

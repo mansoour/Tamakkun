@@ -2,6 +2,19 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.5.0] — 2026-10-08 — Exam tracking
+
+### Added
+- موعدي ودرجتي: students add, edit and delete Qudurat and Tahsili attempts with booking status, date, score, target and notes. Attempt numbers are assigned automatically.
+- `ExamProgressService`: latest, best and previous score, improvement, target (or admin default), gap to target, next exam and days remaining.
+- Next-exam countdown and per-exam score cards on the student dashboard. The counselor student page shows exams and attempts read-only.
+- `ExamAttemptPolicy` (owner edits; assigned counselor and admins view). Exam changes are audited and logged as activity.
+- Arabic grammar helper for day and point counts. Components `x-exam-countdown` and `x-score-summary`. Demo exam data.
+- Docs: `docs/exams.md`, plus updates to the schema, architecture, permissions, testing and decisions docs.
+
+### Changed
+- Badges no longer wrap inside table cells on small screens.
+
 ## [v0.4.0] — 2026-10-07 — Progress
 
 ### Added

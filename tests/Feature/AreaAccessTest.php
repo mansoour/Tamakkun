@@ -39,7 +39,7 @@ class AreaAccessTest extends TestCase
             ->get('/student/dashboard')
             ->assertOk()
             ->assertSee('ريم التجريبية')
-            ->assertSee('صفحة قيد التطوير');
+            ->assertSee('الاختبار القادم');
     }
 
     public function test_student_cannot_access_counselor_or_admin_areas(): void

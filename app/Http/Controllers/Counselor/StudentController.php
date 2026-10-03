@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Counselor;
 
 use App\Http\Controllers\Controller;
 use App\Models\StudentProfile;
+use App\Services\ExamProgressService;
 use App\Services\StudentProgressService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -32,13 +33,14 @@ class StudentController extends Controller
         ]);
     }
 
-    public function show(StudentProfile $student, StudentProgressService $progress): View
+    public function show(StudentProfile $student, StudentProgressService $progress, ExamProgressService $exams): View
     {
         $this->authorize('view', $student);
 
         return view('counselor.students.show', [
             'student' => $student->load(['user', 'school', 'classroom.grade.academicYear']),
             'summary' => $progress->summary($student->user),
+            'exams' => $exams->summary($student->user),
         ]);
     }
 }

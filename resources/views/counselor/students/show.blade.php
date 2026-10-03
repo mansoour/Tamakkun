@@ -22,7 +22,36 @@
         </p>
     </section>
 
+    <section class="mt-6" aria-labelledby="exams-title">
+        <h2 id="exams-title" class="text-lg font-semibold text-ink">الاختبارات والدرجات</h2>
+        <div class="mt-3 grid gap-4 lg:grid-cols-2">
+            @foreach ($exams as $exam)
+                <div class="space-y-3">
+                    <x-score-summary :exam="$exam" />
+                    @if ($exam['attempts']->isNotEmpty())
+                        <x-table>
+                            <x-slot:head>
+                                <th scope="col" class="px-4 py-3 text-start">المحاولة</th>
+                                <th scope="col" class="px-4 py-3 text-start">الحالة</th>
+                                <th scope="col" class="px-4 py-3 text-start">التاريخ</th>
+                                <th scope="col" class="px-4 py-3 text-start">الدرجة</th>
+                            </x-slot:head>
+                            @foreach ($exam['attempts'] as $attempt)
+                                <tr>
+                                    <td class="px-4 py-3">{{ $attempt->attempt_number }}</td>
+                                    <td class="px-4 py-3"><x-badge :color="$attempt->booking_status->color()">{{ $attempt->booking_status->label() }}</x-badge></td>
+                                    <td class="whitespace-nowrap px-4 py-3" dir="ltr">{{ $attempt->exam_date?->format('Y-m-d') ?? '—' }}</td>
+                                    <td class="px-4 py-3 font-semibold">{{ $attempt->score ?? '—' }}</td>
+                                </tr>
+                            @endforeach
+                        </x-table>
+                    @endif
+                </div>
+            @endforeach
+        </div>
+    </section>
+
     <x-dev-notice class="mt-6">
-        ستظهر هنا في المراحل القادمة درجات الطالبة ومواعيد اختباراتها والتنبيهات والملاحظات.
+        ستظهر هنا في المراحل القادمة التنبيهات والملاحظات وحالة المتابعة.
     </x-dev-notice>
 </x-app-layout>

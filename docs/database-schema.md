@@ -220,3 +220,20 @@ Unique `(student_id, content_id)`. Indexes `(student_id, status)` and `(student_
 
 ### activity_logs
 `id, user_id (FK users, cascade), event_type (ActivityEvent), subject_type/subject_id (nullable morph), metadata json nullable, created_at`. Indexes `(user_id, created_at)` and `(event_type, created_at)`.
+
+## Exam tracking (v0.5)
+
+### exam_attempts
+
+| Column | Notes |
+|---|---|
+| id | |
+| student_id | FK users, cascade |
+| exam_type | `ExamType`: qudurat, tahsili |
+| attempt_number | Assigned automatically per student and type. Unique `(student_id, exam_type, attempt_number)` |
+| booking_status | `ExamBookingStatus`: not_booked, booked, completed, result_pending, result_received (indexed) |
+| exam_date | date, nullable (indexed) |
+| score | tinyint 0–100, nullable. Only set with `result_received` |
+| target_score | tinyint 1–100, nullable |
+| notes | text, nullable |
+| timestamps | |

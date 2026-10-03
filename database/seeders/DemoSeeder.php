@@ -11,6 +11,7 @@ use App\Models\Chapter;
 use App\Models\Classroom;
 use App\Models\Content;
 use App\Models\CounselorProfile;
+use App\Models\ExamAttempt;
 use App\Models\Grade;
 use App\Models\School;
 use App\Models\StudentProfile;
@@ -86,6 +87,28 @@ class DemoSeeder extends Seeder
 
         $this->seedDemoContent();
         $this->seedDemoProgress(User::where('username', 'student')->sole());
+        $this->seedDemoExams();
+    }
+
+    /**
+     * Fake exam history: the demo student has two Qudurat results and a booked
+     * Tahsili exam; other students get a mix of booked and unbooked states.
+     */
+    private function seedDemoExams(): void
+    {
+        $student = User::where('username', 'student')->sole();
+
+        ExamAttempt::factory()->withScore(70, 90)->create(['student_id' => $student->id, 'attempt_number' => 1, 'target_score' => 85]);
+        ExamAttempt::factory()->withScore(76, 20)->create(['student_id' => $student->id, 'attempt_number' => 2]);
+        ExamAttempt::factory()->booked(18)->create(['student_id' => $student->id, 'exam_type' => 'tahsili']);
+
+        User::role('student')->where('username', '!=', 'student')->get()->each(function (User $user, int $i) {
+            match ($i % 3) {
+                0 => ExamAttempt::factory()->booked(7 + $i)->create(['student_id' => $user->id]),
+                1 => ExamAttempt::factory()->withScore(60 + $i)->create(['student_id' => $user->id]),
+                default => null, // not booked yet
+            };
+        });
     }
 
     /**

@@ -19,9 +19,12 @@ User::factory()->counselor()->create();
 User::factory()->admin()->create();
 User::factory()->withStatus(UserStatus::DISABLED)->create();
 User::factory()->create();                 // active user with no role or permissions
+StudentProfile::factory()->inClassroom($classroom)->assignedTo($counselor)->create();
+CounselorProfile::factory()->forSchool($school)->create();
+Classroom::factory()->create();            // also creates grade → current academic year → school
 ```
 
-## Current coverage (v0.1)
+## Current coverage
 
 | File | Covers |
 |---|---|
@@ -33,4 +36,8 @@ User::factory()->create();                 // active user with no role or permis
 | `EmailLogTest` | Every sent email logged, user and template linked |
 | `LayoutTest` | `lang="ar" dir="rtl"`, home page copy, planned sections not links, `<x-icon>` rendering, accessibility and unknown-name failure |
 | `ProfileTest` | Account page shows school-managed data, self-edit and delete disabled |
+| `Admin/SchoolStructureTest` | Create, update and delete schools, years, grades and classrooms. Unique names, a single current year, deletion blocked with children, audit entries, permission checks |
+| `Admin/StudentManagementTest` | Create a student who can then log in, pending until activated, classroom and counselor must match the school, uniqueness, counselor reassignment audited with no password in logs, no self-disable, search and filters, counselor management, real dashboard counts |
+| `Admin/StudentImportTest` | Preview, confirm and import; Arabic headers and BOM; Windows-1256; semicolons; per-row errors block confirmation; missing columns; full rollback; non-CSV rejected; template download; permission |
+| `Counselor/AssignedStudentsTest` | Only assigned students are listed and viewable, 403 for others, view-all policy, dashboard counts |
 | `Auth/*` (Breeze) | Email verification, password confirmation, reset and update |

@@ -4,7 +4,7 @@
     <nav class="flex-1 space-y-1 overflow-y-auto px-3 pb-4" aria-label="{{ $areaTitle }}">
         @foreach ($navigation as $item)
             @if ($item['route'])
-                @php($active = request()->routeIs($item['route']))
+                @php($active = request()->routeIs($item['active'] ?? $item['route']))
                 <a href="{{ route($item['route']) }}" @if ($active) aria-current="page" @endif
                     @class([
                         'flex min-h-[44px] items-center gap-3 rounded-xl px-3 text-sm font-medium transition',

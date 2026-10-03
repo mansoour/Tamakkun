@@ -14,6 +14,11 @@ enum PermissionName: string
     case ACCESS_STUDENT_AREA = 'student-area.access';
     case ACCESS_COUNSELOR_AREA = 'counselor-area.access';
     case ACCESS_ADMIN_AREA = 'admin-area.access';
+    case MANAGE_SCHOOLS = 'schools.manage';
+    case MANAGE_USERS = 'users.manage';
+    case VIEW_ALL_STUDENTS = 'students.view-all';
+    case VIEW_ASSIGNED_STUDENTS = 'students.view-assigned';
+    case IMPORT_STUDENTS = 'students.import';
 
     public function label(): string
     {
@@ -21,6 +26,11 @@ enum PermissionName: string
             self::ACCESS_STUDENT_AREA => 'الدخول إلى مساحة الطالبة',
             self::ACCESS_COUNSELOR_AREA => 'الدخول إلى لوحة الموجهة الطلابية',
             self::ACCESS_ADMIN_AREA => 'الدخول إلى لوحة الإدارة',
+            self::MANAGE_SCHOOLS => 'إدارة المدارس والأعوام الدراسية والصفوف والفصول',
+            self::MANAGE_USERS => 'إدارة حسابات الطالبات والموجهات',
+            self::VIEW_ALL_STUDENTS => 'عرض جميع الطالبات',
+            self::VIEW_ASSIGNED_STUDENTS => 'عرض الطالبات المسندات',
+            self::IMPORT_STUDENTS => 'استيراد الطالبات من ملف',
         };
     }
 }

@@ -19,7 +19,7 @@ This file lists the tables that exist **now**. Tables planned in the brief (scho
 | remember_token | string, nullable | |
 | created_at / updated_at | timestamps | |
 
-Role-specific data will live in `student_profiles` and `counselor_profiles` (Phase 1), not in `users`.
+Role-specific data lives in `student_profiles` and `counselor_profiles`, not in `users`.
 
 ## Framework tables
 
@@ -65,3 +65,93 @@ Role-specific data will live in `student_profiles` and `counselor_profiles` (Pha
 | error_message | text, nullable | |
 | sent_at | timestamp, nullable | |
 | created_at | timestamp, indexed | |
+
+## School structure
+
+```text
+schools → academic_years → grades → classrooms → student_profiles
+```
+
+All parent foreign keys use `restrictOnDelete`, so a level that still has children cannot be deleted. `SchoolStructureService` also blocks the deletion with an Arabic message.
+
+### schools
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| name | string, unique | |
+| city | string(100), nullable | |
+| is_active | boolean, default true | |
+| timestamps | | |
+
+### academic_years
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| school_id | FK schools (restrict) | |
+| name | string(50) | for example `1447–1448`. Unique per school |
+| starts_on / ends_on | date, nullable | `ends_on` must be after `starts_on` |
+| is_current | boolean, indexed | Only one per school (enforced by `SchoolStructureService`) |
+| timestamps | | |
+
+### grades
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| academic_year_id | FK academic_years (restrict) | |
+| name | string(100) | for example `الثالث الثانوي`. Unique per year |
+| level | tinyint, nullable, indexed | 1–12. 12 is Grade 12 |
+| sort_order | smallint | |
+| timestamps | | |
+
+### classrooms
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| grade_id | FK grades (restrict) | |
+| name | string(100) | for example `3/1`. Unique per grade |
+| sort_order | smallint | |
+| timestamps | | |
+
+## Profiles
+
+### student_profiles
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | Route key for `/admin/students/{student}` and `/counselor/students/{student}` |
+| user_id | FK users, unique, cascade | |
+| school_id | FK schools (restrict) | |
+| classroom_id | FK classrooms, nullable (restrict) | Must belong to `school_id` |
+| counselor_id | FK users, nullable, null on delete | The assigned counselor. Must be a counselor of the same school |
+| student_code | string(32), unique | School student code. Never the national ID |
+| timestamps | | |
+
+### counselor_profiles
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| user_id | FK users, unique, cascade | |
+| school_id | FK schools (restrict) | |
+| job_title | string(100), nullable | |
+| phone | string(32), nullable | |
+| timestamps | | |
+
+## student_imports
+
+| Column | Type | Notes |
+|---|---|---|
+| id | bigint PK | |
+| uploaded_by | FK users, nullable | |
+| original_filename | string | |
+| status | string(20), indexed | `App\Enums\ImportStatus`: previewed, queued, completed, failed |
+| total_rows / imported_rows | unsigned int | |
+| payload | longText, nullable | **Encrypted** validated rows. Cleared after import |
+| row_errors | json, nullable | `[{row, messages[]}]` |
+| error_message | text, nullable | |
+| completed_at | timestamp, nullable | |
+| timestamps | | |

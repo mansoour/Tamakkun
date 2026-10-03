@@ -2,6 +2,9 @@
 
 namespace App\Support;
 
+use App\Enums\PermissionName;
+use App\Models\User;
+
 /**
  * Sidebar/drawer navigation for each area.
  *
@@ -12,7 +15,20 @@ namespace App\Support;
 class Navigation
 {
     /**
-     * @return list<array{label: string, icon: string, route: string|null}>
+     * Items for an area, without the ones the user is not permitted to open.
+     *
+     * @return list<array{label: string, icon: string, route: string|null, active?: string, permission?: PermissionName}>
+     */
+    public static function visibleTo(?User $user, string $area): array
+    {
+        return array_values(array_filter(
+            self::for($area),
+            fn (array $item) => ! isset($item['permission']) || $user?->can($item['permission']->value),
+        ));
+    }
+
+    /**
+     * @return list<array{label: string, icon: string, route: string|null, active?: string, permission?: PermissionName}>
      */
     public static function for(string $area): array
     {
@@ -34,7 +50,7 @@ class Navigation
             ],
             'counselor' => [
                 ['label' => 'لوحة الموجهة الطلابية', 'icon' => 'squares-2x2', 'route' => 'counselor.dashboard'],
-                ['label' => 'الطالبات', 'icon' => 'users', 'route' => null],
+                ['label' => 'الطالبات', 'icon' => 'users', 'route' => 'counselor.students.index', 'active' => 'counselor.students.*', 'permission' => PermissionName::VIEW_ASSIGNED_STUDENTS],
                 ['label' => 'تحتاج متابعة', 'icon' => 'flag', 'route' => null],
                 ['label' => 'التنبيهات', 'icon' => 'exclamation-triangle', 'route' => null],
                 ['label' => 'النتائج', 'icon' => 'presentation-chart-line', 'route' => null],
@@ -46,8 +62,13 @@ class Navigation
             ],
             'admin' => [
                 ['label' => 'لوحة الإدارة', 'icon' => 'squares-2x2', 'route' => 'admin.dashboard'],
-                ['label' => 'المدارس والفصول', 'icon' => 'building-library', 'route' => null],
-                ['label' => 'المستخدمون', 'icon' => 'users', 'route' => null],
+                ['label' => 'المدارس', 'icon' => 'building-library', 'route' => 'admin.schools.index', 'active' => 'admin.schools.*', 'permission' => PermissionName::MANAGE_SCHOOLS],
+                ['label' => 'الأعوام الدراسية', 'icon' => 'calendar-days', 'route' => 'admin.academic-years.index', 'active' => 'admin.academic-years.*', 'permission' => PermissionName::MANAGE_SCHOOLS],
+                ['label' => 'الصفوف', 'icon' => 'academic-cap', 'route' => 'admin.grades.index', 'active' => 'admin.grades.*', 'permission' => PermissionName::MANAGE_SCHOOLS],
+                ['label' => 'الفصول', 'icon' => 'squares-2x2', 'route' => 'admin.classes.index', 'active' => 'admin.classes.*', 'permission' => PermissionName::MANAGE_SCHOOLS],
+                ['label' => 'الطالبات', 'icon' => 'users', 'route' => 'admin.students.index', 'active' => 'admin.students.*', 'permission' => PermissionName::MANAGE_USERS],
+                ['label' => 'الموجهات', 'icon' => 'user-circle', 'route' => 'admin.counselors.index', 'active' => 'admin.counselors.*', 'permission' => PermissionName::MANAGE_USERS],
+                ['label' => 'استيراد الطالبات', 'icon' => 'document-text', 'route' => 'admin.imports.create', 'active' => 'admin.imports.*', 'permission' => PermissionName::IMPORT_STUDENTS],
                 ['label' => 'المحتوى والمصادر', 'icon' => 'book-open', 'route' => null],
                 ['label' => 'الروابط المهمة', 'icon' => 'link', 'route' => null],
                 ['label' => 'الإعلانات', 'icon' => 'megaphone', 'route' => null],

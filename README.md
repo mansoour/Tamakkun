@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.1 — Foundation/Auth.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.2 — Users and school structure.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -127,6 +127,7 @@ php artisan serve             # http://localhost:8000
 |---|---|
 | Admin | `admin` or `admin@tamakkun.test` |
 | Counselor | `counselor` or `counselor@tamakkun.test` |
+| Second counselor | `counselor2` |
 | Student | `student` |
 | Disabled student (to test the block) | `disabled-student` |
 
@@ -218,6 +219,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Backups | [docs/backups.md](docs/backups.md) |
 | Email | [docs/email.md](docs/email.md) |
 | Testing | [docs/testing.md](docs/testing.md) |
+| Student CSV import | [docs/imports.md](docs/imports.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

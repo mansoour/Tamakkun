@@ -19,6 +19,16 @@ enum UserStatus: string
         };
     }
 
+    public function color(): string
+    {
+        return match ($this) {
+            self::PENDING => 'warning',
+            self::ACTIVE => 'success',
+            self::SUSPENDED => 'warning',
+            self::DISABLED => 'danger',
+        };
+    }
+
     /**
      * Whether a user with this status is allowed to sign in and use the platform.
      */

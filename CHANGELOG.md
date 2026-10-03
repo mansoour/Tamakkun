@@ -2,6 +2,26 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.2.0] — 2026-10-04 — Users and school structure
+
+### Added
+- School structure: schools, academic years (one current per school), grades and classrooms, with admin create, edit and delete. Deletion is blocked while children exist.
+- Student and counselor profiles. Each student is assigned to one counselor of the same school.
+- Admin pages for students and counselors, with search and filters (school, status, unassigned) and dependent classroom and counselor selects.
+- `AccountActivation` service and a status control for pending, active, suspended and disabled accounts, with an audit entry for every change.
+- `SchoolMembershipService` and `SchoolStructureService`, with audit logging for creates, updates, counselor assignment and deletes. Passwords are never logged.
+- CSV student import: upload, validate, preview with per-row errors, confirm, queued all-or-nothing import, summary. Supports Arabic headers, the Excel BOM, Windows-1256 and semicolon delimiters, and offers a template download.
+- New permissions (`schools.manage`, `users.manage`, `students.view-all`, `students.view-assigned`, `students.import`), added by migration.
+- `StudentProfilePolicy`: counselors see only their assigned students.
+- Counselor "طالباتي" list and student summary page.
+- Real counts on the admin and counselor dashboards (`DashboardMetricsService`).
+- Components: `x-page-header`, `x-table`, `x-empty-state`, `x-stat-card`, `x-form.select`, `x-form.checkbox`, `x-delete-button`, `x-flash`. Arabic pagination.
+- Demo seeder now builds a fake school, year, grade, two classrooms, two counselors and 18 students.
+- Docs: `docs/imports.md`, plus updates to the schema, permissions, architecture, testing and decisions docs.
+
+### Fixed
+- Screen-reader-only table headers could widen the page on phones.
+
 ## [v0.1.0] — 2026-10-03 — Foundation/Auth
 
 ### Added

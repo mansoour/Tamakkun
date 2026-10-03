@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use App\Enums\PermissionName;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Blade;
@@ -38,6 +39,22 @@ class LayoutTest extends TestCase
         $response->assertSee('قريبًا');
         // "Planned" items must never point anywhere — no fake buttons.
         $response->assertDontSee('href="#"', false);
+    }
+
+    public function test_navigation_only_links_to_permitted_sections(): void
+    {
+        $this->actingAs(User::factory()->admin()->create())
+            ->get('/admin/dashboard')
+            ->assertSee(route('admin.schools.index'), false)
+            ->assertSee(route('admin.imports.create'), false);
+
+        $limited = User::factory()->create();
+        $limited->givePermissionTo(PermissionName::ACCESS_ADMIN_AREA->value);
+
+        $this->actingAs($limited)
+            ->get('/admin/dashboard')
+            ->assertDontSee(route('admin.schools.index'), false)
+            ->assertDontSee(route('admin.students.index'), false);
     }
 
     public function test_icon_component_renders_heroicon_paths(): void

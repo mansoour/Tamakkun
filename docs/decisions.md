@@ -2,6 +2,18 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-04 — v0.2 Users and school structure
+
+1. **The hierarchy follows the brief:** school → academic year → grade → classroom. Grades belong to an academic year, so each new year gets fresh grades and classrooms, and old years remain as history.
+2. **One assigned counselor per student** (`student_profiles.counselor_id`), as in the brief's import columns. The counselor must belong to the student's school.
+3. **Student code ≠ national ID.** Codes and usernames are restricted to Latin letters, digits, `.`, `-` and `_`. Username defaults to the student code.
+4. **Users are never deleted from the UI.** Accounts are suspended or disabled through `AccountActivation`, which keeps their history and audit trail.
+5. **Hierarchy deletes are blocked** while children or students exist, both by database restrict foreign keys and by a friendly message.
+6. **CSV import is all-or-nothing and queued.** A file with any invalid row cannot be confirmed. The import runs in a single transaction on the queue, because bcrypt for hundreds of rows exceeds web request limits on LiteSpeed. The validated payload is encrypted at rest and deleted afterwards.
+7. **The import never creates structure** (schools, grades, classrooms or counselors), to avoid typos silently creating duplicates.
+8. **Navigation hides links** the user lacks permission for. Area access and feature permissions are separate.
+9. **Pagination** uses a custom Arabic view (`vendor/pagination/tamakkun`).
+
 ## 2026-10-03 — v0.1 Foundation
 
 1. **Website first, no native app.** A responsive Blade website. Services keep logic reusable for a future `/api/v1`.
@@ -24,7 +36,7 @@ Newest first. Each entry records what was decided and why.
 | Version | Scope |
 |---|---|
 | **v0.1** | Foundation/Auth ✅ |
-| v0.2 | Users and school structure: schools, academic years, grades, classrooms, student/counselor profiles, assignment, `AccountActivation`, policies, CSV import |
+| **v0.2** | Users and school structure: schools, academic years, grades, classrooms, student/counselor profiles, assignment, `AccountActivation`, policies, CSV import ✅ |
 | v0.3 | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD |
 | v0.4 | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs |
 | v0.5 | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown |
@@ -39,3 +51,5 @@ Newest first. Each entry records what was decided and why.
 - Verified official URLs for **المفكر** and current ETEC service links. These stay `null` until verified, and none will be invented.
 - Production domain name and the Resend sending domain.
 - Off-server backup destination.
+- Should students be forced to change the initial password on first login? (Recommended. Planned once confirmed.)
+- Should one student ever have more than one counselor? (Currently exactly one or none.)

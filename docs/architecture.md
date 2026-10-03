@@ -16,8 +16,10 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 
 | Path | Contents |
 |---|---|
-| `app/Enums` | `UserStatus`, `RoleName`, `PermissionName`, `EmailStatus` |
-| `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector` |
+| `app/Enums` | `UserStatus`, `RoleName`, `PermissionName`, `EmailStatus`, `ImportStatus` |
+| `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector`, `AccountActivation`, `SchoolMembershipService`, `SchoolStructureService`, `StudentImportService`, `DashboardMetricsService` |
+| `app/Policies` | `StudentProfilePolicy` |
+| `app/Jobs` | `ImportStudents` (queued CSV import) |
 | `app/Http/Middleware` | `SecurityHeaders` (global web), `EnsureUserIsActive` (alias `active`) |
 | `app/Http/Controllers/{Student,Counselor,Admin}` | Area controllers |
 | `app/Listeners` | `LogSentEmail` (writes `email_logs`), `RecordLastLogin` |
@@ -33,6 +35,16 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 1. `POST /login` → `LoginRequest` finds the user by **username** (or **email** if the input is an email), checks the password, then checks that `status` is `active`.
 2. The user is redirected to `/dashboard`. `DashboardRedirectController` asks `DashboardRedirector` for the first area the user may access: admin, then counselor, then student. A user with no area permission gets a 403.
 3. Area routes are grouped under `/student`, `/counselor` and `/admin`. Each group uses `auth`, `active` and `can:<area permission>`.
+
+## Services (v0.2)
+
+| Service | Responsibility |
+|---|---|
+| `AccountActivation` | The only code that changes `users.status`. Audits every change and refuses to let users suspend themselves. |
+| `SchoolMembershipService` | Creates and updates student and counselor accounts with their profiles in one transaction. Audits `user.created`, `student.created`, `student.updated`, `student.assigned_to_counselor`, `counselor.*`. Password changes are recorded only as "changed". |
+| `SchoolStructureService` | Create, update and delete for schools, academic years, grades and classrooms. Audits each change, keeps one current year per school, and blocks deleting a level that has children. |
+| `StudentImportService` | CSV parse, validate, preview, confirm and run. See [imports.md](imports.md). |
+| `DashboardMetricsService` | Real counts for the admin and counselor dashboards. |
 
 ## Settings
 
@@ -94,6 +106,13 @@ Supported widths: 360, 375, 390, 414, 768, 1024, and 1280px and up.
 | `<x-alert type title>` | info / success / warning / danger |
 | `<x-badge color>` | brand / gray / success / warning / danger |
 | `<x-dev-notice>` | Labels a page as a development shell |
+| `<x-page-header title description>` + `actions` slot | Page title row |
+| `<x-table>` + `head` slot | Card table that scrolls horizontally on small screens |
+| `<x-empty-state icon title description>` | Empty list message |
+| `<x-stat-card label value icon>` | KPI tile |
+| `<x-form.select>`, `<x-form.checkbox>` | Labelled form controls with errors |
+| `<x-delete-button action>` | DELETE form with a confirmation dialog |
+| `<x-flash>` | Session `success` message and `delete`/`account_status`/`import` errors. Included in the app layout |
 | `<x-text-input>`, `<x-input-label>`, `<x-input-error>`, `<x-primary-button>`, `<x-auth-session-status>` | Restyled Breeze components |
 
 **No fake buttons.** Sections planned for later phases appear in the navigation as grey, non-clickable items with a "قريبًا" badge (`aria-disabled`). Dashboard shells show `<x-dev-notice>` until real data exists.

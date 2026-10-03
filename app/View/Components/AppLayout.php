@@ -27,7 +27,7 @@ class AppLayout extends Component
     public function render(): View
     {
         return view('layouts.app', [
-            'navigation' => Navigation::for($this->area),
+            'navigation' => Navigation::visibleTo(request()->user(), $this->area),
             'areaTitle' => Navigation::title($this->area),
         ]);
     }

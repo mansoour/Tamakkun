@@ -1,0 +1,99 @@
+# Architecture
+
+Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, light interactivity uses Alpine.js 3, styling is Tailwind CSS 3, and Vite 8 builds the assets. There is no SPA, React or Vue.
+
+## Principles
+
+- **Thin controllers.** Controllers read the request, call a service and return a view or redirect.
+- **Services hold business logic** (`app/Services`). Blade files, Alpine components and model accessors stay simple.
+- **Form Requests** validate input, with Arabic messages (`lang/ar` from `laravel-lang/lang`).
+- **Enums** (`app/Enums`) hold fixed lists. Each has an Arabic `label()`.
+- **Authorization is permission-driven**: `can:` middleware and Policies check `App\Enums\PermissionName`, never role names. See [roles-permissions.md](roles-permissions.md).
+- **Settings in the database**, cached and read through `SettingsService`.
+- **API-ready.** Because logic lives in services, a future `/api/v1` for a mobile app can reuse it without rewriting anything.
+
+## Directory guide
+
+| Path | Contents |
+|---|---|
+| `app/Enums` | `UserStatus`, `RoleName`, `PermissionName`, `EmailStatus` |
+| `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector` |
+| `app/Http/Middleware` | `SecurityHeaders` (global web), `EnsureUserIsActive` (alias `active`) |
+| `app/Http/Controllers/{Student,Counselor,Admin}` | Area controllers |
+| `app/Listeners` | `LogSentEmail` (writes `email_logs`), `RecordLastLogin` |
+| `app/Support/Navigation.php` | Sidebar items per area. Items with `route => null` are planned sections |
+| `app/View/Components/AppLayout.php` | Authenticated shell (picks the area's navigation) |
+| `config/icons.php` | Heroicons outline path data |
+| `config/tamakkun.php` | Default values for every setting |
+| `resources/views/components` | Reusable Blade components |
+| `resources/views/{student,counselor,admin}` | Area pages |
+
+## Request flow after login
+
+1. `POST /login` → `LoginRequest` finds the user by **username** (or **email** if the input is an email), checks the password, then checks that `status` is `active`.
+2. The user is redirected to `/dashboard`. `DashboardRedirectController` asks `DashboardRedirector` for the first area the user may access: admin, then counselor, then student. A user with no area permission gets a 403.
+3. Area routes are grouped under `/student`, `/counselor` and `/admin`. Each group uses `auth`, `active` and `can:<area permission>`.
+
+## Settings
+
+Table `settings` (`key`, `value` stored as JSON). Use the service:
+
+```php
+$settings = app(\App\Services\SettingsService::class);
+$days = $settings->get('inactivity_days');   // stored value, else config default
+$settings->set('inactivity_days', 10);        // saves, clears cache, writes audit log
+```
+
+- Defaults and the list of allowed keys live in `config/tamakkun.php`. Unknown keys are rejected.
+- The whole table is cached forever under `settings.all`. Saving through the service clears that cache.
+- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
+
+## Logging foundations
+
+- `audit_logs`: important admin/counselor actions, written with `AuditLogger::record($action, $model, $old, $new)`. Action names are dotted, for example `settings.updated`.
+- `email_logs`: one row per recipient of every sent email (see [email.md](email.md)).
+- `activity_logs` (student behaviour) arrives in Phase 3.
+- Application logs: `daily` channel, 14 days, `warning` level in production.
+
+## Design system
+
+The design language comes from the approved mockup: purple gradient, lavender background, white rounded cards, soft shadows, and a youthful feel. It is adapted to a real responsive website, not a stretched phone frame.
+
+| Token | Tailwind | Value |
+|---|---|---|
+| Primary | `brand-600` | `#7458B5` |
+| Secondary | `brand-400` | `#9B83D1` (decorative and gradient only, not for text) |
+| Background | `canvas` / `brand-50` | `#F7F4FB` |
+| Surface | `surface` | `#FFFFFF` |
+| Text | `ink` | `#302B3A` |
+| Muted text | `muted` | `#6B6574` |
+| Border | `line` / `brand-200` | `#E9E2F2` |
+
+- **Contrast:** the brief's muted `#77717F` reaches only 4.33:1 on the lavender background, below WCAG AA. It was darkened to `#6B6574` (5.16:1). Primary `#7458B5` has 5.5:1 against white.
+- **Fonts:** headings use Alexandria (`font-heading`), body text uses IBM Plex Sans Arabic (`font-sans`), both loaded from Bunny Fonts. PDFs will use fonts bundled in `resources/fonts` and never Bunny Fonts.
+- **Helpers** (`resources/css/app.css`): `.card`, `.btn-primary`, `.btn-secondary`, `.btn-ghost`. Buttons are at least 44px tall for touch.
+- **RTL:** every page uses `<html lang="ar" dir="rtl">`. Use logical classes (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`, `border-e`). Usernames and emails are shown with `dir="ltr"`.
+
+### Responsive layout
+
+| Width | Behaviour |
+|---|---|
+| < 1024px (phones, tablets) | Sticky top bar with menu, brand and profile. Navigation opens in a drawer (focus-trapped, closes with Esc). One-column content. |
+| ≥ 1024px | Fixed sidebar on the start (right) side, content column up to 72rem wide. |
+
+Supported widths: 360, 375, 390, 414, 768, 1024, and 1280px and up.
+
+### Components
+
+| Component | Purpose |
+|---|---|
+| `<x-icon name label?>` | Heroicon. Decorative by default (`aria-hidden`). With `label` it gets `role="img"`. An unknown name throws an error. |
+| `<x-brand size inverted>` | Logo mark and "تمكّن" wordmark |
+| `<x-password-input>` | Password field with a show/hide toggle (Alpine, accessible) |
+| `<x-form.input name label type hint>` | Label, input and error, wired with `aria-invalid` and `aria-describedby` |
+| `<x-alert type title>` | info / success / warning / danger |
+| `<x-badge color>` | brand / gray / success / warning / danger |
+| `<x-dev-notice>` | Labels a page as a development shell |
+| `<x-text-input>`, `<x-input-label>`, `<x-input-error>`, `<x-primary-button>`, `<x-auth-session-status>` | Restyled Breeze components |
+
+**No fake buttons.** Sections planned for later phases appear in the navigation as grey, non-clickable items with a "قريبًا" badge (`aria-disabled`). Dashboard shells show `<x-dev-notice>` until real data exists.

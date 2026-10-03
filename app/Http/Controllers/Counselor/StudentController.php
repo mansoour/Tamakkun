@@ -7,6 +7,7 @@ use App\Enums\FollowUpStatus;
 use App\Enums\ProgressStatus;
 use App\Http\Controllers\Controller;
 use App\Models\ActivityLog;
+use App\Models\ChallengeAnswer;
 use App\Models\Classroom;
 use App\Models\StudentContentProgress;
 use App\Models\StudentProfile;
@@ -65,6 +66,7 @@ class StudentController extends Controller
             'inProgress' => $contentByStatus(ProgressStatus::IN_PROGRESS, 'last_viewed_at'),
             'notes' => $user->counselorNotes()->with('counselor')->latest()->get(),
             'alerts' => $user->alerts()->latest('generated_at')->get(),
+            'challengeAnswers' => ChallengeAnswer::where('student_id', $user->id)->with('question.challenge')->latest('answered_at')->limit(20)->get(),
             'canFollowUp' => $request->user()->can('followUp', $student),
             'followUpStatuses' => FollowUpStatus::cases(),
         ]);

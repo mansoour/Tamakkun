@@ -260,3 +260,16 @@ Unique `(student_id, content_id)`. Indexes `(student_id, status)` and `(student_
 | timestamps | |
 
 Indexes `(student_id, status)`, `(student_id, alert_type, context_key)` and `(status, severity)`.
+
+## Engagement (v0.7)
+
+| Table | Columns |
+|---|---|
+| `daily_challenges` | `challenge_date` (unique by date), `title`, `is_published`, `notified_at`, `created_by` |
+| `challenge_questions` | `daily_challenge_id` (cascade), `section`, `question_type` (`QuestionType`), `prompt`, `explanation`, `sort_order` |
+| `challenge_options` | `challenge_question_id` (cascade), `label`, `is_correct` (hidden from serialisation), `sort_order` |
+| `challenge_answers` | `student_id`, `challenge_question_id`, `challenge_option_id`, `is_correct`, `answered_at`. Unique `(student_id, challenge_question_id)` |
+| `motivations` | `title`, `content`, `media_type` (`MotivationType`), `video_url`, `image_path`, `publish_date`, `is_active`, `created_by` |
+| `announcements` | `title`, `body`, `author_id`, `audience` (`AnnouncementAudience`), `starts_at`, `ends_at`, `is_published`, `notified_at` |
+| `announcement_targets` | `announcement_id` (cascade), `target_type` (counselor, classroom or student), `target_id` |
+| `notifications` | Laravel database notifications (`data`: title, body, url, icon, key) |

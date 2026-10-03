@@ -160,7 +160,24 @@
 
         {{-- Challenges (v0.7) --}}
         <section id="panel-challenges" role="tabpanel" aria-labelledby="tab-challenges" x-show="tab === 'challenges'" x-cloak class="mt-6">
-            <x-empty-state icon="bolt" title="قريبًا" description="سيظهر هنا سجل إجابات الطالبة على «تحدي اليوم» عند إطلاقه." />
+            @if ($challengeAnswers->isEmpty())
+                <x-empty-state icon="bolt" title="لم تُجب الطالبة على أي تحدٍّ بعد" />
+            @else
+                <p class="mb-3 text-sm text-muted">
+                    إجابات صحيحة: {{ $challengeAnswers->where('is_correct', true)->count() }} من {{ $challengeAnswers->count() }} (آخر {{ $challengeAnswers->count() }} إجابة)
+                </p>
+                <ul class="card divide-y divide-line">
+                    @foreach ($challengeAnswers as $answer)
+                        <li class="flex items-center justify-between gap-3 p-4 text-sm">
+                            <span class="line-clamp-1">{{ $answer->question->section->label() }} — {{ $answer->question->prompt }}</span>
+                            <span class="flex shrink-0 items-center gap-2">
+                                <x-badge :color="$answer->is_correct ? 'success' : 'danger'">{{ $answer->is_correct ? 'صحيحة' : 'غير صحيحة' }}</x-badge>
+                                <span class="text-xs text-muted" dir="ltr">{{ $answer->answered_at->format('Y-m-d') }}</span>
+                            </span>
+                        </li>
+                    @endforeach
+                </ul>
+            @endif
         </section>
 
         {{-- Notes --}}

@@ -49,5 +49,9 @@ Classroom::factory()->create();            // also creates grade → current aca
 | `Unit/ArabicDaysTest` | Arabic day and point count forms |
 | `Counselor/StudentAlertsTest` | Each alert type and its thresholds, no duplicates, auto-resolve, counselor-resolved alerts not recreated, Grade 12 only, exam changes refresh immediately, daily command |
 | `Counselor/FollowUpTest` | Real KPIs, assigned-only roster and filters, all 8 tabs, audited follow-up status, private-by-default notes never shown to students, student and unassigned-counselor denial, author-only note delete, acknowledge and resolve alerts, exams and results pages |
+| `Engagement/DailyChallengeTest` | Answer hidden until answered, correct and wrong feedback with streak, one attempt, foreign option rejected, past or unpublished blocked, admin authoring (MC and true/false), validation incl. date uniqueness, lock after answers, permissions, counselor tab |
+| `Engagement/MotivationTest` | Dated item wins, stable rotation, hidden inactive and future items, whitelisted video, WebP image, permissions |
+| `Engagement/AnnouncementTest` | Admin to all, counselor to own students only, class and student targeting, counselor restrictions, scheduled dispatch exactly once, expired and withdrawn hidden |
+| `Engagement/NotificationsTest` | Morning reminders once (challenge, 7-day and 1-day exam), page, bell, open and mark read, no access to others' notifications, badges follow the setting |
 | `Unit/VideoEmbedTest` | Supported YouTube and Vimeo forms; rejects http, other or lookalike hosts, iframe HTML, bad IDs and `javascript:` |
 | `Auth/*` (Breeze) | Email verification, password confirmation, reset and update |

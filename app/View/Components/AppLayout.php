@@ -29,6 +29,7 @@ class AppLayout extends Component
         return view('layouts.app', [
             'navigation' => Navigation::visibleTo(request()->user(), $this->area),
             'areaTitle' => Navigation::title($this->area),
+            'unreadNotifications' => $this->area === 'student' ? (int) request()->user()?->unreadNotifications()->count() : 0,
         ]);
     }
 

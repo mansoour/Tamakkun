@@ -2,6 +2,17 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-10 — v0.7 Challenge, motivation, announcements, notifications
+
+1. **The challenge has one attempt per question**, only on its own date, and answers count toward the streak. Questions lock once anyone has answered, to keep results honest.
+2. **The correct answer never reaches the browser early.** The model hides `is_correct`, and the view only reveals it after answering.
+3. **The motivation of the day** is a dated item if present, otherwise a deterministic daily rotation, so it's the same for everyone all day.
+4. **Announcement scope follows the role.** Admins address everyone; counselors address their own students, a class containing them, or one of them. A counselor's class announcement reaches the whole class.
+5. **Notifications are in-app (database) and queued.** Email channels come with Resend in v0.8. Reminders are de-duplicated (`notified_at` and the notification `key`).
+6. **Badges are computed, not stored**, are private to the student, and sit behind `enable_gamification`. There is no leaderboard (brief §56).
+7. **The quiz engine (brief §54) is deferred.** The challenge tables cover v0.7's needs, and `ContentType::QUIZ` content can link to an external quiz until the engine is built.
+8. **Challenge date uniqueness is checked by date** (`whereDate`), not the raw value, so it works on SQLite and MariaDB alike.
+
 ## 2026-10-09 — v0.6 Counselor dashboard
 
 1. **Manual follow-up status and automatic alerts are separate** (brief §61). "Needs follow-up" combines both.
@@ -89,7 +100,7 @@ Newest first. Each entry records what was decided and why.
 | **v0.4** | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs ✅ |
 | **v0.5** | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown ✅ |
 | **v0.6** | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts ✅ |
-| v0.7 | Challenge, motivation, announcements, notifications |
+| **v0.7** | Challenge, motivation, announcements, notifications ✅ |
 | v0.8 | Reports (mPDF/CSV), email via Resend, hardening |
 | v0.9 | Pilot |
 | v1.0 | Production |

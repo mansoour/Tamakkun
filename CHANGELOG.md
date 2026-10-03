@@ -2,6 +2,18 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.7.0] — 2026-10-10 — Challenge, motivation, announcements, notifications
+
+### Added
+- تحدي اليوم: daily multiple-choice or true/false questions, one attempt, instant feedback with explanation and streak, history, admin authoring (locked once answered), counselor challenges tab.
+- دفعة اليوم: tips, 15-minute tasks, habits, pre-exam reminders, video and image items with dated or rotating selection, plus admin management.
+- Announcements from admins (all, class, student) and counselors (own students, class, student), with scheduling, expiry, withdrawal, dashboard display and audit.
+- Queued in-app notifications (bell, unread count, notifications page) for announcements, today's challenge and exam reminders 7 days and 1 day before. New scheduled commands: `tamakkun:send-reminders` and `tamakkun:dispatch-announcements`.
+- Personal badges (no ranking) behind the new **تفعيل الأوسمة** setting.
+- The student dashboard shows announcements, the challenge status and today's motivation.
+- Permissions: `challenges.manage`, `motivations.manage`, `announcements.manage-all`, `announcements.send`.
+- Docs: `docs/engagement.md`, plus updates to the schema, architecture, permissions, testing, deployment and decisions docs.
+
 ## [v0.6.0] — 2026-10-09 — Counselor dashboard
 
 ### Added

@@ -13,10 +13,15 @@
                 <span class="sr-only">فتح القائمة</span>
             </button>
             <a href="{{ route('dashboard') }}"><x-brand /></a>
-            <a href="{{ route('profile.edit') }}" class="btn-ghost -me-2 px-3">
-                <x-icon name="user-circle" class="h-6 w-6" />
-                <span class="sr-only">حسابي</span>
-            </a>
+            <div class="-me-2 flex items-center">
+                @if ($area === 'student')
+                    @include('layouts.partials.notification-bell')
+                @endif
+                <a href="{{ route('profile.edit') }}" class="btn-ghost px-3">
+                    <x-icon name="user-circle" class="h-6 w-6" />
+                    <span class="sr-only">حسابي</span>
+                </a>
+            </div>
         </header>
 
         {{-- Mobile drawer --}}
@@ -47,6 +52,11 @@
             </aside>
 
             <div class="min-w-0 flex-1">
+                @if ($area === 'student')
+                    <div class="mx-auto hidden w-full max-w-6xl justify-end px-10 pt-6 lg:flex">
+                        @include('layouts.partials.notification-bell')
+                    </div>
+                @endif
                 <main id="main" class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
                     <x-flash />
                     {{ $slot }}

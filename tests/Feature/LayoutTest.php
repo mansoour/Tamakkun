@@ -34,7 +34,7 @@ class LayoutTest extends TestCase
 
     public function test_planned_sections_are_not_rendered_as_links(): void
     {
-        $response = $this->actingAs(User::factory()->student()->create())->get('/student/dashboard');
+        $response = $this->actingAs(User::factory()->admin()->create())->get('/admin/dashboard');
 
         $response->assertSee('قريبًا');
         // "Planned" items must never point anywhere — no fake buttons.

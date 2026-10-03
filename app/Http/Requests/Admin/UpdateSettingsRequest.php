@@ -23,6 +23,7 @@ class UpdateSettingsRequest extends FormRequest
         return [
             'force_password_change' => ['required', 'boolean'],
             'weekly_content_goal' => ['required', 'integer', 'between:1,50'],
+            'enable_gamification' => ['boolean'],
         ];
     }
 
@@ -42,6 +43,7 @@ class UpdateSettingsRequest extends FormRequest
         return [
             'force_password_change' => $this->boolean('force_password_change'),
             'weekly_content_goal' => $this->integer('weekly_content_goal'),
+            'enable_gamification' => $this->boolean('enable_gamification'),
         ];
     }
 }

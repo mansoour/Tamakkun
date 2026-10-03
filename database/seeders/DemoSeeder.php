@@ -5,6 +5,7 @@ namespace Database\Seeders;
 use App\Enums\ContentSection;
 use App\Enums\ContentStage;
 use App\Enums\FollowUpStatus;
+use App\Enums\MotivationType;
 use App\Enums\UserStatus;
 use App\Models\AcademicYear;
 use App\Models\Category;
@@ -12,13 +13,16 @@ use App\Models\Chapter;
 use App\Models\Classroom;
 use App\Models\Content;
 use App\Models\CounselorProfile;
+use App\Models\DailyChallenge;
 use App\Models\ExamAttempt;
 use App\Models\Grade;
+use App\Models\Motivation;
 use App\Models\School;
 use App\Models\StudentProfile;
 use App\Models\Subject;
 use App\Models\Topic;
 use App\Models\User;
+use App\Services\AnnouncementService;
 use App\Services\ContentCompletionService;
 use App\Services\FollowUpService;
 use App\Services\StudentAlertService;
@@ -92,6 +96,23 @@ class DemoSeeder extends Seeder
         $this->seedDemoProgress(User::where('username', 'student')->sole());
         $this->seedDemoExams();
         $this->seedDemoFollowUp($counselor);
+        $this->seedDemoEngagement($counselor);
+    }
+
+    /**
+     * Today's (fake) challenge, a few motivation items and an announcement.
+     */
+    private function seedDemoEngagement(User $counselor): void
+    {
+        DailyChallenge::factory()->create(['title' => 'تحدي تجريبي']);
+
+        Motivation::factory()->create(['title' => 'مهمة 15 دقيقة', 'content' => 'اختاري مهارة واحدة، شاهدي شرحًا قصيرًا ثم حلي 5 أسئلة.']);
+        Motivation::factory()->create(['title' => 'عادة مذاكرة', 'media_type' => MotivationType::STUDY_HABIT, 'content' => 'ذاكري في الوقت نفسه كل يوم ولو لمدة قصيرة.']);
+        Motivation::factory()->create(['title' => 'نصيحة', 'media_type' => MotivationType::TIP, 'content' => 'اقرئي السؤال كاملًا قبل النظر إلى الخيارات.']);
+
+        app(AnnouncementService::class)->create($counselor, [
+            'title' => 'إعلان تجريبي', 'body' => 'هذا إعلان تجريبي من الموجهة الطلابية لطالباتها.', 'audience' => 'my_students',
+        ]);
     }
 
     /**

@@ -20,6 +20,7 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector`, `AccountActivation`, `SchoolMembershipService`, `SchoolStructureService`, `StudentImportService`, `DashboardMetricsService` |
 | `app/Policies` | `StudentProfilePolicy` (incl. `followUp`), `ExamAttemptPolicy`, `CounselorNotePolicy`, `StudentAlertPolicy` |
 | `app/Jobs` | `ImportStudents` (queued CSV import) |
+| `app/Notifications` | `StudentNotification` base (queued, database) plus `AnnouncementPublished`, `DailyChallengeAvailable`, `ExamReminder` |
 | `app/Http/Middleware` | `SecurityHeaders` (global web), `EnsureUserIsActive` (alias `active`) |
 | `app/Http/Controllers/{Student,Counselor,Admin}` | Area controllers |
 | `app/Listeners` | `LogSentEmail` (writes `email_logs`), `RecordLastLogin` |
@@ -55,6 +56,11 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `StudentAlertService` | Evaluates, creates and auto-resolves automatic alerts. Counselors acknowledge or resolve them. See [alerts.md](alerts.md). |
 | `FollowUpService` | Manual follow-up status and counselor notes (audited without the note text) |
 | `StudentRosterService` | The counselor roster: every column for all visible students in a few grouped queries, plus KPIs and filters |
+| `DailyChallengeService` | Today's challenge, one-shot answers with streak feedback, authoring (locked once answered), morning notification |
+| `MotivationService` | Today's item (dated, else daily rotation) and the library |
+| `AnnouncementService` | Targeting, student visibility, recipients and notification dispatch (immediate or scheduled) |
+| `ReminderService` | Morning reminders: today's challenge, and exams 7 days and 1 day away (de-duplicated) |
+| `BadgeService` | Computed personal badges behind `enable_gamification` |
 | `ActivityLogger` | Writes `activity_logs` for student learning actions and logins |
 | `ImageOptimizer` | Decodes uploaded raster images, resizes them to at most 1280px wide, re-encodes them as WebP (which strips metadata) and stores them on the `public` disk. SVG is never accepted. |
 

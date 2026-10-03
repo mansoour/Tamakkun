@@ -20,6 +20,43 @@
 
     <x-student-progress-card :summary="$summary" class="mt-6" />
 
+    @if ($announcements->isNotEmpty())
+        <section id="announcements" class="mt-6" aria-labelledby="announcements-title">
+            <h2 id="announcements-title" class="text-lg font-semibold text-ink">إعلانات</h2>
+            <div class="mt-3 space-y-3">
+                @foreach ($announcements as $announcement)
+                    <article class="card border-s-4 border-s-brand-600 p-4">
+                        <h3 class="font-heading font-semibold text-ink">{{ $announcement->title }}</h3>
+                        <p class="mt-1 whitespace-pre-line text-sm leading-relaxed text-ink">{{ $announcement->body }}</p>
+                        <p class="mt-2 text-xs text-muted">{{ $announcement->author?->name }} · <span dir="ltr">{{ ($announcement->starts_at ?? $announcement->created_at)->format('Y-m-d') }}</span></p>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
+    <div class="mt-6 grid gap-4 md:grid-cols-2">
+        <a href="{{ route('student.challenge') }}" class="card flex items-center gap-4 p-5 transition hover:border-brand-300 hover:shadow-md">
+            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-gradient text-white"><x-icon name="bolt" class="h-6 w-6" /></span>
+            <span>
+                <span class="block font-heading font-semibold text-ink">تحدي اليوم</span>
+                <span class="text-sm text-muted">
+                    @if (! $challenge) لا يوجد تحدٍّ اليوم
+                    @elseif ($challengeAnswered >= $challenge->questions->count()) أكملتِ تحدي اليوم
+                    @else {{ $challenge->questions->count() - $challengeAnswered }} سؤال بانتظارك
+                    @endif
+                </span>
+            </span>
+        </a>
+        <a href="{{ route('student.motivation') }}" class="card flex items-center gap-4 p-5 transition hover:border-brand-300 hover:shadow-md">
+            <span class="inline-flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-brand-gradient text-white"><x-icon name="sparkles" class="h-6 w-6" /></span>
+            <span class="min-w-0">
+                <span class="block font-heading font-semibold text-ink">دفعة اليوم</span>
+                <span class="line-clamp-1 text-sm text-muted">{{ $motivation?->title ?? 'لا توجد دفعة اليوم بعد' }}</span>
+            </span>
+        </a>
+    </div>
+
     @if ($sharedNotes->isNotEmpty())
         <section class="mt-6" aria-labelledby="notes-title">
             <h2 id="notes-title" class="text-lg font-semibold text-ink">رسائل من الموجهة الطلابية</h2>
@@ -55,5 +92,4 @@
         </div>
     </section>
 
-    @include('partials.upcoming-sections', ['navigation' => \App\Support\Navigation::for('student')])
 </x-app-layout>

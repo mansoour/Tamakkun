@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Counselor;
 use App\Http\Controllers\DashboardRedirectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\Shared;
 use App\Http\Controllers\Student;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,13 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             Route::get('/content/{content:slug}', [Student\LearningController::class, 'show'])->name('content.show');
             Route::get('/links', Student\ImportantLinkController::class)->name('links');
             Route::get('/progress', Student\ProgressController::class)->name('progress');
+            Route::get('/challenge', [Student\EngagementController::class, 'challenge'])->name('challenge');
+            Route::post('/challenge/questions/{question}/answer', [Student\EngagementController::class, 'answer'])
+                ->middleware('throttle:30,1')->name('challenge.answer');
+            Route::get('/motivation', [Student\EngagementController::class, 'motivation'])->name('motivation');
+            Route::get('/notifications', [Student\EngagementController::class, 'notifications'])->name('notifications');
+            Route::post('/notifications/read', [Student\EngagementController::class, 'markNotificationsRead'])->name('notifications.read');
+            Route::get('/notifications/{id}', [Student\EngagementController::class, 'openNotification'])->name('notifications.open');
             Route::resource('exams', Student\ExamController::class)->except('show')->parameters(['exams' => 'attempt']);
             Route::get('/favorites', Student\FavoriteController::class)->name('favorites');
             foreach (['start', 'complete', 'uncomplete', 'favorite'] as $action) {
@@ -50,6 +58,13 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             Route::post('/alerts/{alert}/resolve', [Counselor\AlertController::class, 'resolve'])->name('alerts.resolve');
             Route::get('/exams', [Counselor\ExamOverviewController::class, 'exams'])->name('exams');
             Route::get('/results', [Counselor\ExamOverviewController::class, 'results'])->name('results');
+
+            Route::middleware('can:'.PermissionName::SEND_ANNOUNCEMENTS->value)->group(function () {
+                Route::get('/announcements', [Shared\AnnouncementController::class, 'index'])->name('announcements.index');
+                Route::get('/announcements/create', [Shared\AnnouncementController::class, 'create'])->name('announcements.create');
+                Route::post('/announcements', [Shared\AnnouncementController::class, 'store'])->name('announcements.store');
+                Route::post('/announcements/{announcement}/withdraw', [Shared\AnnouncementController::class, 'withdraw'])->name('announcements.withdraw');
+            });
         });
 
     Route::prefix('admin')->name('admin.')
@@ -81,6 +96,23 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
                 Route::resource('subjects', Admin\SubjectController::class)->except('show');
                 Route::resource('chapters', Admin\ChapterController::class)->except('show');
                 Route::resource('topics', Admin\TopicController::class)->except('show');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_CHALLENGES->value)->group(function () {
+                Route::resource('challenges', Admin\ChallengeController::class)->except(['show', 'destroy']);
+                Route::post('/challenges/{challenge}/publish', [Admin\ChallengeController::class, 'publish'])->name('challenges.publish');
+                Route::post('/challenges/{challenge}/unpublish', [Admin\ChallengeController::class, 'unpublish'])->name('challenges.unpublish');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_MOTIVATIONS->value)->group(function () {
+                Route::resource('motivations', Admin\MotivationController::class)->except('show');
+            });
+
+            Route::middleware('can:'.PermissionName::ANNOUNCE_TO_ALL->value)->group(function () {
+                Route::get('/announcements', [Shared\AnnouncementController::class, 'index'])->name('announcements.index');
+                Route::get('/announcements/create', [Shared\AnnouncementController::class, 'create'])->name('announcements.create');
+                Route::post('/announcements', [Shared\AnnouncementController::class, 'store'])->name('announcements.store');
+                Route::post('/announcements/{announcement}/withdraw', [Shared\AnnouncementController::class, 'withdraw'])->name('announcements.withdraw');
             });
 
             Route::middleware('can:'.PermissionName::MANAGE_LINKS->value)->group(function () {

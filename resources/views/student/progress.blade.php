@@ -45,4 +45,22 @@
             </div>
         @endif
     </section>
+    @if ($badges !== null)
+        <section class="mt-8" aria-labelledby="badges-title">
+            <h2 id="badges-title" class="text-lg font-semibold text-ink">أوسمتي</h2>
+            <p class="mt-1 text-sm text-muted">أوسمة شخصية تظهر لكِ فقط.</p>
+            <ul class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+                @foreach ($badges as $badge)
+                    <li @class(['card flex flex-col items-center p-4 text-center', 'opacity-50' => ! $badge['earned']])>
+                        <span @class(['inline-flex h-12 w-12 items-center justify-center rounded-full', 'bg-brand-gradient text-white' => $badge['earned'], 'bg-gray-100 text-muted' => ! $badge['earned']])>
+                            <x-icon :name="$badge['icon']" class="h-6 w-6" />
+                        </span>
+                        <span class="mt-2 font-heading text-sm font-semibold text-ink">{{ $badge['label'] }}</span>
+                        <span class="mt-1 text-xs text-muted">{{ $badge['description'] }}</span>
+                        <span class="sr-only">{{ $badge['earned'] ? 'تم الحصول عليه' : 'لم يتحقق بعد' }}</span>
+                    </li>
+                @endforeach
+            </ul>
+        </section>
+    @endif
 </x-app-layout>

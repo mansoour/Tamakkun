@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.6 — Counselor dashboard.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.7 — Challenge, motivation, announcements and notifications.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -164,7 +164,7 @@ Emails and notifications are queued (`QUEUE_CONNECTION=database`). Locally, run 
 
 ### Scheduler
 
-Scheduled tasks are defined in `routes/console.php`: nightly backups and the daily alert refresh (`php artisan tamakkun:refresh-alerts`). In production, cron runs `php artisan schedule:run` every minute. Locally, use `php artisan schedule:work`.
+Scheduled tasks are defined in `routes/console.php`: nightly backups, the daily alert refresh, morning reminders and scheduled announcements (`tamakkun:refresh-alerts`, `tamakkun:send-reminders`, `tamakkun:dispatch-announcements`). In production, cron runs `php artisan schedule:run` every minute. Locally, use `php artisan schedule:work`.
 
 ---
 
@@ -225,6 +225,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Progress formulas | [docs/progress.md](docs/progress.md) |
 | Exam tracking | [docs/exams.md](docs/exams.md) |
 | Counselor follow-up and alerts | [docs/alerts.md](docs/alerts.md) |
+| Challenge, motivation, announcements, notifications | [docs/engagement.md](docs/engagement.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

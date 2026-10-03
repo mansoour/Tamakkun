@@ -16,6 +16,8 @@
             <h2 id="progress-title" class="font-heading text-lg font-semibold text-ink">التقدّم</h2>
             <x-form.input name="weekly_content_goal" type="number" min="1" max="50" label="هدف الإنجاز الأسبوعي (عدد الدروس والمقاطع)"
                 :value="$settings['weekly_content_goal']" hint="يُستخدم لحساب نسبة الأسبوع في لوحة الطالبة وصفحة تقدّمي." />
+            <x-form.checkbox name="enable_gamification" label="تفعيل الأوسمة" :checked="$settings['enable_gamification']"
+                hint="أوسمة شخصية إيجابية تظهر للطالبة في صفحة تقدّمي فقط. لا يوجد ترتيب عام بين الطالبات." />
         </section>
 
         <x-primary-button>حفظ الإعدادات</x-primary-button>

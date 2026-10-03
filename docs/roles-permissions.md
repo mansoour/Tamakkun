@@ -14,8 +14,8 @@ Tamakkun uses `spatie/laravel-permission`.
 | Role | Arabic | Permissions |
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
-| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up` |
-| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage` |
+| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up`, `announcements.send` |
+| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage`, `challenges.manage`, `motivations.manage`, `announcements.manage-all` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
 ## Permissions
@@ -33,6 +33,10 @@ Tamakkun uses `spatie/laravel-permission`.
 | `settings.manage` | إدارة إعدادات المنصة | `/admin/settings` |
 | `content.manage` | إدارة المحتوى التعليمي ومصادره وتصنيفاته | `/admin/content`, `/admin/sources`, `/admin/categories`, `/admin/subjects`, `/admin/chapters`, `/admin/topics` |
 | `links.manage` | إدارة الروابط المهمة | `/admin/links` |
+| `challenges.manage` | إدارة تحدي اليوم | `/admin/challenges` |
+| `motivations.manage` | إدارة دفعة اليوم | `/admin/motivations` |
+| `announcements.manage-all` | إرسال إعلانات لجميع الطالبات | `/admin/announcements` (all, any class, any student) |
+| `announcements.send` | إرسال إعلانات للطالبات المسندات | `/counselor/announcements` (own students only) |
 | `students.follow-up` | متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة) | Notes, follow-up status, alert actions. Combined with viewing the student (`StudentProfilePolicy::followUp`) |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).

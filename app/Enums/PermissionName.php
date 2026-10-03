@@ -23,6 +23,10 @@ enum PermissionName: string
     case MANAGE_CONTENT = 'content.manage';
     case MANAGE_LINKS = 'links.manage';
     case FOLLOW_UP_STUDENTS = 'students.follow-up';
+    case MANAGE_CHALLENGES = 'challenges.manage';
+    case MANAGE_MOTIVATIONS = 'motivations.manage';
+    case ANNOUNCE_TO_ALL = 'announcements.manage-all';
+    case SEND_ANNOUNCEMENTS = 'announcements.send';
 
     public function label(): string
     {
@@ -39,6 +43,10 @@ enum PermissionName: string
             self::MANAGE_CONTENT => 'إدارة المحتوى التعليمي ومصادره وتصنيفاته',
             self::MANAGE_LINKS => 'إدارة الروابط المهمة',
             self::FOLLOW_UP_STUDENTS => 'متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة)',
+            self::MANAGE_CHALLENGES => 'إدارة تحدي اليوم',
+            self::MANAGE_MOTIVATIONS => 'إدارة دفعة اليوم',
+            self::ANNOUNCE_TO_ALL => 'إرسال إعلانات لجميع الطالبات',
+            self::SEND_ANNOUNCEMENTS => 'إرسال إعلانات للطالبات المسندات',
         };
     }
 }

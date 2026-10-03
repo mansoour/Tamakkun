@@ -15,5 +15,5 @@
     ])>
         <x-icon name="academic-cap" :class="$icon" />
     </span>
-    <span @class(['font-heading font-bold', $text, 'text-white' => $inverted, 'text-ink' => ! $inverted])>تمكّن</span>
+    <span @class(['font-heading font-bold', $text, 'text-white' => $inverted, 'text-ink' => ! $inverted])>{{ $platformName }}</span>
 </span>

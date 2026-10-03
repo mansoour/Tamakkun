@@ -14,6 +14,7 @@ enum ActivityEvent: string
     case CONTENT_UNCOMPLETED = 'content_uncompleted';
     case EXAM_UPDATED = 'exam_updated';
     case CHALLENGE_ANSWERED = 'challenge_answered';
+    case QUIZ_SUBMITTED = 'quiz_submitted';
 
     public function label(): string
     {
@@ -24,6 +25,7 @@ enum ActivityEvent: string
             self::CONTENT_UNCOMPLETED => 'التراجع عن إنجاز محتوى',
             self::EXAM_UPDATED => 'تحديث موعد أو درجة اختبار',
             self::CHALLENGE_ANSWERED => 'إجابة تحدي اليوم',
+            self::QUIZ_SUBMITTED => 'حل اختبار قصير',
         };
     }
 
@@ -32,7 +34,7 @@ enum ActivityEvent: string
      */
     public function countsAsLearning(): bool
     {
-        return in_array($this, [self::CONTENT_STARTED, self::CONTENT_COMPLETED, self::CHALLENGE_ANSWERED], true);
+        return in_array($this, [self::CONTENT_STARTED, self::CONTENT_COMPLETED, self::CHALLENGE_ANSWERED, self::QUIZ_SUBMITTED], true);
     }
 
     /**

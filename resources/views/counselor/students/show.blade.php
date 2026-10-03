@@ -156,6 +156,25 @@
                     @endif
                 </div>
             @endforeach
+
+            <div class="lg:col-span-2">
+                <h2 class="font-heading font-semibold text-ink">الاختبارات القصيرة</h2>
+                @if ($quizAttempts->isEmpty())
+                    <p class="mt-2 text-sm text-muted">لم تحلّ الطالبة أي اختبار قصير بعد.</p>
+                @else
+                    <ul class="card mt-2 divide-y divide-line">
+                        @foreach ($quizAttempts as $attempt)
+                            <li class="flex items-center justify-between gap-3 p-3 text-sm">
+                                <span class="line-clamp-1">{{ $attempt->quiz->content->title }}</span>
+                                <span class="flex shrink-0 items-center gap-2">
+                                    <x-badge :color="$attempt->passed ? 'success' : 'warning'"><bdi>{{ $attempt->percentage }}%</bdi></x-badge>
+                                    <span class="text-xs text-muted" dir="ltr">{{ $attempt->submitted_at->format('Y-m-d') }}</span>
+                                </span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+            </div>
         </section>
 
         {{-- Challenges (v0.7) --}}

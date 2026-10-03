@@ -11,10 +11,15 @@ use InvalidArgumentException;
  *
  * Values are stored JSON-encoded so integers, booleans and null survive a
  * round trip. Writing a setting clears the cache and writes an audit log.
+ * Reads are also memoised for the lifetime of the (scoped) instance, so a
+ * page that shows several settings hits the cache store only once.
  */
 class SettingsService
 {
     public const CACHE_KEY = 'settings.all';
+
+    /** @var array<string, mixed>|null */
+    private ?array $loaded = null;
 
     public function __construct(
         private readonly Cache $cache,
@@ -72,6 +77,7 @@ class SettingsService
     public function flush(): void
     {
         $this->cache->forget(self::CACHE_KEY);
+        $this->loaded = null;
     }
 
     /**
@@ -79,7 +85,7 @@ class SettingsService
      */
     private function stored(): array
     {
-        return $this->cache->rememberForever(self::CACHE_KEY, fn (): array => Setting::query()
+        return $this->loaded ??= $this->cache->rememberForever(self::CACHE_KEY, fn (): array => Setting::query()
             ->pluck('value', 'key')
             ->map(fn (?string $value): mixed => $value === null ? null : json_decode($value, true))
             ->all());

@@ -7,6 +7,7 @@ use Illuminate\Cache\RateLimiting\Limit;
 use Illuminate\Http\Request;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -16,7 +17,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register(): void
     {
-        $this->app->singleton(SettingsService::class);
+        // Scoped: one instance per request or queued job, so a long-running
+        // queue worker never keeps settings memoised across jobs.
+        $this->app->scoped(SettingsService::class);
     }
 
     /**
@@ -27,6 +30,15 @@ class AppServiceProvider extends ServiceProvider
         $this->configureRateLimiting();
 
         Paginator::defaultView('vendor.pagination.tamakkun');
+
+        // Admin-editable branding (settings table) for the views that show it.
+        View::composer(['components.brand', 'layouts.partials.head', 'layouts.guest', 'layouts.public', 'public.*', 'welcome', 'components.mail.layout'], function ($view): void {
+            $settings = $this->app->make(SettingsService::class);
+            $view->with([
+                'platformName' => $settings->get('platform_name') ?: config('tamakkun.settings.platform_name'),
+                'platformTagline' => $settings->get('tagline'),
+            ]);
+        });
     }
 
     private function configureRateLimiting(): void

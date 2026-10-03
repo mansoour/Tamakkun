@@ -34,7 +34,19 @@
                         <td class="px-4 py-3">{{ $counselor->user->assigned_students_count }}</td>
                         <td class="px-4 py-3"><x-badge :color="$counselor->user->status->color()">{{ $counselor->user->status->label() }}</x-badge></td>
                         <td class="px-4 py-3 text-end">
-                            <a href="{{ route('admin.counselors.edit', $counselor) }}" class="btn-ghost min-h-[40px] px-3">تعديل</a>
+                            <div class="flex items-center justify-end gap-1">
+                                @can('users.view-as')
+                                    @if ($counselor->user->isActive())
+                                        <form method="POST" action="{{ route('admin.users.view-as', $counselor->user) }}">
+                                            @csrf
+                                            <button class="btn-ghost min-h-[40px] px-3" title="عرض المنصة كما يراها هذا الحساب (قراءة فقط)">
+                                                <x-icon name="eye" /> <span class="sr-only sm:not-sr-only">عرض كما تراه</span>
+                                            </button>
+                                        </form>
+                                    @endif
+                                @endcan
+                                <a href="{{ route('admin.counselors.edit', $counselor) }}" class="btn-ghost min-h-[40px] px-3">تعديل</a>
+                            </div>
                         </td>
                     </tr>
                 @endforeach

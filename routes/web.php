@@ -5,17 +5,23 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Counselor;
 use App\Http\Controllers\DashboardRedirectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Shared;
 use App\Http\Controllers\Student;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
+Route::get('/about', [PublicPageController::class, 'about'])->name('about');
+Route::get('/resources', [PublicPageController::class, 'resources'])->name('resources');
+Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');
+Route::get('/terms', [PublicPageController::class, 'terms'])->name('terms');
 
 Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
     // Sends each user to the area their permissions allow.
     Route::get('/dashboard', DashboardRedirectController::class)->name('dashboard');
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/view-as/stop', [Admin\ViewAsController::class, 'stop'])->name('view-as.stop');
 
     Route::prefix('student')->name('student.')
         ->middleware('can:'.PermissionName::ACCESS_STUDENT_AREA->value)
@@ -41,6 +47,8 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             foreach (['start', 'complete', 'uncomplete', 'favorite'] as $action) {
                 Route::post("/content/{content:slug}/{$action}", [Student\ContentProgressController::class, $action])->name("content.{$action}");
             }
+            Route::post('/content/{content:slug}/quiz', [Student\QuizController::class, 'submit'])
+                ->middleware('throttle:20,1')->name('content.quiz.submit');
         });
 
     Route::prefix('counselor')->name('counselor.')
@@ -91,11 +99,16 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
                 Route::patch('/users/{user}/status', Admin\UserStatusController::class)->name('users.status');
             });
 
+            Route::post('/users/{user}/view-as', [Admin\ViewAsController::class, 'start'])
+                ->middleware('can:'.PermissionName::VIEW_AS_USER->value)->name('users.view-as');
+
             Route::middleware('can:'.PermissionName::MANAGE_CONTENT->value)->group(function () {
                 Route::resource('content', Admin\ContentController::class)->except(['show', 'destroy']);
                 foreach (['publish', 'unpublish', 'archive', 'restore'] as $action) {
                     Route::post("/content/{content}/{$action}", [Admin\ContentController::class, $action])->name("content.{$action}");
                 }
+                Route::get('/content/{content}/quiz', [Admin\QuizController::class, 'edit'])->name('content.quiz.edit');
+                Route::put('/content/{content}/quiz', [Admin\QuizController::class, 'update'])->name('content.quiz.update');
                 Route::resource('sources', Admin\SourceController::class)->except('show');
                 Route::resource('categories', Admin\CategoryController::class)->except('show');
                 Route::resource('subjects', Admin\SubjectController::class)->except('show');
@@ -132,6 +145,12 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
 
             Route::middleware('can:'.PermissionName::MANAGE_LINKS->value)->group(function () {
                 Route::resource('links', Admin\ImportantLinkController::class)->except('show');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_ROLES->value)->group(function () {
+                Route::get('/roles', [Admin\RoleController::class, 'index'])->name('roles.index');
+                Route::get('/roles/{role}/edit', [Admin\RoleController::class, 'edit'])->name('roles.edit');
+                Route::put('/roles/{role}', [Admin\RoleController::class, 'update'])->name('roles.update');
             });
 
             Route::middleware('can:'.PermissionName::MANAGE_SETTINGS->value)->group(function () {

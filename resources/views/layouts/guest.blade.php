@@ -10,7 +10,9 @@
             <aside class="relative hidden overflow-hidden bg-brand-gradient p-12 text-white lg:flex lg:flex-col lg:justify-between">
                 <a href="{{ route('home') }}" class="w-fit"><x-brand size="lg" inverted /></a>
                 <div class="max-w-md space-y-4">
-                    <p class="font-heading text-3xl font-bold leading-relaxed">خطوتك اليوم… تصنع نتيجتك غدًا</p>
+                    @if ($platformTagline)
+                        <p class="font-heading text-3xl font-bold leading-relaxed">{{ $platformTagline }}</p>
+                    @endif
                     <p class="text-lg text-white/85">استعداد • تدريب • متابعة • إنجاز</p>
                 </div>
                 <p class="text-sm text-white/75">منصة لمتابعة استعداد طالبات الصف الثالث الثانوي لاختباري القدرات والتحصيلي.</p>

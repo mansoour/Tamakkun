@@ -59,6 +59,80 @@
                 </a>
             @endif
 
+            @if ($quiz)
+                @php($answers = $lastAttempt?->answers->keyBy('quiz_question_id') ?? collect())
+                @if ($lastAttempt)
+                    <section id="quiz-result" class="space-y-4 rounded-xl border border-line p-4" aria-labelledby="quiz-result-title">
+                        <div class="flex flex-wrap items-center justify-between gap-3">
+                            <div>
+                                <h2 id="quiz-result-title" class="font-heading text-lg font-semibold text-ink">نتيجة آخر محاولة</h2>
+                                <p class="mt-1 text-sm text-muted">
+                                    {{ $lastAttempt->correct_count }} من {{ $lastAttempt->question_count }}
+                                    · أفضل نتيجة: <bdi>{{ $bestPercentage }}%</bdi>
+                                    · نسبة النجاح: <bdi>{{ $quiz->pass_percentage }}%</bdi>
+                                </p>
+                            </div>
+                            <x-badge :color="$lastAttempt->passed ? 'success' : 'warning'" class="text-base">
+                                <bdi>{{ $lastAttempt->percentage }}%</bdi> {{ $lastAttempt->passed ? 'ناجحة' : 'لم تبلغي نسبة النجاح' }}
+                            </x-badge>
+                        </div>
+
+                        @if ($answers->isNotEmpty())
+                            <ol class="space-y-3">
+                                @foreach ($quiz->questions as $question)
+                                    @php($answer = $answers->get($question->id))
+                                    @continue(! $answer)
+                                    @php($chosen = $question->options->firstWhere('id', $answer->question_option_id))
+                                    @php($correct = $question->options->firstWhere('is_correct', true))
+                                    <li @class(['rounded-xl p-3 text-sm', 'bg-emerald-50' => $answer->is_correct, 'bg-red-50' => ! $answer->is_correct])>
+                                        <p class="flex items-start gap-2 font-medium text-ink">
+                                            <x-icon :name="$answer->is_correct ? 'check-circle' : 'x-circle'" @class(['mt-0.5 h-5 w-5', 'text-emerald-600' => $answer->is_correct, 'text-red-600' => ! $answer->is_correct]) />
+                                            <span>{{ $loop->iteration }}. {{ $question->prompt }}</span>
+                                        </p>
+                                        <p class="ms-7 mt-1 text-ink">إجابتك: {{ $chosen?->label ?? '—' }}</p>
+                                        @if (! $answer->is_correct && $correct)
+                                            <p class="ms-7 mt-1 text-ink">الإجابة الصحيحة: {{ $correct->label }}</p>
+                                        @endif
+                                        @if ($question->explanation)
+                                            <p class="ms-7 mt-1 text-muted">{{ $question->explanation }}</p>
+                                        @endif
+                                    </li>
+                                @endforeach
+                            </ol>
+                        @endif
+                    </section>
+                @endif
+
+                <section class="space-y-4" aria-labelledby="quiz-title">
+                    <h2 id="quiz-title" class="font-heading text-lg font-semibold text-ink">
+                        {{ $lastAttempt ? 'أعيدي المحاولة' : 'أسئلة الاختبار' }}
+                        <span class="text-sm font-normal text-muted">({{ $quiz->questions->count() }} أسئلة)</span>
+                    </h2>
+                    <x-input-error :messages="$errors->get('answers')" />
+                    <form method="POST" action="{{ route('student.content.quiz.submit', $content) }}" class="space-y-4">
+                        @csrf
+                        @foreach ($quiz->questions as $question)
+                            <fieldset class="rounded-xl border border-line p-4">
+                                <legend class="px-1 font-medium text-ink">{{ $loop->iteration }}. {{ $question->prompt }}</legend>
+                                <div class="mt-2 grid gap-2 sm:grid-cols-2">
+                                    @foreach ($question->options as $option)
+                                        <label class="flex min-h-[44px] cursor-pointer items-center gap-3 rounded-lg border border-line px-3 py-2 has-[:checked]:border-brand-600 has-[:checked]:bg-brand-50">
+                                            <input type="radio" name="answers[{{ $question->id }}]" value="{{ $option->id }}" required
+                                                @checked((int) old('answers.'.$question->id) === $option->id)
+                                                class="h-5 w-5 border-line text-brand-600 focus:ring-brand-600">
+                                            <span class="text-sm text-ink">{{ $option->label }}</span>
+                                        </label>
+                                    @endforeach
+                                </div>
+                            </fieldset>
+                        @endforeach
+                        <x-primary-button>إرسال الإجابات</x-primary-button>
+                    </form>
+                </section>
+            @elseif ($content->content_type === \App\Enums\ContentType::QUIZ)
+                <p class="flex items-center gap-2 text-sm text-muted"><x-badge>قريبًا</x-badge> تُعدّ أسئلة هذا الاختبار حاليًا.</p>
+            @endif
+
             @php($status = $progress?->status ?? \App\Enums\ProgressStatus::NOT_STARTED)
             <section class="flex flex-col gap-3 rounded-xl bg-brand-50 p-4 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="progress-title">
                 <div>
@@ -76,7 +150,9 @@
                             <button class="btn-secondary"><x-icon name="play-circle" /> ابدأ</button>
                         </form>
                     @endif
-                    @if ($status !== \App\Enums\ProgressStatus::COMPLETED)
+                    @if ($quiz && $status !== \App\Enums\ProgressStatus::COMPLETED)
+                        <p class="text-sm text-muted">يُحتسب منجزًا عند بلوغ نسبة النجاح.</p>
+                    @elseif ($status !== \App\Enums\ProgressStatus::COMPLETED)
                         <form method="POST" action="{{ route('student.content.complete', $content) }}">
                             @csrf
                             <x-primary-button><x-icon name="check-circle" /> أنجزت</x-primary-button>

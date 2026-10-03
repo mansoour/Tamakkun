@@ -6,7 +6,13 @@
 @endphp
 
 <x-app-layout area="admin" :title="$editing ? 'تعديل محتوى' : 'إضافة محتوى'">
-    <x-page-header :title="$editing ? 'تعديل محتوى' : 'إضافة محتوى'" />
+    <x-page-header :title="$editing ? 'تعديل محتوى' : 'إضافة محتوى'">
+        @if ($editing && $content->content_type === \App\Enums\ContentType::QUIZ)
+            <x-slot:actions>
+                <a href="{{ route('admin.content.quiz.edit', $content) }}" class="btn-secondary"><x-icon name="clipboard-document-list" /> أسئلة الاختبار</a>
+            </x-slot:actions>
+        @endif
+    </x-page-header>
 
     <form method="POST" enctype="multipart/form-data"
         action="{{ $editing ? route('admin.content.update', $content) : route('admin.content.store') }}"

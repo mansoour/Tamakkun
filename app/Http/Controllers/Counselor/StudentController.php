@@ -12,6 +12,7 @@ use App\Models\Classroom;
 use App\Models\StudentContentProgress;
 use App\Models\StudentProfile;
 use App\Services\ExamProgressService;
+use App\Services\QuizService;
 use App\Services\StudentProgressService;
 use App\Services\StudentRosterService;
 use Illuminate\Http\Request;
@@ -46,7 +47,7 @@ class StudentController extends Controller
         ]);
     }
 
-    public function show(Request $request, StudentProfile $student, StudentProgressService $progress, ExamProgressService $exams): View
+    public function show(Request $request, StudentProfile $student, StudentProgressService $progress, ExamProgressService $exams, QuizService $quizzes): View
     {
         $this->authorize('view', $student);
 
@@ -66,6 +67,7 @@ class StudentController extends Controller
             'inProgress' => $contentByStatus(ProgressStatus::IN_PROGRESS, 'last_viewed_at'),
             'notes' => $user->counselorNotes()->with('counselor')->latest()->get(),
             'alerts' => $user->alerts()->latest('generated_at')->get(),
+            'quizAttempts' => $quizzes->recentAttempts($user),
             'challengeAnswers' => ChallengeAnswer::where('student_id', $user->id)->with('question.challenge')->latest('answered_at')->limit(20)->get(),
             'canFollowUp' => $request->user()->can('followUp', $student),
             'followUpStatuses' => FollowUpStatus::cases(),

@@ -55,6 +55,9 @@
                         </td>
                         <td class="px-4 py-3">
                             <div class="flex flex-wrap justify-end gap-1">
+                                @if ($content->content_type === \App\Enums\ContentType::QUIZ)
+                                    <a href="{{ route('admin.content.quiz.edit', $content) }}" class="btn-ghost min-h-[40px] px-3">الأسئلة</a>
+                                @endif
                                 <a href="{{ route('admin.content.edit', $content) }}" class="btn-ghost min-h-[40px] px-3">تعديل</a>
                                 @foreach (array_filter([
                                     ! $content->archived_at && ! $content->is_published ? ['publish', 'نشر'] : null,

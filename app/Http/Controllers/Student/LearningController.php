@@ -12,6 +12,7 @@ use App\Models\Source;
 use App\Models\Subject;
 use App\Services\ContentCompletionService;
 use App\Services\FavoriteService;
+use App\Services\QuizService;
 use App\Services\StudentProgressService;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -26,6 +27,7 @@ class LearningController extends Controller
         private readonly StudentProgressService $progress,
         private readonly ContentCompletionService $completion,
         private readonly FavoriteService $favorites,
+        private readonly QuizService $quizzes,
     ) {}
 
     public function quantitative(Request $request): View
@@ -82,8 +84,13 @@ class LearningController extends Controller
 
         $this->completion->touchViewed($request->user(), $content);
 
+        $quiz = $content->content_type === ContentType::QUIZ ? $content->quiz()->with('questions.options')->first() : null;
+
         return view('student.learning.show', [
             'content' => $content->load(['source', 'category', 'subject', 'chapter', 'topic']),
+            'quiz' => $quiz?->questions->isNotEmpty() ? $quiz : null,
+            'lastAttempt' => $quiz ? $this->quizzes->latestAttempt($request->user(), $quiz) : null,
+            'bestPercentage' => $quiz ? $this->quizzes->bestPercentage($request->user(), $quiz) : null,
             'progress' => $this->completion->progressFor($request->user(), $content),
             'isFavorite' => $this->favorites->isFavorite($request->user(), $content),
         ]);

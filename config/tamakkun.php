@@ -29,6 +29,9 @@ return [
         'support_phone' => null,
         'privacy_url' => null,
         'terms_url' => null,
+        'about_text' => null,
+        'privacy_text' => null,
+        'terms_text' => null,
     ],
 
 ];

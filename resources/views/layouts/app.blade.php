@@ -6,6 +6,19 @@
     <body class="min-h-screen" x-data="{ menuOpen: false }" x-on:keydown.escape.window="menuOpen = false">
         <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:start-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-white focus:px-4 focus:py-2">تخطي إلى المحتوى</a>
 
+        @if ($viewAs = request()->attributes->get('view_as'))
+            <div class="flex flex-wrap items-center justify-center gap-x-4 gap-y-2 bg-amber-100 px-4 py-2.5 text-sm text-amber-900" role="status">
+                <span class="flex items-center gap-2">
+                    <x-icon name="eye" class="h-5 w-5" />
+                    تعرضين المنصة كما يراها <strong>{{ $viewAs['target']->name }}</strong> — للقراءة فقط، ولا يُحفظ أي تغيير.
+                </span>
+                <form method="POST" action="{{ route('view-as.stop') }}">
+                    @csrf
+                    <button class="btn min-h-[36px] bg-amber-900 px-3 text-white hover:bg-amber-800">إنهاء العرض</button>
+                </form>
+            </div>
+        @endif
+
         {{-- Mobile / tablet top bar --}}
         <header class="sticky top-0 z-30 flex h-16 items-center justify-between border-b border-line bg-surface/95 px-4 backdrop-blur lg:hidden">
             <button type="button" class="btn-ghost -ms-2 px-3" x-on:click="menuOpen = true" aria-controls="app-drawer" :aria-expanded="menuOpen.toString()" aria-expanded="false">

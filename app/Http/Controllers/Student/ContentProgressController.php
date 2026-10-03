@@ -31,6 +31,11 @@ class ContentProgressController extends Controller
     public function complete(Request $request, Content $content): RedirectResponse
     {
         $this->ensureVisible($content);
+
+        if ($content->quiz()->whereHas('questions')->exists()) {
+            return back()->with('info', 'يُحتسب الاختبار منجزًا عند بلوغ نسبة النجاح فيه.');
+        }
+
         $this->completion->complete($request->user(), $content);
 
         return back()->with('success', 'أحسنتِ! سُجّل إنجاز هذا المحتوى.');

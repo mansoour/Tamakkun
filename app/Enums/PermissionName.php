@@ -30,6 +30,8 @@ enum PermissionName: string
     case VIEW_REPORTS = 'reports.view';
     case VIEW_AUDIT_LOGS = 'audit-logs.view';
     case VIEW_EMAIL_LOGS = 'email-logs.view';
+    case MANAGE_ROLES = 'roles.manage';
+    case VIEW_AS_USER = 'users.view-as';
 
     public function label(): string
     {
@@ -53,6 +55,8 @@ enum PermissionName: string
             self::VIEW_REPORTS => 'عرض التقارير وتصديرها',
             self::VIEW_AUDIT_LOGS => 'عرض سجل التدقيق',
             self::VIEW_EMAIL_LOGS => 'عرض سجل البريد',
+            self::MANAGE_ROLES => 'إدارة الأدوار والصلاحيات',
+            self::VIEW_AS_USER => 'عرض المنصة كما تراها طالبة أو موجهة (قراءة فقط)',
         };
     }
 }

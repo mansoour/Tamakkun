@@ -79,6 +79,7 @@ class Navigation
                 ['label' => 'دفعة اليوم', 'icon' => 'sparkles', 'route' => 'admin.motivations.index', 'active' => 'admin.motivations.*', 'permission' => PermissionName::MANAGE_MOTIVATIONS],
                 ['label' => 'الإعلانات', 'icon' => 'megaphone', 'route' => 'admin.announcements.index', 'active' => 'admin.announcements.*', 'permission' => PermissionName::ANNOUNCE_TO_ALL],
                 ['label' => 'التقارير', 'icon' => 'document-text', 'route' => 'admin.reports.index', 'active' => 'admin.reports.*', 'permission' => PermissionName::VIEW_REPORTS],
+                ['label' => 'الأدوار والصلاحيات', 'icon' => 'key', 'route' => 'admin.roles.index', 'active' => 'admin.roles.*', 'permission' => PermissionName::MANAGE_ROLES],
                 ['label' => 'الإعدادات', 'icon' => 'cog-6-tooth', 'route' => 'admin.settings.edit', 'active' => 'admin.settings.*', 'permission' => PermissionName::MANAGE_SETTINGS],
                 ['label' => 'سجل التدقيق', 'icon' => 'clipboard-document-list', 'route' => 'admin.audit-logs', 'permission' => PermissionName::VIEW_AUDIT_LOGS],
                 ['label' => 'سجل البريد', 'icon' => 'envelope', 'route' => 'admin.email-logs', 'permission' => PermissionName::VIEW_EMAIL_LOGS],

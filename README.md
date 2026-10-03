@@ -47,6 +47,12 @@ The architecture is designed to **support a future mobile application** (for exa
 
 ---
 
+## Development Workflow
+
+This project is developed with **[Claude Code](https://claude.ai/code) cloud sessions**. Each session runs in an isolated cloud environment: it clones this repository, does its work on a dedicated feature branch, and pushes its commits back to GitHub for review.
+
+---
+
 ## Getting Started
 
 > Setup instructions will be added once the Laravel application is scaffolded.

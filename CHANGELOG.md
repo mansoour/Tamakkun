@@ -2,10 +2,27 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
-## [Unreleased]
+## [v0.9.0] — 2026-10-12 — Completion and polish
+
+### Added
+- Full settings screen: platform name and tagline, default target score, alert thresholds (inactivity days, upcoming-exam days, low-activity threshold), support email and phone, About/Privacy/Terms text and external links. The name and tagline now appear in the brand, page titles, public pages and emails.
+- Public pages `/about`, `/resources`, `/privacy`, `/terms` on a shared public layout. Unwritten legal pages show «قريبًا» and are not linked until they have content. `/resources` lists only admin-verified official links and source websites.
+- Roles and permissions screen (`/admin/roles`, new `roles.manage` permission): edit each role's permissions, audited, with self-lockout protection.
+- Read-only "view as user" for admins (new `users.view-as` permission): banner, GET-only, every viewed request rolled back, audited.
+- Quiz engine (brief §54): multiple-choice and true/false questions on «اختبار قصير» content, pass percentage, instant score with explanations, unlimited retakes. Passing completes the content; counselors see results on the student page. A demo quiz is added to the local demo seeder.
+- `php artisan tamakkun:doctor` (environment check) and `php artisan tamakkun:create-admin` (first admin without tinker).
+- Windows/XAMPP setup guide (`docs/windows-setup.md`).
+- Installable site: web app manifest, home-screen icons and Apple touch icon (no service worker, no offline mode).
+
+### Changed
+- `SettingsService` reads are memoised per request; the service is `scoped` so queue workers read fresh values for each job.
+- Accessibility fixes from an axe-core audit of 40 pages at 375px and 1280px: score card heading level, the desktop notification bell inside a landmark, contrast of unearned badges, keyboard-scrollable tables. Quiz answers with numbers render in the correct direction.
 
 ### Fixed
 - CI: the production-cache step now uses the file cache store, because `optimize:clear` flushed the database cache and CI has no MySQL server.
+
+### Removed
+- Laravel's placeholder `ExampleTest` (the home page is covered by `LayoutTest`).
 
 ## [v0.8.0] — 2026-10-11 — Reports, email and hardening
 

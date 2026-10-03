@@ -140,7 +140,7 @@ class QuizTest extends TestCase
         $this->assertSame(ProgressStatus::IN_PROGRESS, StudentContentProgress::where('student_id', $student->id)->sole()->status);
 
         $this->actingAs($student)->get("/student/content/{$this->content->slug}")
-            ->assertSee('الإجابة الصحيحة: خطأ')
+            ->assertSee('الإجابة الصحيحة: <bdi>خطأ</bdi>', false)
             ->assertSee('أعيدي المحاولة');
 
         $this->actingAs($student)->post("/student/content/{$this->content->slug}/quiz", ['answers' => $this->answers($quiz, true, true)]);

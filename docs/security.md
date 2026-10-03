@@ -57,7 +57,7 @@ CSP notes:
 
 | Check | Result |
 |---|---|
-| Routes without auth | Only `/`, login, password reset, `/up` (health) and Boost's local-only browser log route |
+| Routes without auth | Only `/`, the public pages (`/about`, `/resources`, `/privacy`, `/terms`, `/manifest.webmanifest`; v0.9), login, password reset, `/up` (health) and Boost's local-only browser log route |
 | Authorization | Every area is gated by `can:` middleware. Record access goes through policies (students, exams, notes, alerts). Tests cover cross-student and cross-counselor denial |
 | Mass assignment | `status`, `must_change_password` and `follow_up_status` are not fillable. Controllers pass only validated data |
 | SQL | Eloquent bindings only. Search uses bound `like` parameters |
@@ -66,16 +66,25 @@ CSP notes:
 | CSV injection | Formula-like cells are neutralised in exports (fixed in v0.8) |
 | Uploads | Images are decoded and re-encoded to WebP. SVG is rejected. CSV import is validated and size-limited |
 | Secrets in logs | Passwords never appear in audit or activity logs. Note text is never copied into audit logs |
-| Rate limits | Login, password reset, challenge answers (30/min) |
+| Rate limits | Login, password reset, challenge answers (30/min), quiz submissions (20/min) |
 | Production caches | `php artisan optimize` (routes, config, views, events) succeeds; CI checks it |
 | Dependencies | `composer audit` and `npm audit --omit=dev` run in CI. The only npm finding is a dev-only build dependency (`braces` via Tailwind 3's watcher), which never ships to users |
 
 Server-side recommendations: set `expose_php = Off` in lsphp83's `php.ini`, keep `APP_DEBUG=false`, and keep `.env` at mode `600`.
 
+## View as user (v0.9)
+
+Brief §19, built read-only. `App\Services\ViewAsService` and `App\Http\Middleware\ViewAsUser`:
+
+- Requires `users.view-as`. Only active accounts that cannot open the admin area can be viewed, so it never shows a more privileged account.
+- The admin stays logged in; the session only stores whom they view. A yellow banner shows on every page with «إنهاء العرض».
+- Only GET/HEAD requests are served as the viewed user. Any other request is refused with a notice, except ending the view and logging out (which also ends it).
+- Each viewed request runs inside a database transaction that is always rolled back, so pages that record something on open (last viewed, notification read) leave no trace.
+- `user.view-as-started` and `user.view-as-ended` are audited.
+
 ## Planned (later phases)
 
 - Private storage for sensitive files.
-- Read-only "view as user" for admins, with a banner and audit entry (brief §19: only if needed; not built).
 - Rate limit on the contact form when it exists.
 - Third-party API keys stored encrypted in the database (exception: `RESEND_API_KEY`, see [email.md](email.md)).
 

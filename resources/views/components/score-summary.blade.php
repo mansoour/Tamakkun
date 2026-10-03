@@ -3,7 +3,7 @@
 {{-- $exam: one entry of ExamProgressService::summary() --}}
 <section {{ $attributes->merge(['class' => 'card p-5']) }} aria-labelledby="score-{{ $exam['type']->value }}">
     <div class="flex items-center justify-between gap-2">
-        <h3 id="score-{{ $exam['type']->value }}" class="font-heading font-semibold text-ink">{{ $exam['type']->label() }}</h3>
+        <h2 id="score-{{ $exam['type']->value }}" class="font-heading font-semibold text-ink">{{ $exam['type']->label() }}</h2>
         @if (! $exam['booked'])
             <x-badge color="warning">لم تحجز</x-badge>
         @endif

@@ -89,12 +89,12 @@
                                             <x-icon :name="$answer->is_correct ? 'check-circle' : 'x-circle'" @class(['mt-0.5 h-5 w-5', 'text-emerald-600' => $answer->is_correct, 'text-red-600' => ! $answer->is_correct]) />
                                             <span>{{ $loop->iteration }}. {{ $question->prompt }}</span>
                                         </p>
-                                        <p class="ms-7 mt-1 text-ink">إجابتك: {{ $chosen?->label ?? '—' }}</p>
+                                        <p class="ms-7 mt-1 text-ink">إجابتك: <bdi>{{ $chosen?->label ?? '—' }}</bdi></p>
                                         @if (! $answer->is_correct && $correct)
-                                            <p class="ms-7 mt-1 text-ink">الإجابة الصحيحة: {{ $correct->label }}</p>
+                                            <p class="ms-7 mt-1 text-ink">الإجابة الصحيحة: <bdi>{{ $correct->label }}</bdi></p>
                                         @endif
                                         @if ($question->explanation)
-                                            <p class="ms-7 mt-1 text-muted">{{ $question->explanation }}</p>
+                                            <p class="ms-7 mt-1 text-muted [unicode-bidi:plaintext]">{{ $question->explanation }}</p>
                                         @endif
                                     </li>
                                 @endforeach
@@ -120,7 +120,7 @@
                                             <input type="radio" name="answers[{{ $question->id }}]" value="{{ $option->id }}" required
                                                 @checked((int) old('answers.'.$question->id) === $option->id)
                                                 class="h-5 w-5 border-line text-brand-600 focus:ring-brand-600">
-                                            <span class="text-sm text-ink">{{ $option->label }}</span>
+                                            <span class="text-sm text-ink"><bdi>{{ $option->label }}</bdi></span>
                                         </label>
                                     @endforeach
                                 </div>

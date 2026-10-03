@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.8 — Reports, email and hardening.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.9 — Completion and polish.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -49,6 +49,8 @@ C:\php\php.exe
 ```
 
 Do **not** use the older PHP that ships with XAMPP. Check with `php -v` (or call `C:\php\php.exe` directly) before running any command below.
+
+The full step-by-step Windows guide, including which `php.ini` extensions to enable and a troubleshooting table, is in **[docs/windows-setup.md](docs/windows-setup.md)**.
 
 ### XAMPP / MySQL note
 
@@ -114,9 +116,10 @@ npm run dev                   # Vite dev server with hot reload, keep it running
 
 Before deploying, build the assets with `npm run build`. The output goes to `public/build`, which is generated and never committed.
 
-### Run the site
+### Check and run the site
 
 ```bash
+php artisan tamakkun:doctor   # checks PHP, extensions, database, migrations, storage and assets
 php artisan serve             # http://localhost:8000
 ```
 
@@ -132,7 +135,7 @@ php artisan serve             # http://localhost:8000
 | Student | `student` |
 | Disabled student (to test the block) | `disabled-student` |
 
-The seeder refuses to run in production.
+The seeder refuses to run in production. For a real install, create the first admin with `php artisan tamakkun:create-admin`.
 
 ### Laravel Boost (Claude Code)
 
@@ -157,6 +160,8 @@ This regenerates `CLAUDE.md` and the local `.claude/skills` (which are never com
 | Queue worker (local) | `php artisan queue:work` |
 | Run the scheduler locally | `php artisan schedule:work` |
 | List routes | `php artisan route:list --except-vendor` |
+| Check this machine's setup | `php artisan tamakkun:doctor` |
+| Create an admin account | `php artisan tamakkun:create-admin` |
 
 ### Queue
 
@@ -212,6 +217,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Topic | File |
 |---|---|
 | Architecture, design system, conventions | [docs/architecture.md](docs/architecture.md) |
+| Windows / XAMPP setup | [docs/windows-setup.md](docs/windows-setup.md) |
 | Database tables | [docs/database-schema.md](docs/database-schema.md) |
 | Roles and permissions | [docs/roles-permissions.md](docs/roles-permissions.md) |
 | Development workflow | [docs/workflow.md](docs/workflow.md) |
@@ -227,6 +233,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Counselor follow-up and alerts | [docs/alerts.md](docs/alerts.md) |
 | Challenge, motivation, announcements, notifications | [docs/engagement.md](docs/engagement.md) |
 | Reports (PDF/CSV) | [docs/reports.md](docs/reports.md) |
+| Quizzes | [docs/quizzes.md](docs/quizzes.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

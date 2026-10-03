@@ -58,12 +58,11 @@ php artisan storage:link        # required: content thumbnails are served from /
 php artisan optimize
 ```
 
-Create the first admin account with `php artisan tinker`. Do **not** run the demo seeder in production; it refuses to run there anyway.
+Create the first admin account (it asks for the name, username, optional email and a password of at least 10 characters). Do **not** run the demo seeder in production; it refuses to run there anyway.
 
-```php
-$u = App\Models\User::create(['name' => '…', 'username' => '…', 'email' => '…', 'password' => '…']);
-$u->forceFill(['status' => App\Enums\UserStatus::ACTIVE])->save();
-$u->assignRole('admin');
+```bash
+php artisan tamakkun:create-admin
+php artisan tamakkun:doctor     # checks PHP, extensions, database, storage and assets
 ```
 
 ## Production `.env`

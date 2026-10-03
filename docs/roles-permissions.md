@@ -15,7 +15,7 @@ Tamakkun uses `spatie/laravel-permission`.
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
 | `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up`, `announcements.send`, `reports.view` |
-| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage`, `challenges.manage`, `motivations.manage`, `announcements.manage-all`, `reports.view`, `audit-logs.view`, `email-logs.view` |
+| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage`, `challenges.manage`, `motivations.manage`, `announcements.manage-all`, `reports.view`, `audit-logs.view`, `email-logs.view`, `roles.manage`, `users.view-as` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
 ## Permissions
@@ -40,9 +40,22 @@ Tamakkun uses `spatie/laravel-permission`.
 | `reports.view` | عرض التقارير وتصديرها | `/counselor/reports` (own students) and `/admin/reports` (all, via `students.view-all`) |
 | `audit-logs.view` | عرض سجل التدقيق | `/admin/audit-logs` |
 | `email-logs.view` | عرض سجل البريد | `/admin/email-logs` |
+| `roles.manage` | إدارة الأدوار والصلاحيات | `/admin/roles` (v0.9) |
+| `users.view-as` | عرض المنصة كما تراها طالبة أو موجهة (قراءة فقط) | `POST /admin/users/{user}/view-as` (v0.9, see [security.md](security.md#view-as-user-v09)) |
 | `students.follow-up` | متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة) | Notes, follow-up status, alert actions. Combined with viewing the student (`StudentProfilePolicy::followUp`) |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).
+
+## Changing a role's permissions (v0.9)
+
+Admins with `roles.manage` edit each role's permissions at `/admin/roles` (`App\Services\RolePermissionService`).
+
+- Only permissions in `PermissionName` can be granted. Roles themselves are fixed (student, counselor, admin).
+- An editor cannot remove `admin-area.access` or `roles.manage` from a role they hold. The boxes are locked in the form and the service refuses it.
+- Every change is audited as `role.permissions-updated` with the old and new lists, and takes effect immediately.
+- Example: to let counselors manage content, give the counselor role `content.manage` and `admin-area.access`. They then see only the content sections of the admin area.
+
+Seeded grants still come from migrations. A later migration never removes a permission an admin granted by hand.
 
 Area permissions and feature permissions are independent. A user with only `admin-area.access` can open the admin dashboard, but not the schools or users pages.
 

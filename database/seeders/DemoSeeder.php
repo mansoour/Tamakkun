@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\ContentSection;
 use App\Enums\ContentStage;
+use App\Enums\ContentType;
 use App\Enums\FollowUpStatus;
 use App\Enums\MotivationType;
 use App\Enums\UserStatus;
@@ -25,6 +26,7 @@ use App\Models\User;
 use App\Services\AnnouncementService;
 use App\Services\ContentCompletionService;
 use App\Services\FollowUpService;
+use App\Services\QuizService;
 use App\Services\StudentAlertService;
 use Illuminate\Database\Seeder;
 use RuntimeException;
@@ -200,6 +202,26 @@ class DemoSeeder extends Seeder
                 'topic_id' => $topic->id,
                 'description' => 'محتوى تجريبي لأغراض العرض فقط.',
             ]);
+        }
+
+        $category = Category::where('section', ContentSection::QUANTITATIVE)->ordered()->first();
+
+        if ($category) {
+            $quiz = Content::factory()->forCategory($category)->create([
+                'title' => 'اختبار قصير تجريبي: '.$category->name,
+                'content_type' => ContentType::QUIZ,
+                'description' => 'أسئلة تجريبية لأغراض العرض فقط.',
+                'stage' => ContentStage::PRACTICE,
+            ]);
+
+            app(QuizService::class)->saveQuestions($quiz, [
+                'pass_percentage' => 60,
+                'questions' => [
+                    ['question_type' => 'multiple_choice', 'prompt' => 'سؤال تجريبي: كم يساوي 15 + 27؟', 'explanation' => '15 + 27 = 42', 'options' => ['32', '42', '52', '41'], 'correct' => 1],
+                    ['question_type' => 'multiple_choice', 'prompt' => 'سؤال تجريبي: ما نصف العدد 64؟', 'explanation' => '64 ÷ 2 = 32', 'options' => ['16', '32', '34', '128'], 'correct' => 1],
+                    ['question_type' => 'true_false', 'prompt' => 'سؤال تجريبي: العدد 7 عدد أولي.', 'explanation' => 'لا يقبل 7 القسمة إلا على 1 وعلى نفسه.', 'correct' => 0],
+                ],
+            ], null);
         }
     }
 }

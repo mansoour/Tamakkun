@@ -66,9 +66,9 @@
 
             <div class="min-w-0 flex-1">
                 @if ($area === 'student')
-                    <div class="mx-auto hidden w-full max-w-6xl justify-end px-10 pt-6 lg:flex">
+                    <nav class="mx-auto hidden w-full max-w-6xl justify-end px-10 pt-6 lg:flex" aria-label="الإشعارات">
                         @include('layouts.partials.notification-bell')
-                    </div>
+                    </nav>
                 @endif
                 <main id="main" class="mx-auto w-full max-w-6xl px-4 py-6 sm:px-6 lg:px-10 lg:py-10">
                     <x-flash />

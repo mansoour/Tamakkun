@@ -273,3 +273,15 @@ Indexes `(student_id, status)`, `(student_id, alert_type, context_key)` and `(st
 | `announcements` | `title`, `body`, `author_id`, `audience` (`AnnouncementAudience`), `starts_at`, `ends_at`, `is_published`, `notified_at` |
 | `announcement_targets` | `announcement_id` (cascade), `target_type` (counselor, classroom or student), `target_id` |
 | `notifications` | Laravel database notifications (`data`: title, body, url, icon, key) |
+
+## Quizzes (v0.9)
+
+| Table | Columns |
+|---|---|
+| `quizzes` | `content_id` (unique, cascade; content of type `quiz`), `pass_percentage` (default 60), `updated_by` |
+| `quiz_questions` | `quiz_id` (cascade), `question_type` (`QuestionType`), `prompt`, `explanation`, `sort_order` |
+| `question_options` | `quiz_question_id` (cascade), `label`, `is_correct` (hidden from serialisation), `sort_order` |
+| `quiz_attempts` | `quiz_id`, `student_id`, `correct_count`, `question_count`, `percentage`, `passed`, `submitted_at` |
+| `quiz_answers` | `quiz_attempt_id`, `quiz_question_id`, `question_option_id`, `is_correct`. Unique `(quiz_attempt_id, quiz_question_id)` |
+
+Saving a quiz replaces its questions. Earlier attempts keep their scores, and their per-question answers are removed with the old questions.

@@ -62,4 +62,20 @@ class PublicPagesTest extends TestCase
             ->assertSee('مصدر موثّق')
             ->assertDontSee('مصدر بلا رابط');
     }
+
+    public function test_web_app_manifest_uses_the_platform_name_and_existing_icons(): void
+    {
+        app(SettingsService::class)->set('platform_name', 'منصة المدرسة');
+
+        $response = $this->get('/manifest.webmanifest')->assertOk()
+            ->assertHeader('Content-Type', 'application/manifest+json')
+            ->assertJsonPath('name', 'منصة المدرسة')
+            ->assertJsonPath('dir', 'rtl');
+
+        foreach ($response->json('icons') as $icon) {
+            $this->assertFileExists(public_path(ltrim($icon['src'], '/')));
+        }
+
+        $this->get('/')->assertSee(route('manifest'), false);
+    }
 }

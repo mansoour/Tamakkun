@@ -15,6 +15,7 @@ Route::get('/about', [PublicPageController::class, 'about'])->name('about');
 Route::get('/resources', [PublicPageController::class, 'resources'])->name('resources');
 Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PublicPageController::class, 'terms'])->name('terms');
+Route::get('/manifest.webmanifest', [PublicPageController::class, 'manifest'])->name('manifest');
 
 Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
     // Sends each user to the area their permissions allow.

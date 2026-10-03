@@ -2,6 +2,19 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-12 — v0.9 Completion and polish
+
+Deployment is deferred: the stakeholder will deploy later from their own PC. v0.9 finishes the remaining brief items instead.
+
+1. **Every setting the code reads is now editable** at `/admin/settings`, including the alert thresholds, the default target score, support contacts and the public page texts. Value fields are `sometimes`, so a partial form never wipes other settings. Settings reads are memoised per request; the service is `scoped`, so queue workers never keep stale values across jobs.
+2. **Public pages show only admin-written or verified content.** `/about` falls back to the general product description. `/privacy` and `/terms` show «قريبًا» until text or an external link is saved, and the footer links to them only after that. `/resources` lists only active links an admin marked official, plus sources with a verified website.
+3. **Roles are edited, not created.** The three roles stay fixed. An admin chooses each role's permissions from `PermissionName`. Nobody can remove `admin-area.access` or `roles.manage` from a role they hold, so self-lockout is impossible. Counselors can now get content management simply by granting `content.manage` (plus `admin-area.access`) to their role.
+4. **"View as user" is read-only, not impersonation (brief §19).** The admin stays logged in. Only GET requests are served as the viewed user, every other request is refused, and each viewed request runs in a database transaction that is always rolled back. Admin accounts and disabled accounts cannot be viewed. Start and end are audited.
+5. **The quiz engine attaches to content.** A content item of type «اختبار قصير» gets questions (multiple choice and true/false, up to 20). Passing it (default 60%, set per quiz) completes the content; the manual «أنجزت» is refused for quizzes. Retakes are unlimited and each attempt keeps its score. Answers and explanations are shown only after submitting.
+6. **The site is installable but has no offline mode.** A web manifest and icons let students add it to the home screen. There is no service worker, so pages are never served stale or cached with private data.
+7. **`tamakkun:doctor` and `tamakkun:create-admin`** make a fresh install (Windows/XAMPP or server) checkable and remove the need for tinker.
+8. **Accessibility pass with axe-core** on 40 pages at 375px and 1280px: heading order, landmarks, contrast of unearned badges and keyboard-scrollable tables fixed. No horizontal overflow anywhere.
+
 ## 2026-10-11 — v0.8 Reports, email, hardening
 
 1. **One data source for reports.** `ReportService` returns columns and rows, rendered identically as HTML, CSV and PDF. It reuses the roster and progress services, so reports never disagree with dashboards.
@@ -9,7 +22,7 @@ Newest first. Each entry records what was decided and why.
 3. **Reports render synchronously**, which is fast at school scale. Queued generation is documented as a future option.
 4. **Email complements in-app notifications.** It is sent only to users with an address, behind an admin switch. Failed queued emails are logged from `JobFailed`, so each recipient is recorded.
 5. **Two vulnerabilities were fixed in review:** a notification open redirect (prefix check replaced by an exact scheme and host match) and CSV formula injection.
-6. **Admin "view as user" (brief §19) is not built.** The brief says to build it only if needed; the read-only counselor views cover inspection needs for now.
+6. **Admin "view as user" (brief §19) was not built in v0.8.** It was added, read-only, in v0.9.
 7. **CI now also checks production caching and runs dependency audits.**
 
 ## 2026-10-10 — v0.7 Challenge, motivation, announcements, notifications
@@ -112,7 +125,8 @@ Newest first. Each entry records what was decided and why.
 | **v0.6** | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts ✅ |
 | **v0.7** | Challenge, motivation, announcements, notifications ✅ |
 | **v0.8** | Reports (mPDF/CSV), email via Resend, hardening ✅ |
-| v0.9 | Pilot |
+| **v0.9** | Completion and polish: full settings, public pages, roles screen, view-as, quiz engine, Windows setup, installable site, accessibility ✅ |
+| v0.10 | Pilot deployment (stakeholder's PC, later) |
 | v1.0 | Production |
 
 ## Open questions for the stakeholder
@@ -120,4 +134,5 @@ Newest first. Each entry records what was decided and why.
 - Verified official URLs for **المفكر** and current ETEC service links. These stay `null` until verified, and none will be invented.
 - Production domain name and the Resend sending domain.
 - Off-server backup destination.
+- The real About, Privacy and Terms text (admins can enter it at `/admin/settings`).
 

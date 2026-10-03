@@ -82,9 +82,11 @@ $settings->set('inactivity_days', 10);        // saves, clears cache, writes aud
 ```
 
 - Defaults and the list of allowed keys live in `config/tamakkun.php`. Unknown keys are rejected.
-- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently `force_password_change`, `weekly_content_goal`, `enable_gamification` and `email_notifications`.
+- Admins edit settings at `/admin/settings` (`settings.manage`): branding, security, progress, alert thresholds, email, support contacts and public page texts. `enable_guardian_accounts` is not shown because guardians are not built yet.
+- Reads are memoised for the request; `SettingsService` is bound as `scoped`, so a queue worker reads fresh values for every job.
+- `platform_name` and `tagline` reach the brand, page titles, public pages and emails through a view composer in `AppServiceProvider`.
 - The whole table is cached forever under `settings.all`. Saving through the service clears that cache.
-- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `weekly_content_goal`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
+- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `weekly_content_goal`, `support_email`, `support_phone`, `privacy_url`, `terms_url`, `email_notifications`, `about_text`, `privacy_text`, `terms_text`.
 
 ## Logging foundations
 

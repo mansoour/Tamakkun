@@ -9,6 +9,7 @@ All progress numbers come from `App\Services\StudentProgressService`. No page ca
 | Start | **ابدأ** | `not_started` → `in_progress`, sets `started_at`, logs `content_started` (first time only) |
 | Complete | **أنجزت** | → `completed`, `completed_at`, 100%, logs `content_completed` (once). Starting is implicit. |
 | Undo | **التراجع عن الإنجاز** | `completed` → `in_progress`, clears `completed_at`, logs `content_uncompleted` |
+| Pass a quiz (v0.9) | **إرسال الإجابات** | A quiz content item is completed only by reaching its pass percentage; a failed attempt marks it in progress. «أنجزت» is refused for quizzes. Each submission logs `quiz_submitted`, which counts as learning activity. See [quizzes.md](quizzes.md). |
 | View the page | — | updates `last_viewed_at` of **existing** progress only |
 
 Opening a content page or its external link **never** starts or completes anything. Only the student's explicit buttons do. Actions work only on visible (published, not archived) content and always apply to the signed-in student.

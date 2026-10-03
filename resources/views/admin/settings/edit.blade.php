@@ -12,6 +12,12 @@
                 hint="عند التفعيل: كل حساب حدّدت الإدارة كلمة مروره (عند الإنشاء أو الاستيراد أو إعادة التعيين) يُطلب منه اختيار كلمة مرور جديدة قبل استخدام المنصة." />
         </section>
 
+        <section aria-labelledby="progress-title" class="space-y-3 border-t border-line pt-6">
+            <h2 id="progress-title" class="font-heading text-lg font-semibold text-ink">التقدّم</h2>
+            <x-form.input name="weekly_content_goal" type="number" min="1" max="50" label="هدف الإنجاز الأسبوعي (عدد الدروس والمقاطع)"
+                :value="$settings['weekly_content_goal']" hint="يُستخدم لحساب نسبة الأسبوع في لوحة الطالبة وصفحة تقدّمي." />
+        </section>
+
         <x-primary-button>حفظ الإعدادات</x-primary-button>
     </form>
 </x-app-layout>

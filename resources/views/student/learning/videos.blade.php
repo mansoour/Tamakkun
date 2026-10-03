@@ -15,7 +15,7 @@
     @else
         <div class="mt-6 grid gap-3 md:grid-cols-2">
             @foreach ($videos as $video)
-                <x-content-card :content="$video" />
+                <x-content-card :content="$video" :status="$statuses->get($video->id)" />
             @endforeach
         </div>
         {{ $videos->links() }}

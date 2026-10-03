@@ -32,7 +32,7 @@
                     @endif
                     <div class="mt-3 grid gap-3 md:grid-cols-2">
                         @foreach ($items as $content)
-                            <x-content-card :content="$content" />
+                            <x-content-card :content="$content" :status="$statuses->get($content->id)" />
                         @endforeach
                     </div>
                 </section>

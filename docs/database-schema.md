@@ -198,3 +198,25 @@ Indexes: `(section, is_published, sort_order)`, `title`, `content_type`, `stage`
 
 ### important_links
 `id, title, description, url (https), icon, category (LinkCategory: qiyas, qudurat, tahsili, official_services, learning_resources), is_official, sort_order, is_active, timestamps`
+
+## Progress (v0.4)
+
+### student_content_progress
+
+| Column | Notes |
+|---|---|
+| id | |
+| student_id | FK users, cascade |
+| content_id | FK contents, cascade |
+| status | `ProgressStatus`: not_started, in_progress, completed |
+| progress_percentage | 0 or 100 (explicit buttons only) |
+| started_at, completed_at, last_viewed_at | nullable |
+| timestamps | |
+
+Unique `(student_id, content_id)`. Indexes `(student_id, status)` and `(student_id, completed_at)`.
+
+### favorites
+`id, student_id (FK users, cascade), content_id (FK contents, cascade), created_at`. Unique `(student_id, content_id)`.
+
+### activity_logs
+`id, user_id (FK users, cascade), event_type (ActivityEvent), subject_type/subject_id (nullable morph), metadata json nullable, created_at`. Indexes `(user_id, created_at)` and `(event_type, created_at)`.

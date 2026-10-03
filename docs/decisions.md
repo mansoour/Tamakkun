@@ -2,6 +2,16 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-07 — v0.4 Progress
+
+1. **Progress is explicit.** Only ابدأ and أنجزت change it, never page views or external clicks (brief §52). An undo exists for accidental clicks.
+2. **Completion is binary** (0% or 100%). There is no reliable signal for partial progress inside external videos, and faking one is not allowed (brief §70).
+3. **Denominator = all visible content** in the section. Per-student assignment of content doesn't exist yet. When it does, the formula changes in one place (`StudentProgressService`).
+4. **The week starts on Sunday** (Saudi school week) in Asia/Riyadh. The weekly goal is an admin setting (`weekly_content_goal`, default 6, the brief's "4/6" example).
+5. **The streak survives until the end of the next day**, so it isn't broken in the morning before the student studies. Logging in doesn't count.
+6. **Activity logging is minimal** (login and content start, complete and undo) to respect "do not over-collect".
+7. **The counselor sees the same summary** on the student page now. Full follow-up tooling stays in v0.6.
+
 ## 2026-10-06 — v0.3 Learning content
 
 1. **One general `contents` table** with a `section` (quantitative, verbal or tahsili). Qudurat content hangs off a category, and Tahsili content off subject, then optional chapter, then optional topic. Fields that don't apply to the section are cleared on save.
@@ -56,7 +66,7 @@ Newest first. Each entry records what was decided and why.
 | **v0.1** | Foundation/Auth ✅ |
 | **v0.2** | Users and school structure: schools, academic years, grades, classrooms, student/counselor profiles, assignment, `AccountActivation`, policies, CSV import ✅ |
 | **v0.3** | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD ✅ |
-| v0.4 | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs |
+| **v0.4** | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs ✅ |
 | v0.5 | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown |
 | v0.6 | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts |
 | v0.7 | Challenge, motivation, announcements, notifications |

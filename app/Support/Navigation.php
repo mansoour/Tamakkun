@@ -43,9 +43,9 @@ class Navigation
                 ['label' => 'روابط مهمة', 'icon' => 'link', 'route' => 'student.links'],
                 ['label' => 'موعدي ودرجتي', 'icon' => 'calendar-days', 'route' => null],
                 ['label' => 'دفعة اليوم', 'icon' => 'sparkles', 'route' => null],
-                ['label' => 'تقدمي', 'icon' => 'chart-bar', 'route' => null],
+                ['label' => 'تقدمي', 'icon' => 'chart-bar', 'route' => 'student.progress'],
                 ['label' => 'الإشعارات', 'icon' => 'bell', 'route' => null],
-                ['label' => 'المفضلة', 'icon' => 'bookmark', 'route' => null],
+                ['label' => 'المفضلة', 'icon' => 'bookmark', 'route' => 'student.favorites'],
                 ['label' => 'حسابي', 'icon' => 'user-circle', 'route' => 'profile.edit'],
             ],
             'counselor' => [

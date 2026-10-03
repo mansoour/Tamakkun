@@ -13,7 +13,16 @@
         </dl>
     </section>
 
+    <section class="mt-6" aria-labelledby="progress-title">
+        <h2 id="progress-title" class="text-lg font-semibold text-ink">التقدّم في المحتوى</h2>
+        <x-student-progress-card :summary="$summary" class="mt-3" />
+        <p class="mt-2 text-sm text-muted">
+            آخر نشاط تعلّم:
+            <span dir="ltr">{{ $summary['last_activity_at']?->format('Y-m-d H:i') ?? '—' }}</span>
+        </p>
+    </section>
+
     <x-dev-notice class="mt-6">
-        ستظهر هنا في المراحل القادمة درجات الطالبة ومواعيد اختباراتها ونسبة إنجازها والتنبيهات والملاحظات.
+        ستظهر هنا في المراحل القادمة درجات الطالبة ومواعيد اختباراتها والتنبيهات والملاحظات.
     </x-dev-notice>
 </x-app-layout>

@@ -47,6 +47,12 @@ CSP notes:
 - The lesson body is plain text, escaped and rendered with `nl2br(e(...))`. No HTML is accepted.
 - Students only ever see visible content. Draft, scheduled and archived content pages return 404.
 
+## Privacy of progress data (v0.4)
+
+- Progress and favorites always apply to the signed-in student. There is no student ID in those routes, so one student cannot touch another's data.
+- Counselors see a student's progress only through `StudentProfilePolicy` (assigned students).
+- `activity_logs` holds only the minimal events listed in [progress.md](progress.md).
+
 ## Planned (later phases)
 
 - Private storage for sensitive files.

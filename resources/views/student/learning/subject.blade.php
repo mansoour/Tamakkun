@@ -25,7 +25,7 @@
                                 @endif
                                 <div class="grid gap-3 md:grid-cols-2">
                                     @foreach ($topicItems as $content)
-                                        <x-content-card :content="$content" />
+                                        <x-content-card :content="$content" :status="$statuses->get($content->id)" />
                                     @endforeach
                                 </div>
                             </div>
@@ -39,7 +39,7 @@
                     <h2 id="general-title" class="text-lg font-semibold text-ink">محتوى عام للمادة</h2>
                     <div class="mt-3 grid gap-3 md:grid-cols-2">
                         @foreach ($contentsByChapter->get(0) as $content)
-                            <x-content-card :content="$content" />
+                            <x-content-card :content="$content" :status="$statuses->get($content->id)" />
                         @endforeach
                     </div>
                 </section>

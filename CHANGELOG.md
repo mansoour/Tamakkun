@@ -2,6 +2,19 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.4.0] — 2026-10-07 — Progress
+
+### Added
+- ابدأ, أنجزت and undo on content pages (`ContentCompletionService`). Viewing never changes progress.
+- `StudentProgressService`: overall and per-section completion, weekly goal (Sunday week), learning streak, in-progress count and last activity, all from one place.
+- تقدمي page, المفضلة page with a favorite toggle, and progress status badges on content cards.
+- Student dashboard with real progress cards and "أكملي من حيث توقفتِ".
+- Counselor student page shows the student's progress.
+- `activity_logs` for login and content start, complete and undo (`ActivityLogger`).
+- Admin setting `weekly_content_goal`.
+- Components `x-student-progress-card` and `x-progress-bar`. Demo progress for the demo student.
+- Docs: `docs/progress.md`, plus updates to the schema, architecture, security, testing and decisions docs.
+
 ## [v0.3.0] — 2026-10-06 — Learning content
 
 ### Added

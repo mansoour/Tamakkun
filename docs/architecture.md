@@ -47,6 +47,10 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `DashboardMetricsService` | Real counts for the admin and counselor dashboards. |
 | `ContentService` | Create and update content (slug, section clean-up, minutes to seconds, thumbnail), plus publish, unpublish, archive and restore. All audited. |
 | `ContentStructureService` | Sources, categories, subjects, chapters, topics and important links. Audited, and deletion is blocked while content depends on the record. |
+| `ContentCompletionService` | Start, complete and undo for the signed-in student. Writes progress rows and activity logs. Viewing never advances progress. |
+| `FavoriteService` | Toggle and check favorites |
+| `StudentProgressService` | **The only place progress numbers are calculated** (completion, sections, weekly, streak). See [progress.md](progress.md). |
+| `ActivityLogger` | Writes `activity_logs` for student learning actions and logins |
 | `ImageOptimizer` | Decodes uploaded raster images, resizes them to at most 1280px wide, re-encodes them as WebP (which strips metadata) and stores them on the `public` disk. SVG is never accepted. |
 
 `App\Support\VideoEmbed` turns a YouTube or Vimeo URL into a privacy-friendly embed URL and rejects everything else.
@@ -64,9 +68,9 @@ $settings->set('inactivity_days', 10);        // saves, clears cache, writes aud
 ```
 
 - Defaults and the list of allowed keys live in `config/tamakkun.php`. Unknown keys are rejected.
-- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently that is `force_password_change`.
+- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently `force_password_change` and `weekly_content_goal`.
 - The whole table is cached forever under `settings.all`. Saving through the service clears that cache.
-- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
+- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `weekly_content_goal`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
 
 ## Logging foundations
 
@@ -122,6 +126,8 @@ Supported widths: 360, 375, 390, 414, 768, 1024, and 1280px and up.
 | `<x-delete-button action>` | DELETE form with a confirmation dialog |
 | `<x-content-card :content>` | Student content tile (type icon or thumbnail, stage, duration, source) |
 | `<x-source-badge :source>` | Source name badge |
+| `<x-student-progress-card :summary>` | Four KPI tiles: completion, week, streak, in progress |
+| `<x-progress-bar label percentage>` | Accessible progress bar (`role=progressbar`) |
 | `<x-flash>` | Session `success` message and `delete`/`account_status`/`import` errors. Included in the app layout |
 | `<x-text-input>`, `<x-input-label>`, `<x-input-error>`, `<x-primary-button>`, `<x-auth-session-status>` | Restyled Breeze components |
 

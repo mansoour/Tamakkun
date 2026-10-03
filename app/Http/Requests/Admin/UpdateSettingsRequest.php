@@ -22,6 +22,7 @@ class UpdateSettingsRequest extends FormRequest
     {
         return [
             'force_password_change' => ['required', 'boolean'],
+            'weekly_content_goal' => ['required', 'integer', 'between:1,50'],
         ];
     }
 
@@ -30,14 +31,17 @@ class UpdateSettingsRequest extends FormRequest
      */
     public function attributes(): array
     {
-        return ['force_password_change' => 'إلزام تغيير كلمة المرور'];
+        return ['force_password_change' => 'إلزام تغيير كلمة المرور', 'weekly_content_goal' => 'هدف الإنجاز الأسبوعي'];
     }
 
     /**
-     * @return array<string, bool>
+     * @return array<string, bool|int>
      */
     public function settings(): array
     {
-        return ['force_password_change' => $this->boolean('force_password_change')];
+        return [
+            'force_password_change' => $this->boolean('force_password_change'),
+            'weekly_content_goal' => $this->integer('weekly_content_goal'),
+        ];
     }
 }

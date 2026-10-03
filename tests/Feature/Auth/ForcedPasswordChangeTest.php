@@ -105,12 +105,13 @@ class ForcedPasswordChangeTest extends TestCase
 
         $this->actingAs($admin)->get('/admin/settings')->assertOk()->assertSee('إلزام تغيير كلمة المرور');
 
-        $this->actingAs($admin)->put('/admin/settings', ['force_password_change' => '0'])
+        $this->actingAs($admin)->put('/admin/settings', ['force_password_change' => '0', 'weekly_content_goal' => 6])
             ->assertRedirect('/admin/settings');
 
         $this->assertFalse(app(SettingsService::class)->get('force_password_change'));
         $log = AuditLog::where('action', 'settings.updated')->sole();
-        $this->assertSame(['force_password_change' => false], $log->new_values);
+        $this->assertFalse($log->new_values['force_password_change']);
+        $this->assertTrue($log->old_values['force_password_change']);
     }
 
     public function test_only_users_with_settings_permission_can_change_settings(): void

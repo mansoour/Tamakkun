@@ -17,6 +17,7 @@ use App\Models\StudentProfile;
 use App\Models\Subject;
 use App\Models\Topic;
 use App\Models\User;
+use App\Services\ContentCompletionService;
 use Illuminate\Database\Seeder;
 use RuntimeException;
 
@@ -84,6 +85,22 @@ class DemoSeeder extends Seeder
         StudentProfile::factory()->count(2)->inClassroom($classrooms[1])->create();
 
         $this->seedDemoContent();
+        $this->seedDemoProgress(User::where('username', 'student')->sole());
+    }
+
+    /**
+     * Some completed and in-progress items so the demo student's dashboard is not empty.
+     */
+    private function seedDemoProgress(User $student): void
+    {
+        $completion = app(ContentCompletionService::class);
+        $contents = Content::visible()->ordered()->limit(3)->get();
+
+        $contents->take(2)->each(fn (Content $content) => $completion->complete($student, $content));
+
+        if ($contents->count() === 3) {
+            $completion->start($student, $contents[2]);
+        }
     }
 
     /**

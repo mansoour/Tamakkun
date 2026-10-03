@@ -29,7 +29,16 @@
                 <x-source-badge :source="$content->source" />
             </div>
 
-            <h1 class="text-2xl font-bold text-ink">{{ $content->title }}</h1>
+            <div class="flex flex-wrap items-start justify-between gap-3">
+                <h1 class="text-2xl font-bold text-ink">{{ $content->title }}</h1>
+                <form method="POST" action="{{ route('student.content.favorite', $content) }}">
+                    @csrf
+                    <button type="submit" class="btn-secondary min-h-[40px] px-3" aria-pressed="{{ $isFavorite ? 'true' : 'false' }}">
+                        <x-icon name="bookmark" @class(['h-5 w-5', 'fill-brand-600 text-brand-600' => $isFavorite]) />
+                        {{ $isFavorite ? 'في المفضلة' : 'أضيفي للمفضلة' }}
+                    </button>
+                </form>
+            </div>
 
             <p class="text-sm text-muted">
                 {{ $content->category?->name ?? collect([$content->subject?->name, $content->chapter?->name, $content->topic?->name])->filter()->join(' — ') }}
@@ -49,6 +58,37 @@
                     <span class="sr-only">(يفتح في نافذة جديدة)</span>
                 </a>
             @endif
+
+            @php($status = $progress?->status ?? \App\Enums\ProgressStatus::NOT_STARTED)
+            <section class="flex flex-col gap-3 rounded-xl bg-brand-50 p-4 sm:flex-row sm:items-center sm:justify-between" aria-labelledby="progress-title">
+                <div>
+                    <h2 id="progress-title" class="sr-only">حالة الإنجاز</h2>
+                    <p class="text-sm text-muted">حالتك في هذا المحتوى</p>
+                    <x-badge :color="$status->color()" class="mt-1">{{ $status->label() }}</x-badge>
+                    @if ($progress?->completed_at)
+                        <span class="ms-2 text-xs text-muted" dir="ltr">{{ $progress->completed_at->format('Y-m-d') }}</span>
+                    @endif
+                </div>
+                <div class="flex flex-wrap gap-2">
+                    @if ($status === \App\Enums\ProgressStatus::NOT_STARTED)
+                        <form method="POST" action="{{ route('student.content.start', $content) }}">
+                            @csrf
+                            <button class="btn-secondary"><x-icon name="play-circle" /> ابدأ</button>
+                        </form>
+                    @endif
+                    @if ($status !== \App\Enums\ProgressStatus::COMPLETED)
+                        <form method="POST" action="{{ route('student.content.complete', $content) }}">
+                            @csrf
+                            <x-primary-button><x-icon name="check-circle" /> أنجزت</x-primary-button>
+                        </form>
+                    @else
+                        <form method="POST" action="{{ route('student.content.uncomplete', $content) }}">
+                            @csrf
+                            <button class="btn-ghost">التراجع عن الإنجاز</button>
+                        </form>
+                    @endif
+                </div>
+            </section>
 
             @if ($content->source)
                 <p class="border-t border-line pt-4 text-xs text-muted">

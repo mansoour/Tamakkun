@@ -1,4 +1,4 @@
-@props(['content'])
+@props(['content', 'status' => null])
 
 <a href="{{ route('student.content.show', $content) }}" {{ $attributes->merge(['class' => 'card group flex gap-4 p-4 transition hover:border-brand-300 hover:shadow-md']) }}>
     @if ($content->thumbnailUrl())
@@ -14,6 +14,9 @@
             <span class="mt-1 line-clamp-2 block text-xs leading-relaxed text-muted">{{ $content->description }}</span>
         @endif
         <span class="mt-2 flex flex-wrap items-center gap-1.5">
+            @if ($status && $status !== \App\Enums\ProgressStatus::NOT_STARTED)
+                <x-badge :color="$status->color()">{{ $status->label() }}</x-badge>
+            @endif
             <x-badge>{{ $content->content_type->label() }}</x-badge>
             @if ($content->stage) <x-badge color="gray">{{ $content->stage->label() }}</x-badge> @endif
             @if ($content->durationMinutes()) <x-badge color="gray">{{ $content->durationMinutes() }} د</x-badge> @endif

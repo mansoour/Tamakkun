@@ -23,6 +23,7 @@ return [
         'enable_gamification' => true,
         'enable_guardian_accounts' => false,
         'force_password_change' => true,
+        'weekly_content_goal' => 6,
         'support_email' => null,
         'support_phone' => null,
         'privacy_url' => null,

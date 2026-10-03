@@ -11,7 +11,7 @@
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.3 — Learning content.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.4 — Progress.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
 
 ---
 
@@ -222,6 +222,7 @@ Never commit `.env`, `vendor/`, `node_modules/`, `public/build/`, backups, datab
 | Testing | [docs/testing.md](docs/testing.md) |
 | Student CSV import | [docs/imports.md](docs/imports.md) |
 | Content sources and copyright | [docs/content-sources.md](docs/content-sources.md) |
+| Progress formulas | [docs/progress.md](docs/progress.md) |
 | Decisions and roadmap | [docs/decisions.md](docs/decisions.md) |
 
 ## Development with Claude Code cloud sessions

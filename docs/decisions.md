@@ -2,6 +2,12 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-05 — Stakeholder answers after v0.2
+
+1. **Forced password change is admin-controlled.** The `force_password_change` setting (default on) is toggled at `/admin/settings`. The per-user flag is always recorded, so turning the setting back on takes effect immediately.
+2. **Exactly one counselor per student** is confirmed.
+3. **The import never creates structure** is confirmed.
+
 ## 2026-10-04 — v0.2 Users and school structure
 
 1. **The hierarchy follows the brief:** school → academic year → grade → classroom. Grades belong to an academic year, so each new year gets fresh grades and classrooms, and old years remain as history.
@@ -51,5 +57,4 @@ Newest first. Each entry records what was decided and why.
 - Verified official URLs for **المفكر** and current ETEC service links. These stay `null` until verified, and none will be invented.
 - Production domain name and the Resend sending domain.
 - Off-server backup destination.
-- Should students be forced to change the initial password on first login? (Recommended. Planned once confirmed.)
-- Should one student ever have more than one counselor? (Currently exactly one or none.)
+

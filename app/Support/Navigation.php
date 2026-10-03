@@ -73,7 +73,7 @@ class Navigation
                 ['label' => 'الروابط المهمة', 'icon' => 'link', 'route' => null],
                 ['label' => 'الإعلانات', 'icon' => 'megaphone', 'route' => null],
                 ['label' => 'التقارير', 'icon' => 'document-text', 'route' => null],
-                ['label' => 'الإعدادات', 'icon' => 'cog-6-tooth', 'route' => null],
+                ['label' => 'الإعدادات', 'icon' => 'cog-6-tooth', 'route' => 'admin.settings.edit', 'active' => 'admin.settings.*', 'permission' => PermissionName::MANAGE_SETTINGS],
                 ['label' => 'سجل التدقيق', 'icon' => 'clipboard-document-list', 'route' => null],
                 ['label' => 'حسابي', 'icon' => 'user-circle', 'route' => 'profile.edit'],
             ],

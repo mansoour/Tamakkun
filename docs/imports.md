@@ -40,4 +40,4 @@ Headers may be in English or Arabic. A downloadable template is linked on the pa
 - Passwords are never written to logs or audit entries.
 - Before importing, uniqueness is checked again. If someone created a matching account after the preview, the whole import fails and nothing is saved.
 - Each created account produces `user.created`, `user.status_changed` and `student.created` audit entries. Confirming the import adds `students.import_confirmed`.
-- Imported accounts are created **active**. Students should change their password after first login (a forced change is planned).
+- Imported accounts are created **active**, with `must_change_password` set. While the admin setting **إلزام تغيير كلمة المرور** is on, each student must choose her own password at first login.

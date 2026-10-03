@@ -14,6 +14,7 @@ This file lists the tables that exist **now**. Tables planned in the brief (scho
 | email | string, nullable, unique | Optional for students. Used by counselors and admins |
 | password | string | bcrypt hash |
 | status | string(20), indexed, default `pending` | `App\Enums\UserStatus`: `pending`, `active`, `suspended`, `disabled`. Only `active` can sign in. **Not mass assignable** |
+| must_change_password | boolean, default false | Set when an admin sets the password. **Not mass assignable** |
 | last_login_at | timestamp, nullable | Set by `RecordLastLogin` |
 | email_verified_at | timestamp, nullable | |
 | remember_token | string, nullable | |

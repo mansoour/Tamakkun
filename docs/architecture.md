@@ -57,8 +57,9 @@ $settings->set('inactivity_days', 10);        // saves, clears cache, writes aud
 ```
 
 - Defaults and the list of allowed keys live in `config/tamakkun.php`. Unknown keys are rejected.
+- Admins edit settings at `/admin/settings` (`settings.manage`). Only settings that already change behaviour are shown there; currently that is `force_password_change`.
 - The whole table is cached forever under `settings.all`. Saving through the service clears that cache.
-- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
+- Current keys: `platform_name`, `tagline`, `default_target_score`, `inactivity_days`, `upcoming_exam_alert_days`, `low_activity_threshold`, `enable_gamification`, `enable_guardian_accounts`, `force_password_change`, `support_email`, `support_phone`, `privacy_url`, `terms_url`.
 
 ## Logging foundations
 

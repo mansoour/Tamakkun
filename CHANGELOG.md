@@ -2,6 +2,12 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.2.1] — 2026-10-05
+
+### Added
+- Forced password change: accounts whose password was set by an admin (creation, import or reset) must choose a new password at next login.
+- Admin settings page (`/admin/settings`, `settings.manage` permission, added by migration) with the **إلزام تغيير كلمة المرور** switch. Changes are audited.
+
 ## [v0.2.0] — 2026-10-04 — Users and school structure
 
 ### Added

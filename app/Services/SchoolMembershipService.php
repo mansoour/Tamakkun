@@ -111,7 +111,8 @@ class SchoolMembershipService
     private function createUser(array $attributes, RoleName $role, UserStatus|string $status): User
     {
         $user = User::create($attributes);
-        $user->forceFill(['status' => UserStatus::PENDING])->save();
+        // The admin chose this password, so the user must replace it (see docs/security.md).
+        $user->forceFill(['status' => UserStatus::PENDING, 'must_change_password' => true])->save();
         $user->assignRole($role->value);
 
         $this->audit->record('user.created', $user, null, [
@@ -135,6 +136,9 @@ class SchoolMembershipService
     {
         if (blank($attributes['password'] ?? null)) {
             unset($attributes['password']);
+        } else {
+            // An admin-set password must be replaced by the user at next login.
+            $user->forceFill(['must_change_password' => true]);
         }
 
         $user->update($attributes);

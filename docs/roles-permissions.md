@@ -15,7 +15,7 @@ Tamakkun uses `spatie/laravel-permission`.
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
 | `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned` |
-| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import` |
+| `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
 ## Permissions
@@ -30,6 +30,7 @@ Tamakkun uses `spatie/laravel-permission`.
 | `students.view-all` | عرض جميع الطالبات | Policy `view` on any student |
 | `students.view-assigned` | عرض الطالبات المسندات | `/counselor/students`; Policy `view` only when `counselor_id` is the user |
 | `students.import` | استيراد الطالبات من ملف | `/admin/imports/students/*` |
+| `settings.manage` | إدارة إعدادات المنصة | `/admin/settings` |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).
 

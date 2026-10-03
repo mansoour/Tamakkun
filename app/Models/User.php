@@ -14,7 +14,7 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
- * `status` is deliberately not mass assignable: it changes only through
+ * `status` and `must_change_password` are deliberately not mass assignable: it changes only through
  * explicit code paths (seeders, factories and the future AccountActivation
  * service) so a request can never activate an account by itself.
  */
@@ -34,6 +34,7 @@ class User extends Authenticatable
     {
         return [
             'status' => UserStatus::class,
+            'must_change_password' => 'boolean',
             'last_login_at' => 'datetime',
             'email_verified_at' => 'datetime',
             'password' => 'hashed',

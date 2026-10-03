@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::view('/', 'welcome')->name('home');
 
-Route::middleware(['auth', 'active'])->group(function () {
+Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
     // Sends each user to the area their permissions allow.
     Route::get('/dashboard', DashboardRedirectController::class)->name('dashboard');
 
@@ -47,6 +47,11 @@ Route::middleware(['auth', 'active'])->group(function () {
                 Route::resource('students', Admin\StudentController::class)->except(['show', 'destroy']);
                 Route::resource('counselors', Admin\CounselorController::class)->except(['show', 'destroy']);
                 Route::patch('/users/{user}/status', Admin\UserStatusController::class)->name('users.status');
+            });
+
+            Route::middleware('can:'.PermissionName::MANAGE_SETTINGS->value)->group(function () {
+                Route::get('/settings', [Admin\SettingsController::class, 'edit'])->name('settings.edit');
+                Route::put('/settings', [Admin\SettingsController::class, 'update'])->name('settings.update');
             });
 
             Route::middleware('can:'.PermissionName::IMPORT_STUDENTS->value)->prefix('imports')->name('imports.')->group(function () {

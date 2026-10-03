@@ -19,6 +19,7 @@ enum PermissionName: string
     case VIEW_ALL_STUDENTS = 'students.view-all';
     case VIEW_ASSIGNED_STUDENTS = 'students.view-assigned';
     case IMPORT_STUDENTS = 'students.import';
+    case MANAGE_SETTINGS = 'settings.manage';
 
     public function label(): string
     {
@@ -31,6 +32,7 @@ enum PermissionName: string
             self::VIEW_ALL_STUDENTS => 'عرض جميع الطالبات',
             self::VIEW_ASSIGNED_STUDENTS => 'عرض الطالبات المسندات',
             self::IMPORT_STUDENTS => 'استيراد الطالبات من ملف',
+            self::MANAGE_SETTINGS => 'إدارة إعدادات المنصة',
         };
     }
 }

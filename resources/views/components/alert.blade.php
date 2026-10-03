@@ -14,7 +14,7 @@
     <x-icon :name="$icon" class="mt-0.5 h-5 w-5" />
     <div class="space-y-1">
         @if ($title)
-            <p class="font-semibold">{{ $title }}</p>
+            <p class="font-bold">{{ $title }}</p>
         @endif
         <div>{{ $slot }}</div>
     </div>

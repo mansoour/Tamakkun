@@ -11,8 +11,13 @@
         @apply bg-canvas font-sans text-ink antialiased;
     }
 
+    /* Alexandria 700/800 for headings; IBM Plex Sans Arabic 400/500/700 for body text. */
     h1, h2, h3, h4 {
-        @apply font-heading;
+        @apply font-heading font-bold;
+    }
+
+    h1 {
+        @apply font-extrabold;
     }
 
     :focus-visible {
@@ -26,7 +31,7 @@
     }
 
     .btn {
-        @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-semibold transition focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
+        @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-xl px-5 py-2.5 text-sm font-bold transition focus-visible:ring-2 focus-visible:ring-brand-600 focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-60;
     }
 
     .btn-primary {

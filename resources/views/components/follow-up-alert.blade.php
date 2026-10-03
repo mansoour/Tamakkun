@@ -4,7 +4,7 @@
     <div class="min-w-0">
         <div class="flex flex-wrap items-center gap-2">
             <x-badge :color="$alert->severity->color()">{{ $alert->severity->label() }}</x-badge>
-            <span class="font-heading text-sm font-semibold text-ink">{{ $alert->title }}</span>
+            <span class="font-heading text-sm font-bold text-ink">{{ $alert->title }}</span>
             @if ($alert->status !== \App\Enums\AlertStatus::OPEN)
                 <x-badge color="gray">{{ $alert->status->label() }}</x-badge>
             @endif

@@ -6,7 +6,7 @@
             <section class="card flex flex-col p-5" aria-labelledby="role-{{ $role->id }}">
                 <div class="flex items-start justify-between gap-3">
                     <div>
-                        <h2 id="role-{{ $role->id }}" class="font-heading text-lg font-semibold text-ink">{{ \App\Enums\RoleName::tryFrom($role->name)?->label() ?? $role->name }}</h2>
+                        <h2 id="role-{{ $role->id }}" class="font-heading text-lg font-bold text-ink">{{ \App\Enums\RoleName::tryFrom($role->name)?->label() ?? $role->name }}</h2>
                         <p class="mt-1 text-sm text-muted">{{ $role->users_count }} مستخدم · {{ $role->permissions->count() }} صلاحية</p>
                     </div>
                     <a href="{{ route('admin.roles.edit', $role) }}" class="btn-secondary">تعديل</a>

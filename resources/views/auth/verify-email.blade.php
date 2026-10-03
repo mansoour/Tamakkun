@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h1 class="text-2xl font-bold text-ink">تأكيد البريد الإلكتروني</h1>
+    <h1 class="text-2xl font-extrabold text-ink">تأكيد البريد الإلكتروني</h1>
     <p class="mt-2 text-sm leading-relaxed text-muted">
         أرسلنا رابط تأكيد إلى بريدك الإلكتروني. إن لم يصلك الرابط يمكنك طلب رابط جديد.
     </p>

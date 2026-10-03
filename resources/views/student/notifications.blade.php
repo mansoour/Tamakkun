@@ -22,7 +22,7 @@
                         </span>
                         <span class="min-w-0 flex-1">
                             <span class="flex items-center gap-2">
-                                <span class="font-heading text-sm font-semibold text-ink">{{ $notification->data['title'] ?? '' }}</span>
+                                <span class="font-heading text-sm font-bold text-ink">{{ $notification->data['title'] ?? '' }}</span>
                                 @if ($notification->read_at === null) <x-badge color="brand">جديد</x-badge> @endif
                             </span>
                             <span class="mt-1 block text-sm text-muted">{{ $notification->data['body'] ?? '' }}</span>

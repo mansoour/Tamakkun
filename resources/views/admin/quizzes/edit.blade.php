@@ -29,7 +29,7 @@
         @foreach ($questions as $i => $question)
             <fieldset class="card space-y-4 p-6" x-data="{ type: @js($question['question_type']) }"
                 x-show="{{ $i }} < count" :disabled="{{ $i }} >= count" @if ($i >= $visibleCount) disabled hidden @endif>
-                <legend class="font-heading font-semibold text-ink">السؤال {{ $i + 1 }}</legend>
+                <legend class="font-heading font-bold text-ink">السؤال {{ $i + 1 }}</legend>
                 <div class="max-w-xs">
                     <x-input-label :for="'q'.$i.'_type'" value="نوع السؤال" />
                     <select id="q{{ $i }}_type" name="questions[{{ $i }}][question_type]" x-model="type" class="{{ $field }} min-h-[44px]">

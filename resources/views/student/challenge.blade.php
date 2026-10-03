@@ -8,7 +8,7 @@
     @else
         <div class="mt-6 space-y-6">
             @if ($challenge->title)
-                <h2 class="text-lg font-semibold text-ink">{{ $challenge->title }}</h2>
+                <h2 class="text-lg font-bold text-ink">{{ $challenge->title }}</h2>
             @endif
 
             @foreach ($challenge->questions as $question)
@@ -21,7 +21,7 @@
                             <x-badge :color="$answer->is_correct ? 'success' : 'danger'">{{ $answer->is_correct ? 'إجابة صحيحة' : 'إجابة غير صحيحة' }}</x-badge>
                         @endif
                     </div>
-                    <h3 id="q-{{ $question->id }}" class="mt-3 whitespace-pre-line text-lg font-semibold leading-relaxed text-ink">{{ $question->prompt }}</h3>
+                    <h3 id="q-{{ $question->id }}" class="mt-3 whitespace-pre-line text-lg font-bold leading-relaxed text-ink">{{ $question->prompt }}</h3>
 
                     @if ($answer)
                         <ul class="mt-4 space-y-2">
@@ -40,7 +40,7 @@
                         </ul>
                         @if ($question->explanation)
                             <div class="mt-4 rounded-xl bg-brand-50 p-4 text-sm leading-relaxed text-ink">
-                                <p class="font-semibold text-brand-800">الشرح</p>
+                                <p class="font-bold text-brand-800">الشرح</p>
                                 <p class="mt-1 whitespace-pre-line">{{ $question->explanation }}</p>
                             </div>
                         @endif
@@ -66,7 +66,7 @@
 
     @if ($history->isNotEmpty())
         <section class="mt-8" aria-labelledby="history-title">
-            <h2 id="history-title" class="text-lg font-semibold text-ink">إجاباتك السابقة</h2>
+            <h2 id="history-title" class="text-lg font-bold text-ink">إجاباتك السابقة</h2>
             <ul class="card mt-3 divide-y divide-line">
                 @foreach ($history as $past)
                     <li class="flex items-center justify-between gap-3 p-4 text-sm">

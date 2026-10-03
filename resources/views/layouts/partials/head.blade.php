@@ -9,6 +9,6 @@
 <title>{{ isset($title) && $title ? $title.' — ' : '' }}{{ $platformName }}</title>
 
 <link rel="preconnect" href="https://fonts.bunny.net">
-<link href="https://fonts.bunny.net/css?family=alexandria:500,600,700|ibm-plex-sans-arabic:400,500,600,700&display=swap" rel="stylesheet">
+<link href="https://fonts.bunny.net/css?family=alexandria:700,800|ibm-plex-sans-arabic:400,500,700&display=swap" rel="stylesheet">
 
 @vite(['resources/css/app.css', 'resources/js/app.js'])

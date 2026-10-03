@@ -1,5 +1,5 @@
 <div class="flex min-h-0 flex-1 flex-col">
-    <p class="px-6 pb-2 pt-4 text-xs font-semibold text-muted">{{ $areaTitle }}</p>
+    <p class="px-6 pb-2 pt-4 text-xs font-bold text-muted">{{ $areaTitle }}</p>
 
     <nav class="flex-1 space-y-1 overflow-y-auto px-3 pb-4" aria-label="{{ $areaTitle }}">
         @foreach ($navigation as $item)
@@ -25,7 +25,7 @@
     </nav>
 
     <div class="border-t border-line p-4">
-        <p class="truncate text-sm font-semibold text-ink">{{ Auth::user()->name }}</p>
+        <p class="truncate text-sm font-bold text-ink">{{ Auth::user()->name }}</p>
         <p class="truncate text-xs text-muted" dir="ltr">{{ Auth::user()->username }}</p>
         <form method="POST" action="{{ route('logout') }}" class="mt-3">
             @csrf

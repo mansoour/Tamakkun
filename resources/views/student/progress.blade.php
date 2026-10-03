@@ -5,7 +5,7 @@
 
     <div class="mt-6 grid gap-6 lg:grid-cols-2">
         <section class="card space-y-5 p-6" aria-labelledby="sections-title">
-            <h2 id="sections-title" class="text-lg font-semibold text-ink">الإنجاز حسب القسم</h2>
+            <h2 id="sections-title" class="text-lg font-bold text-ink">الإنجاز حسب القسم</h2>
             @foreach ($summary['sections'] as $section)
                 <div>
                     <x-progress-bar :label="$section['label']" :percentage="$section['percentage']" />
@@ -24,7 +24,7 @@
         </section>
 
         <section class="space-y-3" aria-labelledby="continue-title">
-            <h2 id="continue-title" class="text-lg font-semibold text-ink">أكملي من حيث توقفتِ</h2>
+            <h2 id="continue-title" class="text-lg font-bold text-ink">أكملي من حيث توقفتِ</h2>
             @forelse ($inProgress as $content)
                 <x-content-card :content="$content" :status="\App\Enums\ProgressStatus::IN_PROGRESS" />
             @empty
@@ -34,7 +34,7 @@
     </div>
 
     <section class="mt-8" aria-labelledby="completed-title">
-        <h2 id="completed-title" class="text-lg font-semibold text-ink">آخر ما أنجزتِ</h2>
+        <h2 id="completed-title" class="text-lg font-bold text-ink">آخر ما أنجزتِ</h2>
         @if ($completed->isEmpty())
             <x-empty-state class="mt-3" icon="check-circle" title="لم تُسجّلي أي إنجاز بعد" description="اضغطي «أنجزت» بعد إنهاء الدرس أو المقطع." />
         @else
@@ -47,7 +47,7 @@
     </section>
     @if ($badges !== null)
         <section class="mt-8" aria-labelledby="badges-title">
-            <h2 id="badges-title" class="text-lg font-semibold text-ink">أوسمتي</h2>
+            <h2 id="badges-title" class="text-lg font-bold text-ink">أوسمتي</h2>
             <p class="mt-1 text-sm text-muted">أوسمة شخصية تظهر لكِ فقط.</p>
             <ul class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
                 @foreach ($badges as $badge)
@@ -55,7 +55,7 @@
                         <span @class(['inline-flex h-12 w-12 items-center justify-center rounded-full', 'bg-brand-gradient text-white' => $badge['earned'], 'bg-gray-100 text-muted' => ! $badge['earned']])>
                             <x-icon :name="$badge['icon']" class="h-6 w-6" />
                         </span>
-                        <span class="mt-2 font-heading text-sm font-semibold text-ink">{{ $badge['label'] }}</span>
+                        <span class="mt-2 font-heading text-sm font-bold text-ink">{{ $badge['label'] }}</span>
                         <span class="mt-1 text-xs text-muted">{{ $badge['description'] }}</span>
                         @if ($badge['earned'])
                             <span class="sr-only">تم الحصول عليه</span>

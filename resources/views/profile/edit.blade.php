@@ -1,9 +1,9 @@
 <x-app-layout title="حسابي">
-    <h1 class="text-2xl font-bold text-ink">حسابي</h1>
+    <h1 class="text-2xl font-extrabold text-ink">حسابي</h1>
 
     <div class="mt-6 grid gap-6 lg:grid-cols-2">
         <section class="card p-6" aria-labelledby="account-info-title">
-            <h2 id="account-info-title" class="text-lg font-semibold text-ink">بيانات الحساب</h2>
+            <h2 id="account-info-title" class="text-lg font-bold text-ink">بيانات الحساب</h2>
             <p class="mt-1 text-sm text-muted">تُدار هذه البيانات من قِبل المدرسة. لتعديلها تواصلي مع الإدارة.</p>
 
             <dl class="mt-6 divide-y divide-line text-sm">

@@ -24,7 +24,7 @@ The site is built website-first. A native mobile app may come later, so business
 | Tests | PHPUnit 12 on SQLite in memory |
 | Views | Blade (server-rendered), Alpine.js 3, Tailwind CSS 3 (`forms`, `typography`) |
 | Build | Vite 8 |
-| Fonts | Alexandria (headings), IBM Plex Sans Arabic (body) via Bunny Fonts |
+| Fonts | Alexandria 700/800 (headings and display), IBM Plex Sans Arabic 400/500/700 (body and UI) via Bunny Fonts |
 | Icons | Heroicons, SVG paths in `config/icons.php`, rendered with `<x-icon name="…" />` |
 | Auth / permissions | Laravel Breeze (Blade), `spatie/laravel-permission` |
 | Other | `spatie/laravel-backup`, `mpdf/mpdf`, `resend/resend-php`, `laravel-lang/lang` (Arabic), Laravel Boost, Pint, Pail |

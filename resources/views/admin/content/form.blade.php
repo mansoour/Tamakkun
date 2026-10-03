@@ -124,7 +124,7 @@
                         <x-form.checkbox name="remove_thumbnail" label="إزالة الصورة الحالية" />
                     @endif
                     <input id="thumbnail" name="thumbnail" type="file" accept="image/jpeg,image/png,image/webp"
-                        class="block w-full rounded-xl border border-line bg-white text-sm file:me-3 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-semibold file:text-brand-800">
+                        class="block w-full rounded-xl border border-line bg-white text-sm file:me-3 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-bold file:text-brand-800">
                     <p class="mt-1.5 text-xs text-muted">تُحوَّل تلقائيًا إلى WebP.</p>
                     <x-input-error :messages="$errors->get('thumbnail')" />
                 </div>

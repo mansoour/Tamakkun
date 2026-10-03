@@ -19,7 +19,7 @@
 
         @foreach ($questions as $i => $question)
             <fieldset class="card space-y-4 p-6" x-data="{ type: @js($question['question_type']) }">
-                <legend class="font-heading font-semibold text-ink">السؤال {{ $i + 1 }}</legend>
+                <legend class="font-heading font-bold text-ink">السؤال {{ $i + 1 }}</legend>
                 <div class="grid gap-4 sm:grid-cols-2">
                     <x-form.select :name="'questions['.$i.'][section]'" :id="'q'.$i.'_section'" label="القسم" :value="$question['section']"
                         :options="collect($sections)->mapWithKeys(fn ($s) => [$s->value => $s->label()])" />

@@ -1,5 +1,5 @@
 <section aria-labelledby="update-password-title">
-    <h2 id="update-password-title" class="text-lg font-semibold text-ink">تغيير كلمة المرور</h2>
+    <h2 id="update-password-title" class="text-lg font-bold text-ink">تغيير كلمة المرور</h2>
     <p class="mt-1 text-sm text-muted">استخدمي كلمة مرور طويلة يصعب تخمينها للحفاظ على أمان حسابك.</p>
 
     @if (session('status') === 'password-updated')

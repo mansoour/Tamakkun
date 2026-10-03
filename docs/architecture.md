@@ -110,7 +110,10 @@ The design language comes from the approved mockup: purple gradient, lavender ba
 | Border | `line` / `brand-200` | `#E9E2F2` |
 
 - **Contrast:** the brief's muted `#77717F` reaches only 4.33:1 on the lavender background, below WCAG AA. It was darkened to `#6B6574` (5.16:1). Primary `#7458B5` has 5.5:1 against white.
-- **Fonts:** headings use Alexandria (`font-heading`), body text uses IBM Plex Sans Arabic (`font-sans`), both loaded from Bunny Fonts. PDFs will use fonts bundled in `resources/fonts` and never Bunny Fonts.
+- **Fonts:** both are loaded from Bunny Fonts with only these weights:
+  - Headings and display text use Alexandria (`font-heading`) at **700** (`font-bold`). Page titles (`h1`) use **800** (`font-extrabold`). Alexandria is the Arabic counterpart to Unbounded, with the same bold geometric energy.
+  - Body and UI text use IBM Plex Sans Arabic (`font-sans`) at **400** (normal), **500** (`font-medium`) and **700** (`font-bold`).
+  - Do not use `font-semibold` (600), `font-light` or other weights: they are not loaded. PDFs use the IBM Plex Sans Arabic files bundled in `resources/fonts` (Regular and Bold), never Bunny Fonts.
 - **Helpers** (`resources/css/app.css`): `.card`, `.btn-primary`, `.btn-secondary`, `.btn-ghost`. Buttons are at least 44px tall for touch.
 - **RTL:** every page uses `<html lang="ar" dir="rtl">`. Use logical classes (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`, `border-e`). Usernames and emails are shown with `dir="ltr"`.
 

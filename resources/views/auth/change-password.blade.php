@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h1 class="text-2xl font-bold text-ink">تغيير كلمة المرور</h1>
+    <h1 class="text-2xl font-extrabold text-ink">تغيير كلمة المرور</h1>
     <p class="mt-2 text-sm leading-relaxed text-muted">
         كلمة المرور الحالية حدّدتها إدارة المدرسة. لحماية حسابك اختاري كلمة مرور جديدة قبل المتابعة.
     </p>

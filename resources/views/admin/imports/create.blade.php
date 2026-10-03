@@ -7,7 +7,7 @@
             <div>
                 <x-input-label for="file" value="ملف الطالبات (CSV بترميز UTF-8، حتى 2 ميجابايت)" />
                 <input id="file" name="file" type="file" accept=".csv,text/csv" required
-                    class="block w-full rounded-xl border border-line bg-white text-sm text-ink file:me-4 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-semibold file:text-brand-800">
+                    class="block w-full rounded-xl border border-line bg-white text-sm text-ink file:me-4 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-bold file:text-brand-800">
                 <x-input-error :messages="$errors->get('file')" />
             </div>
             <div class="flex flex-wrap gap-2">
@@ -17,7 +17,7 @@
         </form>
 
         <section class="card h-fit space-y-3 p-6 text-sm" aria-labelledby="columns-title">
-            <h2 id="columns-title" class="font-heading font-semibold text-ink">أعمدة الملف</h2>
+            <h2 id="columns-title" class="font-heading font-bold text-ink">أعمدة الملف</h2>
             <ul class="space-y-2">
                 @foreach ($columns as $column => $aliases)
                     <li class="flex flex-wrap items-center gap-2">
@@ -36,7 +36,7 @@
 
     @if ($recent->isNotEmpty())
         <section class="mt-8" aria-labelledby="recent-title">
-            <h2 id="recent-title" class="text-lg font-semibold text-ink">آخر عمليات الاستيراد</h2>
+            <h2 id="recent-title" class="text-lg font-bold text-ink">آخر عمليات الاستيراد</h2>
             <x-table class="mt-4">
                 <x-slot:head>
                     <th scope="col" class="px-4 py-3 text-start">الملف</th>

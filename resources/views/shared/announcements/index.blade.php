@@ -10,7 +10,7 @@
             <article class="card flex flex-col gap-3 p-4 sm:flex-row sm:items-start sm:justify-between">
                 <div class="min-w-0">
                     <div class="flex flex-wrap items-center gap-2">
-                        <h2 class="font-heading font-semibold text-ink">{{ $announcement->title }}</h2>
+                        <h2 class="font-heading font-bold text-ink">{{ $announcement->title }}</h2>
                         <x-badge>{{ $announcement->audience->label() }}</x-badge>
                         @if (! $announcement->is_published)
                             <x-badge color="gray">مسحوب</x-badge>

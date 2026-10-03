@@ -2,7 +2,7 @@
     <x-page-header title="الاختبارات القادمة" />
 
     <section class="mt-6" aria-labelledby="upcoming-title">
-        <h2 id="upcoming-title" class="text-lg font-semibold text-ink">اختبارات محجوزة</h2>
+        <h2 id="upcoming-title" class="text-lg font-bold text-ink">اختبارات محجوزة</h2>
         @if ($upcoming->isEmpty())
             <x-empty-state class="mt-3" icon="calendar-days" title="لا توجد اختبارات محجوزة قادمة" />
         @else
@@ -28,7 +28,7 @@
     </section>
 
     <section class="mt-8" aria-labelledby="not-booked-title">
-        <h2 id="not-booked-title" class="text-lg font-semibold text-ink">لم يحجزن ({{ $notBooked->count() }})</h2>
+        <h2 id="not-booked-title" class="text-lg font-bold text-ink">لم يحجزن ({{ $notBooked->count() }})</h2>
         @if ($notBooked->isEmpty())
             <x-empty-state class="mt-3" icon="check-circle" title="كل الطالبات حجزن اختبارًا واحدًا على الأقل" />
         @else

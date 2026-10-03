@@ -30,7 +30,7 @@
             </div>
 
             <div class="flex flex-wrap items-start justify-between gap-3">
-                <h1 class="text-2xl font-bold text-ink">{{ $content->title }}</h1>
+                <h1 class="text-2xl font-extrabold text-ink">{{ $content->title }}</h1>
                 <form method="POST" action="{{ route('student.content.favorite', $content) }}">
                     @csrf
                     <button type="submit" class="btn-secondary min-h-[40px] px-3" aria-pressed="{{ $isFavorite ? 'true' : 'false' }}">
@@ -65,7 +65,7 @@
                     <section id="quiz-result" class="space-y-4 rounded-xl border border-line p-4" aria-labelledby="quiz-result-title">
                         <div class="flex flex-wrap items-center justify-between gap-3">
                             <div>
-                                <h2 id="quiz-result-title" class="font-heading text-lg font-semibold text-ink">نتيجة آخر محاولة</h2>
+                                <h2 id="quiz-result-title" class="font-heading text-lg font-bold text-ink">نتيجة آخر محاولة</h2>
                                 <p class="mt-1 text-sm text-muted">
                                     {{ $lastAttempt->correct_count }} من {{ $lastAttempt->question_count }}
                                     · أفضل نتيجة: <bdi>{{ $bestPercentage }}%</bdi>
@@ -104,7 +104,7 @@
                 @endif
 
                 <section class="space-y-4" aria-labelledby="quiz-title">
-                    <h2 id="quiz-title" class="font-heading text-lg font-semibold text-ink">
+                    <h2 id="quiz-title" class="font-heading text-lg font-bold text-ink">
                         {{ $lastAttempt ? 'أعيدي المحاولة' : 'أسئلة الاختبار' }}
                         <span class="text-sm font-normal text-muted">({{ $quiz->questions->count() }} أسئلة)</span>
                     </h2>

@@ -11,7 +11,7 @@
                         <x-icon name="beaker" class="h-6 w-6" />
                     </span>
                     <span class="flex-1">
-                        <span class="block font-heading font-semibold text-ink">{{ $subject->name }}</span>
+                        <span class="block font-heading font-bold text-ink">{{ $subject->name }}</span>
                         <span class="text-sm text-muted">{{ $subject->contents_count }} عنصر منشور</span>
                     </span>
                     <x-icon name="chevron-left" class="h-5 w-5 text-muted" />

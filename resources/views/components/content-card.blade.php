@@ -9,7 +9,7 @@
         </span>
     @endif
     <span class="min-w-0 flex-1">
-        <span class="block font-heading text-sm font-semibold text-ink group-hover:text-brand-800">{{ $content->title }}</span>
+        <span class="block font-heading text-sm font-bold text-ink group-hover:text-brand-800">{{ $content->title }}</span>
         @if ($content->description)
             <span class="mt-1 line-clamp-2 block text-xs leading-relaxed text-muted">{{ $content->description }}</span>
         @endif

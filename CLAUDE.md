@@ -14,6 +14,7 @@ Tamakkun is an Arabic-first, RTL, responsive Laravel website for Grade 12 female
 - PHP 8.3, Laravel 13, MariaDB/MySQL (SQLite in-memory for tests).
 - Server-rendered Blade + Alpine.js 3 + Tailwind CSS 3 (+ forms, typography) built with Vite 8. No React, Vue or SPA routing.
 - Icons: Heroicons paths in `config/icons.php`, rendered with `<x-icon name="..." />`. No emoji icons.
+- Fonts: Alexandria 700/800 for headings (`font-heading`; `h1` uses 800), IBM Plex Sans Arabic 400/500/700 for body. Never use `font-semibold` or other weights that are not loaded.
 - Every page is `<html lang="ar" dir="rtl">`. Use logical Tailwind classes (`ms-`, `me-`, `ps-`, `pe-`, `start-`, `end-`), never `ml-`/`mr-`/`left-`/`right-` unless unavoidable.
 
 ## Architecture

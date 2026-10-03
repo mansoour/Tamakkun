@@ -16,7 +16,7 @@
     @foreach ($summary as $exam)
         <section class="mt-8" aria-labelledby="attempts-{{ $exam['type']->value }}">
             <div class="flex items-center justify-between gap-3">
-                <h2 id="attempts-{{ $exam['type']->value }}" class="text-lg font-semibold text-ink">محاولات {{ $exam['type']->label() }}</h2>
+                <h2 id="attempts-{{ $exam['type']->value }}" class="text-lg font-bold text-ink">محاولات {{ $exam['type']->label() }}</h2>
                 <a href="{{ route('student.exams.create', ['type' => $exam['type']->value]) }}" class="btn-ghost min-h-[40px] px-3">إضافة محاولة</a>
             </div>
 
@@ -37,7 +37,7 @@
                             <td class="px-4 py-3 font-medium">{{ $attempt->attempt_number }}</td>
                             <td class="px-4 py-3"><x-badge :color="$attempt->booking_status->color()">{{ $attempt->booking_status->label() }}</x-badge></td>
                             <td class="whitespace-nowrap px-4 py-3" dir="ltr">{{ $attempt->exam_date?->format('Y-m-d') ?? '—' }}</td>
-                            <td class="px-4 py-3 font-semibold">{{ $attempt->score ?? '—' }}</td>
+                            <td class="px-4 py-3 font-bold">{{ $attempt->score ?? '—' }}</td>
                             <td class="px-4 py-3">{{ $attempt->target_score ?? '—' }}</td>
                             <td class="px-4 py-3">
                                 <div class="flex justify-end gap-1">

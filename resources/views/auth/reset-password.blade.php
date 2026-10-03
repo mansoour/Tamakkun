@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h1 class="text-2xl font-bold text-ink">تعيين كلمة مرور جديدة</h1>
+    <h1 class="text-2xl font-extrabold text-ink">تعيين كلمة مرور جديدة</h1>
 
     <form method="POST" action="{{ route('password.store') }}" class="mt-6 space-y-5">
         @csrf

@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <h1 class="text-2xl font-bold text-ink">استعادة كلمة المرور</h1>
+    <h1 class="text-2xl font-extrabold text-ink">استعادة كلمة المرور</h1>
     <p class="mt-2 text-sm leading-relaxed text-muted">
         أدخلي البريد الإلكتروني المسجّل في حسابك وسنرسل لك رابطًا لتعيين كلمة مرور جديدة.
         إن لم يكن لحسابك بريد إلكتروني فتواصلي مع الموجهة الطلابية لإعادة تعيين كلمة المرور.

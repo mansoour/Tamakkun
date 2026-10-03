@@ -25,7 +25,7 @@
                 <img src="{{ $motivation->imageUrl() }}" alt="الصورة الحالية" class="mb-2 h-24 rounded-xl object-cover">
                 <x-form.checkbox name="remove_image" label="إزالة الصورة الحالية" />
             @endif
-            <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" class="block w-full rounded-xl border border-line bg-white text-sm file:me-3 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-semibold file:text-brand-800">
+            <input id="image" name="image" type="file" accept="image/jpeg,image/png,image/webp" class="block w-full rounded-xl border border-line bg-white text-sm file:me-3 file:min-h-[44px] file:border-0 file:bg-brand-100 file:px-4 file:font-bold file:text-brand-800">
             <x-input-error :messages="$errors->get('image')" />
         </div>
         <x-form.input name="publish_date" type="date" label="تاريخ العرض (اختياري)" :value="$motivation->publish_date?->format('Y-m-d')" hint="اتركيه فارغًا ليدخل في التناوب اليومي." />

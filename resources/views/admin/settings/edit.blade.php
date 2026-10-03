@@ -6,7 +6,7 @@
         @method('PUT')
 
         <section aria-labelledby="general-title" class="space-y-4">
-            <h2 id="general-title" class="font-heading text-lg font-semibold text-ink">عام</h2>
+            <h2 id="general-title" class="font-heading text-lg font-bold text-ink">عام</h2>
             <div class="grid gap-4 sm:grid-cols-2">
                 <x-form.input name="platform_name" label="اسم المنصة" maxlength="40" required :value="$settings['platform_name']"
                     hint="يظهر في الشعار وعنوان الصفحات." />
@@ -16,14 +16,14 @@
         </section>
 
         <section aria-labelledby="security-title" class="space-y-3 border-t border-line pt-6">
-            <h2 id="security-title" class="font-heading text-lg font-semibold text-ink">الأمان</h2>
+            <h2 id="security-title" class="font-heading text-lg font-bold text-ink">الأمان</h2>
             <x-form.checkbox name="force_password_change" label="إلزام تغيير كلمة المرور عند أول دخول"
                 :checked="$settings['force_password_change']"
                 hint="عند التفعيل: كل حساب حدّدت الإدارة كلمة مروره (عند الإنشاء أو الاستيراد أو إعادة التعيين) يُطلب منه اختيار كلمة مرور جديدة قبل استخدام المنصة." />
         </section>
 
         <section aria-labelledby="progress-title" class="space-y-4 border-t border-line pt-6">
-            <h2 id="progress-title" class="font-heading text-lg font-semibold text-ink">التقدّم والدرجات</h2>
+            <h2 id="progress-title" class="font-heading text-lg font-bold text-ink">التقدّم والدرجات</h2>
             <div class="grid gap-4 sm:grid-cols-2">
                 <x-form.input name="weekly_content_goal" type="number" min="1" max="50" required label="هدف الإنجاز الأسبوعي (عدد الدروس والمقاطع)"
                     :value="$settings['weekly_content_goal']" hint="يُستخدم لحساب نسبة الأسبوع في لوحة الطالبة وصفحة تقدّمي." />
@@ -35,7 +35,7 @@
         </section>
 
         <section aria-labelledby="alerts-title" class="space-y-4 border-t border-line pt-6">
-            <h2 id="alerts-title" class="font-heading text-lg font-semibold text-ink">التنبيهات الذكية</h2>
+            <h2 id="alerts-title" class="font-heading text-lg font-bold text-ink">التنبيهات الذكية</h2>
             <p class="text-sm text-muted">تُطبّق القيم الجديدة في التحديث اليومي التالي للتنبيهات.</p>
             <div class="grid gap-4 sm:grid-cols-3">
                 <x-form.input name="inactivity_days" type="number" min="1" max="60" required label="أيام عدم النشاط"
@@ -48,13 +48,13 @@
         </section>
 
         <section aria-labelledby="email-title" class="space-y-3 border-t border-line pt-6">
-            <h2 id="email-title" class="font-heading text-lg font-semibold text-ink">البريد</h2>
+            <h2 id="email-title" class="font-heading text-lg font-bold text-ink">البريد</h2>
             <x-form.checkbox name="email_notifications" label="إرسال الإشعارات بالبريد أيضًا" :checked="$settings['email_notifications']"
                 hint="يُرسل البريد فقط لمن لديها بريد إلكتروني في حسابها. الإشعارات داخل المنصة تُرسل دائمًا." />
         </section>
 
         <section aria-labelledby="support-title" class="space-y-4 border-t border-line pt-6">
-            <h2 id="support-title" class="font-heading text-lg font-semibold text-ink">التواصل</h2>
+            <h2 id="support-title" class="font-heading text-lg font-bold text-ink">التواصل</h2>
             <div class="grid gap-4 sm:grid-cols-2">
                 <x-form.input name="support_email" type="email" dir="ltr" label="بريد الدعم" :value="$settings['support_email']"
                     hint="يظهر في صفحة عن المنصة وأسفل الصفحات العامة. اتركيه فارغًا لإخفائه." />
@@ -64,7 +64,7 @@
         </section>
 
         <section aria-labelledby="pages-title" class="space-y-4 border-t border-line pt-6">
-            <h2 id="pages-title" class="font-heading text-lg font-semibold text-ink">الصفحات العامة</h2>
+            <h2 id="pages-title" class="font-heading text-lg font-bold text-ink">الصفحات العامة</h2>
             <p class="text-sm text-muted">نص عادي؛ يفصل السطر الفارغ بين الفقرات. الصفحة التي لا نص لها ولا رابط تظهر بعبارة «قريبًا» ولا تظهر في الروابط السفلية.</p>
             <x-form.textarea name="about_text" label="نص صفحة «عن المنصة»" rows="5" maxlength="20000" :value="$settings['about_text']"
                 hint="إذا تُرك فارغًا يظهر الوصف العام للمنصة." />

@@ -2,9 +2,9 @@
     <section class="overflow-hidden rounded-[2rem] bg-brand-gradient px-6 py-14 text-white shadow-card sm:px-12 sm:py-20">
         <div class="max-w-2xl">
             @if ($platformTagline)
-                <h1 class="text-3xl font-bold leading-snug sm:text-5xl sm:leading-tight">{{ $platformTagline }}</h1>
+                <h1 class="text-3xl font-extrabold leading-snug sm:text-5xl sm:leading-tight">{{ $platformTagline }}</h1>
             @else
-                <h1 class="text-3xl font-bold leading-snug sm:text-5xl sm:leading-tight">{{ $platformName }}</h1>
+                <h1 class="text-3xl font-extrabold leading-snug sm:text-5xl sm:leading-tight">{{ $platformName }}</h1>
             @endif
             <p class="mt-4 text-lg text-white/90">استعداد • تدريب • متابعة • إنجاز</p>
             <p class="mt-6 max-w-xl leading-relaxed text-white/90">
@@ -31,7 +31,7 @@
                 <span class="inline-flex h-11 w-11 items-center justify-center rounded-xl bg-brand-100 text-brand-700">
                     <x-icon :name="$feature['icon']" class="h-6 w-6" />
                 </span>
-                <h2 class="mt-4 text-lg font-semibold text-ink">{{ $feature['title'] }}</h2>
+                <h2 class="mt-4 text-lg font-bold text-ink">{{ $feature['title'] }}</h2>
                 <p class="mt-2 text-sm leading-relaxed text-muted">{{ $feature['text'] }}</p>
             </div>
         @endforeach

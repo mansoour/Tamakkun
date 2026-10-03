@@ -1,6 +1,6 @@
 <x-public-layout title="عن المنصة">
     <article class="card mx-auto max-w-3xl p-6 sm:p-10">
-        <h1 class="font-heading text-2xl font-bold text-ink sm:text-3xl">عن {{ $platformName }}</h1>
+        <h1 class="font-heading text-2xl font-extrabold text-ink sm:text-3xl">عن {{ $platformName }}</h1>
 
         <div class="mt-6 space-y-4 leading-loose text-ink">
             @forelse ($paragraphs as $paragraph)
@@ -20,7 +20,7 @@
 
         @if ($support['email'] || $support['phone'])
             <section aria-labelledby="contact-title" class="mt-8 border-t border-line pt-6">
-                <h2 id="contact-title" class="font-heading text-lg font-semibold text-ink">التواصل</h2>
+                <h2 id="contact-title" class="font-heading text-lg font-bold text-ink">التواصل</h2>
                 <ul class="mt-3 space-y-2 text-sm">
                     @if ($support['email'])
                         <li class="flex items-center gap-2">

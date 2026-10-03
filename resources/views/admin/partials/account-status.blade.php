@@ -1,5 +1,5 @@
 <section class="card h-fit space-y-4 p-6" aria-labelledby="account-status-title">
-    <h2 id="account-status-title" class="font-heading font-semibold text-ink">حالة الحساب</h2>
+    <h2 id="account-status-title" class="font-heading font-bold text-ink">حالة الحساب</h2>
     <p class="text-sm text-muted">
         الحالة الحالية: <x-badge :color="$user->status->color()">{{ $user->status->label() }}</x-badge>
     </p>

@@ -2,6 +2,11 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [Unreleased]
+
+### Changed
+- Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
+
 ## [v0.9.0] — 2026-10-12 — Completion and polish
 
 ### Added

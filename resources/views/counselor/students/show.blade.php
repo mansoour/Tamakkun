@@ -15,7 +15,7 @@
     <section class="card p-6">
         <div class="flex flex-wrap items-start justify-between gap-3">
             <div>
-                <h1 class="text-2xl font-bold text-ink">{{ $student->user->name }}</h1>
+                <h1 class="text-2xl font-extrabold text-ink">{{ $student->user->name }}</h1>
                 <p class="mt-1 text-sm text-muted">{{ $student->classroom?->label() ?? 'بدون فصل' }} · <span dir="ltr">{{ $student->student_code }}</span></p>
             </div>
             <x-student-status-badge :status="$student->follow_up_status" />
@@ -41,7 +41,7 @@
                     <a href="#{{ $key }}" role="tab" id="tab-{{ $key }}" aria-controls="panel-{{ $key }}"
                         :aria-selected="(tab === '{{ $key }}').toString()"
                         :class="tab === '{{ $key }}' ? 'bg-surface text-brand-800 shadow-sm' : 'text-muted hover:text-ink'"
-                        class="inline-flex min-h-[40px] items-center gap-1 rounded-lg px-3 text-sm font-semibold transition">
+                        class="inline-flex min-h-[40px] items-center gap-1 rounded-lg px-3 text-sm font-bold transition">
                         {{ $label }}
                         @if ($key === 'alerts' && $openAlerts->isNotEmpty()) <x-badge color="danger">{{ $openAlerts->count() }}</x-badge> @endif
                         @if ($key === 'notes' && $notes->isNotEmpty()) <x-badge color="gray">{{ $notes->count() }}</x-badge> @endif
@@ -87,7 +87,7 @@
         <section id="panel-exams" role="tabpanel" aria-labelledby="tab-exams" x-show="tab === 'exams'" x-cloak class="mt-6 space-y-6">
             @foreach ($exams as $exam)
                 <div>
-                    <h2 class="font-heading font-semibold text-ink">{{ $exam['type']->label() }}</h2>
+                    <h2 class="font-heading font-bold text-ink">{{ $exam['type']->label() }}</h2>
                     @if ($exam['attempts']->isEmpty())
                         <p class="mt-2 text-sm text-muted">لا توجد محاولات مسجّلة.</p>
                     @else
@@ -104,7 +104,7 @@
                                     <td class="px-4 py-3">{{ $attempt->attempt_number }}</td>
                                     <td class="px-4 py-3"><x-badge :color="$attempt->booking_status->color()">{{ $attempt->booking_status->label() }}</x-badge></td>
                                     <td class="whitespace-nowrap px-4 py-3" dir="ltr">{{ $attempt->exam_date?->format('Y-m-d') ?? '—' }}</td>
-                                    <td class="px-4 py-3 font-semibold">{{ $attempt->score ?? '—' }}</td>
+                                    <td class="px-4 py-3 font-bold">{{ $attempt->score ?? '—' }}</td>
                                     <td class="px-4 py-3">{{ $attempt->target_score ?? '—' }}</td>
                                 </tr>
                             @endforeach
@@ -141,7 +141,7 @@
         <section id="panel-content" role="tabpanel" aria-labelledby="tab-content" x-show="tab === 'content'" x-cloak class="mt-6 grid gap-6 lg:grid-cols-2">
             @foreach (['قيد التقدم' => $inProgress, 'مكتمل' => $completed] as $heading => $items)
                 <div>
-                    <h2 class="font-heading font-semibold text-ink">{{ $heading }}</h2>
+                    <h2 class="font-heading font-bold text-ink">{{ $heading }}</h2>
                     @if ($items->isEmpty())
                         <p class="mt-2 text-sm text-muted">لا يوجد.</p>
                     @else
@@ -158,7 +158,7 @@
             @endforeach
 
             <div class="lg:col-span-2">
-                <h2 class="font-heading font-semibold text-ink">الاختبارات القصيرة</h2>
+                <h2 class="font-heading font-bold text-ink">الاختبارات القصيرة</h2>
                 @if ($quizAttempts->isEmpty())
                     <p class="mt-2 text-sm text-muted">لم تحلّ الطالبة أي اختبار قصير بعد.</p>
                 @else

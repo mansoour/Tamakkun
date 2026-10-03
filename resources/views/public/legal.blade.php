@@ -1,6 +1,6 @@
 <x-public-layout :title="$page['title']">
     <article class="card mx-auto max-w-3xl p-6 sm:p-10">
-        <h1 class="font-heading text-2xl font-bold text-ink sm:text-3xl">{{ $page['title'] }}</h1>
+        <h1 class="font-heading text-2xl font-extrabold text-ink sm:text-3xl">{{ $page['title'] }}</h1>
 
         @if ($page['paragraphs'] === [] && ! $page['url'])
             <p class="mt-6 flex items-center gap-2 text-muted">

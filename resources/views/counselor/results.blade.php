@@ -19,13 +19,13 @@
                     @php($improvement = $row['qudurat']['improvement'])
                     <tr>
                         <td class="px-4 py-3"><a href="{{ route('counselor.students.show', $row['profile']) }}" class="font-medium text-brand-700 underline-offset-4 hover:underline">{{ $row['name'] }}</a></td>
-                        <td class="px-4 py-3 font-semibold">{{ $row['qudurat']['latest'] ?? '—' }}</td>
+                        <td class="px-4 py-3 font-bold">{{ $row['qudurat']['latest'] ?? '—' }}</td>
                         <td class="px-4 py-3">{{ $row['qudurat']['best'] ?? '—' }}</td>
                         <td @class(['px-4 py-3 font-medium', 'text-emerald-700' => $improvement > 0, 'text-red-700' => $improvement < 0])>
                             <bdi>{{ $improvement === null ? '—' : ($improvement > 0 ? '+' : '').$improvement }}</bdi>
                         </td>
                         <td class="px-4 py-3">{{ $row['qudurat']['target'] }}</td>
-                        <td class="px-4 py-3 font-semibold">{{ $row['tahsili']['latest'] ?? '—' }}</td>
+                        <td class="px-4 py-3 font-bold">{{ $row['tahsili']['latest'] ?? '—' }}</td>
                         <td class="px-4 py-3">{{ $row['tahsili']['best'] ?? '—' }}</td>
                     </tr>
                 @endforeach

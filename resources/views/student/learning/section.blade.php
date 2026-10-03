@@ -24,7 +24,7 @@
                 @continue($items->isEmpty())
                 <section aria-labelledby="cat-{{ $category->id }}">
                     <div class="flex items-baseline justify-between gap-3">
-                        <h2 id="cat-{{ $category->id }}" class="text-lg font-semibold text-ink">{{ $category->name }}</h2>
+                        <h2 id="cat-{{ $category->id }}" class="text-lg font-bold text-ink">{{ $category->name }}</h2>
                         <span class="text-sm text-muted">{{ $items->count() }} عنصر</span>
                     </div>
                     @if ($category->description)

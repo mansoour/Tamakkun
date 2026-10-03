@@ -27,7 +27,7 @@
                 <span dir="ltr">{{ $row['last_activity']?->format('Y-m-d') ?? '—' }}</span>
                 @if ($row['inactive']) <x-badge color="warning">غير نشطة</x-badge> @endif
             </td>
-            <td class="px-3 py-3 font-semibold">{{ $row['qudurat']['latest'] ?? '—' }}</td>
+            <td class="px-3 py-3 font-bold">{{ $row['qudurat']['latest'] ?? '—' }}</td>
             <td class="px-3 py-3">{{ $row['qudurat']['best'] ?? '—' }}</td>
             <td class="px-3 py-3">{{ $row['qudurat']['target'] }}</td>
             <td class="px-3 py-3">{{ $row['tahsili']['latest'] ?? '—' }}</td>

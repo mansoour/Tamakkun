@@ -6,7 +6,7 @@
     <div class="relative overflow-x-auto" tabindex="0" @if ($label) role="region" aria-label="{{ $label }}" @endif>
         <table class="min-w-full divide-y divide-line text-sm">
             @isset($head)
-                <thead class="bg-brand-50 text-start text-xs font-semibold text-muted">
+                <thead class="bg-brand-50 text-start text-xs font-bold text-muted">
                     <tr>{{ $head }}</tr>
                 </thead>
             @endisset

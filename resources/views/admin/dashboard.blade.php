@@ -1,5 +1,5 @@
 <x-app-layout area="admin" title="لوحة الإدارة">
-    <h1 class="text-2xl font-bold text-ink">لوحة الإدارة</h1>
+    <h1 class="text-2xl font-extrabold text-ink">لوحة الإدارة</h1>
     <p class="mt-1 text-muted">مرحبًا {{ Auth::user()->name }}</p>
 
     <section class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3" aria-label="ملخص">

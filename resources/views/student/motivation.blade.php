@@ -23,12 +23,12 @@
 
     @if ($recent->isNotEmpty())
         <section class="mt-8" aria-labelledby="recent-title">
-            <h2 id="recent-title" class="text-lg font-semibold text-ink">دفعات سابقة</h2>
+            <h2 id="recent-title" class="text-lg font-bold text-ink">دفعات سابقة</h2>
             <div class="mt-3 grid gap-3 md:grid-cols-2">
                 @foreach ($recent as $item)
                     <article class="card p-4">
                         <x-badge color="gray">{{ $item->media_type->label() }}</x-badge>
-                        <h3 class="mt-2 font-heading font-semibold text-ink">{{ $item->title }}</h3>
+                        <h3 class="mt-2 font-heading font-bold text-ink">{{ $item->title }}</h3>
                         <p class="mt-1 line-clamp-3 whitespace-pre-line text-sm text-muted">{{ $item->content }}</p>
                     </article>
                 @endforeach

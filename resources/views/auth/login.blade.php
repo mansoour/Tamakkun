@@ -1,15 +1,15 @@
 <x-guest-layout>
     <div x-data="{ audience: @js(request('as') === 'counselor' ? 'counselor' : 'student') }">
-        <h1 class="text-2xl font-bold text-ink">تسجيل الدخول</h1>
+        <h1 class="text-2xl font-extrabold text-ink">تسجيل الدخول</h1>
         <p class="mt-1 text-sm text-muted">أهلًا بكِ في تمكّن. اختاري نوع الحساب ثم أدخلي بياناتك.</p>
 
         <div class="mt-6 grid grid-cols-2 gap-1 rounded-xl bg-brand-50 p-1" role="radiogroup" aria-label="نوع الحساب">
             <button type="button" role="radio" x-on:click="audience = 'student'" :aria-checked="(audience === 'student').toString()"
                 :class="audience === 'student' ? 'bg-surface text-brand-800 shadow-sm' : 'text-muted'"
-                class="min-h-[44px] rounded-lg px-2 text-[13px] font-semibold transition sm:text-sm">دخول الطالبة</button>
+                class="min-h-[44px] rounded-lg px-2 text-[13px] font-bold transition sm:text-sm">دخول الطالبة</button>
             <button type="button" role="radio" x-on:click="audience = 'counselor'" :aria-checked="(audience === 'counselor').toString()"
                 :class="audience === 'counselor' ? 'bg-surface text-brand-800 shadow-sm' : 'text-muted'"
-                class="min-h-[44px] rounded-lg px-2 text-[13px] font-semibold transition sm:text-sm">دخول الموجهة الطلابية</button>
+                class="min-h-[44px] rounded-lg px-2 text-[13px] font-bold transition sm:text-sm">دخول الموجهة الطلابية</button>
         </div>
 
         <x-auth-session-status class="mt-6" :status="session('status')" />

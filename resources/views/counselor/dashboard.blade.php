@@ -1,5 +1,5 @@
 <x-app-layout area="counselor" title="لوحة الموجهة الطلابية">
-    <h1 class="text-2xl font-bold text-ink">لوحة الموجهة الطلابية</h1>
+    <h1 class="text-2xl font-extrabold text-ink">لوحة الموجهة الطلابية</h1>
     <p class="mt-1 text-muted">مرحبًا {{ Auth::user()->name }}</p>
 
     <section class="mt-6 grid grid-cols-2 gap-4 lg:grid-cols-4" aria-label="مؤشرات">
@@ -15,7 +15,7 @@
     <div class="mt-8 grid gap-6 lg:grid-cols-2">
         <section aria-labelledby="attention-title">
             <div class="flex items-center justify-between">
-                <h2 id="attention-title" class="text-lg font-semibold text-ink">تحتاج متابعة</h2>
+                <h2 id="attention-title" class="text-lg font-bold text-ink">تحتاج متابعة</h2>
                 <a href="{{ route('counselor.follow-up') }}" class="btn-ghost min-h-[40px] px-3">عرض الكل</a>
             </div>
             @if ($attention->isEmpty())
@@ -37,7 +37,7 @@
 
         <section aria-labelledby="upcoming-title">
             <div class="flex items-center justify-between">
-                <h2 id="upcoming-title" class="text-lg font-semibold text-ink">الاختبارات القادمة</h2>
+                <h2 id="upcoming-title" class="text-lg font-bold text-ink">الاختبارات القادمة</h2>
                 <a href="{{ route('counselor.exams') }}" class="btn-ghost min-h-[40px] px-3">عرض الكل</a>
             </div>
             @if ($upcoming->isEmpty())
@@ -57,7 +57,7 @@
 
     <section class="mt-8" aria-labelledby="alerts-title">
         <div class="flex items-center justify-between">
-            <h2 id="alerts-title" class="text-lg font-semibold text-ink">أحدث التنبيهات</h2>
+            <h2 id="alerts-title" class="text-lg font-bold text-ink">أحدث التنبيهات</h2>
             <a href="{{ route('counselor.alerts') }}" class="btn-ghost min-h-[40px] px-3">كل التنبيهات</a>
         </div>
         <div class="mt-3 space-y-3">

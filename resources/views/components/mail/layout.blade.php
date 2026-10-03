@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>{{ $title ?? $platformName }}</title>
 </head>
-<body style="margin:0;padding:0;background:#F7F4FB;font-family:Tahoma,'Segoe UI',Arial,sans-serif;color:#302B3A;direction:rtl;">
+<body style="margin:0;padding:0;background:#F7F4FB;font-family:'IBM Plex Sans Arabic',Tahoma,'Segoe UI',Arial,sans-serif;color:#302B3A;direction:rtl;">
     <table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#F7F4FB;padding:24px 12px;">
         <tr>
             <td align="center">

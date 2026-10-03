@@ -29,20 +29,47 @@ class ExamProgressService
      * @return array<string, array{
      *     type: ExamType,
      *     attempts: Collection<int, ExamAttempt>,
-     *     latest: ?int, best: ?int, previous: ?int, improvement: ?int,
+     *     latest: ?int, latest_attempt: ?ExamAttempt, best: ?int, previous: ?int, improvement: ?int,
      *     target: int, target_is_default: bool, gap: ?int,
      *     next: ?ExamAttempt, days_until_next: ?int, booked: bool
      * }>
      */
     public function summary(User $student): array
     {
-        $attempts = ExamAttempt::where('student_id', $student->id)
-            ->orderBy('exam_date')->orderBy('attempt_number')->get()
+        return $this->fromAttempts(ExamAttempt::where('student_id', $student->id)->get());
+    }
+
+    /**
+     * Summaries for many students with a single query (counselor roster, alerts).
+     *
+     * @param  list<int>  $studentIds
+     * @return array<int, array<string, array<string, mixed>>> student id => summary()
+     */
+    public function summariesFor(array $studentIds): array
+    {
+        $byStudent = ExamAttempt::whereIn('student_id', $studentIds)->get()->groupBy('student_id');
+
+        $summaries = [];
+        foreach ($studentIds as $id) {
+            $summaries[$id] = $this->fromAttempts($byStudent->get($id, collect()));
+        }
+
+        return $summaries;
+    }
+
+    /**
+     * @param  Collection<int, ExamAttempt>  $attempts  one student's attempts
+     * @return array<string, array<string, mixed>>
+     */
+    private function fromAttempts(Collection $attempts): array
+    {
+        $byType = $attempts
+            ->sortBy(fn (ExamAttempt $a) => [$a->exam_date?->toDateString() ?? '', $a->attempt_number])
             ->groupBy(fn (ExamAttempt $a) => $a->exam_type->value);
 
         $summary = [];
         foreach (ExamType::cases() as $type) {
-            $summary[$type->value] = $this->forType($type, $attempts->get($type->value, collect()));
+            $summary[$type->value] = $this->forType($type, $byType->get($type->value, collect())->values());
         }
 
         return $summary;
@@ -69,9 +96,10 @@ class ExamProgressService
      */
     private function forType(ExamType $type, Collection $attempts): array
     {
-        $scores = $attempts
+        $scored = $attempts
             ->filter(fn (ExamAttempt $a) => $a->booking_status === ExamBookingStatus::RESULT_RECEIVED && $a->score !== null)
-            ->pluck('score')->values();
+            ->values();
+        $scores = $scored->pluck('score');
 
         $latest = $scores->last();
         $previous = $scores->count() > 1 ? $scores[$scores->count() - 2] : null;
@@ -89,6 +117,7 @@ class ExamProgressService
             'type' => $type,
             'attempts' => $attempts->sortByDesc('attempt_number')->values(),
             'latest' => $latest,
+            'latest_attempt' => $scored->last(),
             'best' => $best,
             'previous' => $previous,
             'improvement' => $previous !== null ? $latest - $previous : null,

@@ -29,17 +29,4 @@ class DashboardMetricsService
             'unassigned' => StudentProfile::whereNull('counselor_id')->count(),
         ];
     }
-
-    /**
-     * @return array{students: int, active: int}
-     */
-    public function counselorOverview(User $counselor): array
-    {
-        $students = $counselor->assignedStudents();
-
-        return [
-            'students' => (clone $students)->count(),
-            'active' => (clone $students)->whereHas('user', fn ($q) => $q->where('status', UserStatus::ACTIVE))->count(),
-        ];
-    }
 }

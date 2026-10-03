@@ -65,6 +65,6 @@ class AssignedStudentsTest extends TestCase
 
         $this->actingAs($counselor)->get('/counselor/dashboard')
             ->assertOk()
-            ->assertViewHas('metrics', fn ($m) => $m['students'] === 2 && $m['active'] === 2);
+            ->assertViewHas('kpis', fn ($k) => $k['students'] === 2);
     }
 }

@@ -139,6 +139,8 @@ In the site user's crontab (`crontab -e`, or CyberPanel → Cron Jobs):
 * * * * * cd /home/<domain>/app && /usr/local/lsws/lsphp83/bin/php artisan schedule:run >> /dev/null 2>&1
 ```
 
+The scheduler runs nightly backups and the **daily alert refresh** (`tamakkun:refresh-alerts`, 05:30). After restoring data or a large import, you can run `php artisan tamakkun:refresh-alerts` manually.
+
 ## Update procedure (every release)
 
 ```bash

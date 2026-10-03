@@ -47,5 +47,7 @@ Classroom::factory()->create();            // also creates grade → current aca
 | `Student/ProgressSummaryTest` | Zero state; visible-only overall and per-section %; archived drops out; weekly vs the admin goal (Sunday week); streak incl. the yesterday rule; missed day and login don't count; dashboard and progress page numbers; counselor view; goal validation |
 | `Student/ExamTrackingTest` | Add a booked exam and see the countdown; numbering per type; multiple scores (latest, best, improvement, gap); default target; next exam; date and score validation; score dropped unless the result is in; update audited and logged; type is immutable; no access to other students' exams; delete; counselor view (assigned only); counselors can't use student routes |
 | `Unit/ArabicDaysTest` | Arabic day and point count forms |
+| `Counselor/StudentAlertsTest` | Each alert type and its thresholds, no duplicates, auto-resolve, counselor-resolved alerts not recreated, Grade 12 only, exam changes refresh immediately, daily command |
+| `Counselor/FollowUpTest` | Real KPIs, assigned-only roster and filters, all 8 tabs, audited follow-up status, private-by-default notes never shown to students, student and unassigned-counselor denial, author-only note delete, acknowledge and resolve alerts, exams and results pages |
 | `Unit/VideoEmbedTest` | Supported YouTube and Vimeo forms; rejects http, other or lookalike hosts, iframe HTML, bad IDs and `javascript:` |
 | `Auth/*` (Breeze) | Email verification, password confirmation, reset and update |

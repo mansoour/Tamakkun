@@ -2,6 +2,17 @@
 
 Newest first. Each entry records what was decided and why.
 
+## 2026-10-09 — v0.6 Counselor dashboard
+
+1. **Manual follow-up status and automatic alerts are separate** (brief §61). "Needs follow-up" combines both.
+2. **Alerts have an identity** (student, type, context key), so they never duplicate, auto-resolve when the cause clears, and stay closed after a counselor resolves them until a new occurrence happens.
+3. **Alerts refresh daily** (scheduler) and **immediately on exam changes**. Content progress does not trigger a refresh, to keep requests light; the daily run catches it.
+4. **"Grade 12" means classroom grade level 12**, or no classroom (the platform targets Grade 12).
+5. **"Not booked" is evaluated per exam type**, so a student booked for Qudurat but not Tahsili still gets a Tahsili alert.
+6. **Notes are private by default.** Shared notes double as short messages to the student until announcements arrive (v0.7).
+7. **The roster is built in memory from grouped queries.** This is ample for a school (hundreds of students). If a deployment grows much larger, move filters into SQL.
+8. **Average improvement** averages the latest-minus-previous change across both exam types for students with at least two results.
+
 ## 2026-10-08 — v0.5 Exam tracking
 
 1. **Students own their exam records** (the brief says the student enters dates and scores). Counselors can view but not edit them in this version.
@@ -77,7 +88,7 @@ Newest first. Each entry records what was decided and why.
 | **v0.3** | Learning content: sources, categories, subjects, chapters, topics, contents, videos, important links, content CRUD ✅ |
 | **v0.4** | Progress: start/complete, favorites, `StudentProgressService`, weekly progress, activity logs ✅ |
 | **v0.5** | Exam tracking: attempts, booking status, dates, scores, target, best/improvement, countdown ✅ |
-| v0.6 | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts |
+| **v0.6** | Counselor dashboard: KPIs, list and filters, student detail, notes, follow-up status, alerts ✅ |
 | v0.7 | Challenge, motivation, announcements, notifications |
 | v0.8 | Reports (mPDF/CSV), email via Resend, hardening |
 | v0.9 | Pilot |

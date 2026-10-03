@@ -41,6 +41,15 @@ Route::middleware(['auth', 'active', 'password.changed'])->group(function () {
             Route::get('/dashboard', Counselor\DashboardController::class)->name('dashboard');
             Route::get('/students', [Counselor\StudentController::class, 'index'])->name('students.index');
             Route::get('/students/{student}', [Counselor\StudentController::class, 'show'])->name('students.show');
+            Route::patch('/students/{student}/follow-up', [Counselor\FollowUpController::class, 'updateStatus'])->name('students.follow-up');
+            Route::post('/students/{student}/notes', [Counselor\FollowUpController::class, 'storeNote'])->name('students.notes.store');
+            Route::delete('/students/{student}/notes/{note}', [Counselor\FollowUpController::class, 'destroyNote'])->name('students.notes.destroy');
+            Route::get('/follow-up', [Counselor\FollowUpController::class, 'index'])->name('follow-up');
+            Route::get('/alerts', [Counselor\AlertController::class, 'index'])->name('alerts');
+            Route::post('/alerts/{alert}/acknowledge', [Counselor\AlertController::class, 'acknowledge'])->name('alerts.acknowledge');
+            Route::post('/alerts/{alert}/resolve', [Counselor\AlertController::class, 'resolve'])->name('alerts.resolve');
+            Route::get('/exams', [Counselor\ExamOverviewController::class, 'exams'])->name('exams');
+            Route::get('/results', [Counselor\ExamOverviewController::class, 'results'])->name('results');
         });
 
     Route::prefix('admin')->name('admin.')

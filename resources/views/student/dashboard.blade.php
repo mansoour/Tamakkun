@@ -20,6 +20,20 @@
 
     <x-student-progress-card :summary="$summary" class="mt-6" />
 
+    @if ($sharedNotes->isNotEmpty())
+        <section class="mt-6" aria-labelledby="notes-title">
+            <h2 id="notes-title" class="text-lg font-semibold text-ink">رسائل من الموجهة الطلابية</h2>
+            <div class="mt-3 space-y-3">
+                @foreach ($sharedNotes as $note)
+                    <article class="card p-4">
+                        <p class="whitespace-pre-line text-sm leading-relaxed text-ink">{{ $note->note }}</p>
+                        <p class="mt-2 text-xs text-muted">{{ $note->counselor?->name }} · <span dir="ltr">{{ $note->created_at->format('Y-m-d') }}</span></p>
+                    </article>
+                @endforeach
+            </div>
+        </section>
+    @endif
+
     @if ($continue)
         <section class="mt-6" aria-labelledby="continue-title">
             <h2 id="continue-title" class="text-lg font-semibold text-ink">أكملي من حيث توقفتِ</h2>

@@ -98,6 +98,75 @@ class StudentProgressService
         return $streak;
     }
 
+    /**
+     * Overall completion for many students at once (same formula as summary()).
+     *
+     * @param  list<int>  $studentIds
+     * @return array<int, array{completed: int, total: int, percentage: int}>
+     */
+    public function completionFor(array $studentIds): array
+    {
+        $total = Content::visible()->count();
+        $completed = StudentContentProgress::query()
+            ->join('contents', 'contents.id', '=', 'student_content_progress.content_id')
+            ->whereIn('student_content_progress.student_id', $studentIds)
+            ->where('student_content_progress.status', ProgressStatus::COMPLETED)
+            ->where('contents.is_published', true)
+            ->whereNull('contents.archived_at')
+            ->where(fn ($q) => $q->whereNull('contents.published_at')->orWhere('contents.published_at', '<=', now()))
+            ->selectRaw('student_content_progress.student_id, count(*) as total')
+            ->groupBy('student_content_progress.student_id')
+            ->pluck('total', 'student_id');
+
+        return collect($studentIds)->mapWithKeys(fn (int $id) => [$id => $this->ratio((int) ($completed[$id] ?? 0), $total)])->all();
+    }
+
+    /**
+     * Latest learning action per student.
+     *
+     * @param  list<int>  $studentIds
+     * @return array<int, CarbonImmutable|null>
+     */
+    public function lastActivityFor(array $studentIds): array
+    {
+        $latest = ActivityLog::whereIn('user_id', $studentIds)
+            ->whereIn('event_type', ActivityEvent::learningValues())
+            ->selectRaw('user_id, max(created_at) as last_at')
+            ->groupBy('user_id')
+            ->pluck('last_at', 'user_id');
+
+        return collect($studentIds)->mapWithKeys(fn (int $id) => [$id => isset($latest[$id]) ? CarbonImmutable::parse($latest[$id]) : null])->all();
+    }
+
+    /**
+     * Learning actions per student since a moment (for "low activity" alerts).
+     *
+     * @param  list<int>  $studentIds
+     * @return array<int, int>
+     */
+    public function learningActionsSince(array $studentIds, CarbonImmutable $since): array
+    {
+        $counts = ActivityLog::whereIn('user_id', $studentIds)
+            ->whereIn('event_type', ActivityEvent::learningValues())
+            ->where('created_at', '>=', $since)
+            ->selectRaw('user_id, count(*) as total')
+            ->groupBy('user_id')
+            ->pluck('total', 'user_id');
+
+        return collect($studentIds)->mapWithKeys(fn (int $id) => [$id => (int) ($counts[$id] ?? 0)])->all();
+    }
+
+    /**
+     * Inactive = no learning action for `inactivity_days`. A student who never
+     * studied counts as inactive once her account is that old.
+     */
+    public function isInactive(?CarbonImmutable $lastActivity, \DateTimeInterface $accountCreatedAt): bool
+    {
+        $threshold = CarbonImmutable::now()->subDays((int) $this->settings->get('inactivity_days'));
+
+        return ($lastActivity ?? CarbonImmutable::instance($accountCreatedAt)) < $threshold;
+    }
+
     public function lastActivityAt(User $student): ?CarbonImmutable
     {
         $at = ActivityLog::where('user_id', $student->id)->whereIn('event_type', ActivityEvent::learningValues())->max('created_at');

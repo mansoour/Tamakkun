@@ -237,3 +237,26 @@ Unique `(student_id, content_id)`. Indexes `(student_id, status)` and `(student_
 | target_score | tinyint 1–100, nullable |
 | notes | text, nullable |
 | timestamps | |
+
+## Counselor follow-up (v0.6)
+
+`student_profiles` gains `follow_up_status` (`FollowUpStatus`, default `normal`, indexed, not mass assignable) and `follow_up_updated_at`.
+
+### counselor_notes
+`id, student_id (FK users, cascade), counselor_id (FK users, null on delete), note text, is_private bool (default true), timestamps`. Index `(student_id, created_at)`.
+
+### student_alerts
+
+| Column | Notes |
+|---|---|
+| student_id | FK users, cascade |
+| alert_type | `AlertType`: not_booked, upcoming_low_activity, inactive, improvement, below_target |
+| context_key | Identity of this occurrence (see [alerts.md](alerts.md)) |
+| severity | `AlertSeverity`: info, warning, critical, positive |
+| title, message | Arabic text |
+| status | `AlertStatus`: open, acknowledged, resolved |
+| generated_at, resolved_at | |
+| resolved_by | FK users, nullable. Null means auto-resolved |
+| timestamps | |
+
+Indexes `(student_id, status)`, `(student_id, alert_type, context_key)` and `(status, severity)`.

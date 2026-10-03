@@ -14,7 +14,7 @@ Tamakkun uses `spatie/laravel-permission`.
 | Role | Arabic | Permissions |
 |---|---|---|
 | `student` | الطالبة | `student-area.access` |
-| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned` |
+| `counselor` | الموجهة الطلابية | `counselor-area.access`, `students.view-assigned`, `students.follow-up` |
 | `admin` | مدير النظام | `admin-area.access`, `schools.manage`, `users.manage`, `students.view-all`, `students.import`, `settings.manage`, `content.manage`, `links.manage` |
 | `guardian` | ولي الأمر | *Not in MVP* |
 
@@ -33,6 +33,7 @@ Tamakkun uses `spatie/laravel-permission`.
 | `settings.manage` | إدارة إعدادات المنصة | `/admin/settings` |
 | `content.manage` | إدارة المحتوى التعليمي ومصادره وتصنيفاته | `/admin/content`, `/admin/sources`, `/admin/categories`, `/admin/subjects`, `/admin/chapters`, `/admin/topics` |
 | `links.manage` | إدارة الروابط المهمة | `/admin/links` |
+| `students.follow-up` | متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة) | Notes, follow-up status, alert actions. Combined with viewing the student (`StudentProfilePolicy::followUp`) |
 
 Added by migrations `2026_10_03_000002_…` (v0.1) and `2026_10_04_000003_add_school_management_permissions` (v0.2).
 
@@ -42,6 +43,8 @@ Area permissions and feature permissions are independent. A user with only `admi
 
 | Policy | Model | Rules |
 |---|---|---|
+| `CounselorNotePolicy` | `CounselorNote` | `delete`: author only |
+| `StudentAlertPolicy` | `StudentAlert` | `update` (acknowledge or resolve): `followUp` on the student |
 | `ExamAttemptPolicy` | `ExamAttempt` | `view`: owner, or anyone who may view the student · `update`/`delete`: owner only |
 | `StudentProfilePolicy` | `StudentProfile` | `viewAny`: view-all or view-assigned · `view`: view-all, or view-assigned **and** assigned counselor · `create`/`update`: users.manage |
 

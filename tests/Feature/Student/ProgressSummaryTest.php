@@ -135,7 +135,7 @@ class ProgressSummaryTest extends TestCase
 
         $this->actingAs($counselor)->get("/counselor/students/{$profile->id}")
             ->assertOk()
-            ->assertSee('التقدّم في المحتوى')
+            ->assertSee('نظرة عامة')
             ->assertSee('100%');
     }
 

@@ -20,6 +20,7 @@ class DashboardController extends Controller
         return view('student.dashboard', [
             'summary' => $progress->summary($student),
             'exams' => $examSummary,
+            'sharedNotes' => $student->counselorNotes()->where('is_private', false)->with('counselor')->latest()->limit(3)->get(),
             'nextExam' => $exams->nextExam($examSummary),
             'continue' => StudentContentProgress::where('student_id', $student->id)
                 ->where('status', ProgressStatus::IN_PROGRESS)

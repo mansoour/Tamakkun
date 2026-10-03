@@ -2,6 +2,21 @@
 
 All notable changes to Tamakkun are documented here. Versions follow the roadmap in `docs/decisions.md`.
 
+## [v0.6.0] — 2026-10-09 — Counselor dashboard
+
+### Added
+- Counselor dashboard KPIs: students, average completion, needs follow-up, upcoming exams, average improvement, not booked and inactive. Also the needs-follow-up list, upcoming exams and latest alerts.
+- Counselor roster with every column from the brief and filters (class, booking, exam type, activity, completion, follow-up status, score, search), built by `StudentRosterService` with grouped queries.
+- Tabbed student page: overview, scores, exams, activity, content, challenges (placeholder), notes and alerts.
+- Manual follow-up status (audited), private-by-default counselor notes (shared notes appear on the student dashboard), and author-only note delete.
+- Automatic alerts (`StudentAlertService`): not booked, upcoming exam with low activity, inactive, improvement, below target near the exam. Thresholds come from settings, alerts never duplicate and auto-resolve, and acknowledge and resolve are audited. Refreshed daily (`tamakkun:refresh-alerts`) and on exam changes.
+- Pages: تحتاج متابعة, التنبيهات, الاختبارات القادمة, النتائج.
+- `students.follow-up` permission (migration). Policies for notes and alerts.
+- Docs: `docs/alerts.md`, plus updates to the schema, architecture, permissions, testing, deployment and decisions docs.
+
+### Fixed
+- Signed numbers such as "+6" now display correctly inside RTL text.
+
 ## [v0.5.0] — 2026-10-08 — Exam tracking
 
 ### Added

@@ -31,6 +31,15 @@ class StudentProfilePolicy
             && $student->counselor_id === $user->id;
     }
 
+    /**
+     * Notes, follow-up status and alert actions: whoever may view the
+     * student and holds students.follow-up.
+     */
+    public function followUp(User $user, StudentProfile $student): bool
+    {
+        return $this->view($user, $student) && $user->can(PermissionName::FOLLOW_UP_STUDENTS->value);
+    }
+
     public function create(User $user): bool
     {
         return $user->can(PermissionName::MANAGE_USERS->value);

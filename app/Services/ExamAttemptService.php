@@ -21,6 +21,7 @@ class ExamAttemptService
     public function __construct(
         private readonly AuditLogger $audit,
         private readonly ActivityLogger $activity,
+        private readonly StudentAlertService $alerts,
     ) {}
 
     /**
@@ -36,6 +37,7 @@ class ExamAttemptService
 
             $this->audit->record('exam.created', $attempt, null, $this->snapshot($attempt));
             $this->activity->log($student, ActivityEvent::EXAM_UPDATED, $attempt);
+            $this->alerts->refreshFor($student);
 
             return $attempt;
         });
@@ -56,6 +58,7 @@ class ExamAttemptService
             if ($changed !== []) {
                 $this->audit->record('exam.updated', $attempt, Arr::only($before, $changed), Arr::only($after, $changed));
                 $this->activity->log($attempt->student, ActivityEvent::EXAM_UPDATED, $attempt);
+                $this->alerts->refreshFor($attempt->student);
             }
 
             return $attempt;
@@ -67,6 +70,7 @@ class ExamAttemptService
         $snapshot = $this->snapshot($attempt);
         $attempt->delete();
         $this->audit->record('exam.deleted', $attempt, $snapshot, null);
+        $this->alerts->refreshFor($attempt->student);
     }
 
     /**

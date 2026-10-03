@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use App\Enums\ContentSection;
 use App\Enums\ContentStage;
+use App\Enums\FollowUpStatus;
 use App\Enums\UserStatus;
 use App\Models\AcademicYear;
 use App\Models\Category;
@@ -19,6 +20,8 @@ use App\Models\Subject;
 use App\Models\Topic;
 use App\Models\User;
 use App\Services\ContentCompletionService;
+use App\Services\FollowUpService;
+use App\Services\StudentAlertService;
 use Illuminate\Database\Seeder;
 use RuntimeException;
 
@@ -88,6 +91,23 @@ class DemoSeeder extends Seeder
         $this->seedDemoContent();
         $this->seedDemoProgress(User::where('username', 'student')->sole());
         $this->seedDemoExams();
+        $this->seedDemoFollowUp($counselor);
+    }
+
+    /**
+     * A few follow-up statuses and notes, then generate the automatic alerts.
+     */
+    private function seedDemoFollowUp(User $counselor): void
+    {
+        $followUp = app(FollowUpService::class);
+        $students = $counselor->assignedStudents()->with('user')->orderBy('id')->limit(3)->get();
+
+        $followUp->setStatus($students[0], FollowUpStatus::WATCH);
+        $followUp->addNote($students[0], $counselor, 'ملاحظة تجريبية خاصة: متابعة خطة المذاكرة الأسبوعية.', true);
+        $followUp->addNote($students[0], $counselor, 'رسالة تجريبية: أحسنتِ في الأسبوع الماضي، استمري!', false);
+        $followUp->setStatus($students[2], FollowUpStatus::NEEDS_FOLLOWUP);
+
+        app(StudentAlertService::class)->refreshAll();
     }
 
     /**

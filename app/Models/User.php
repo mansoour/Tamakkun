@@ -71,6 +71,24 @@ class User extends Authenticatable
     }
 
     /**
+     * @return HasMany<StudentAlert, $this>
+     */
+    public function alerts(): HasMany
+    {
+        return $this->hasMany(StudentAlert::class, 'student_id');
+    }
+
+    /**
+     * Notes written about this user (as a student).
+     *
+     * @return HasMany<CounselorNote, $this>
+     */
+    public function counselorNotes(): HasMany
+    {
+        return $this->hasMany(CounselorNote::class, 'student_id');
+    }
+
+    /**
      * Students assigned to this user as their counselor.
      *
      * @return HasMany<StudentProfile, $this>

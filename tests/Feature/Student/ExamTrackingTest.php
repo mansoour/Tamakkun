@@ -176,7 +176,7 @@ class ExamTrackingTest extends TestCase
         ExamAttempt::factory()->withScore(77)->create(['student_id' => $this->student->id]);
 
         $this->actingAs($counselor)->get("/counselor/students/{$profile->id}")
-            ->assertOk()->assertSee('الاختبارات والدرجات')->assertSee('77');
+            ->assertOk()->assertSee('آخر قدرات')->assertSee('77');
 
         $other = CounselorProfile::factory()->create()->user;
         $this->actingAs($other)->get("/counselor/students/{$profile->id}")->assertForbidden();

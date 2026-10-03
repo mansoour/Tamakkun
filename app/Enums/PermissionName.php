@@ -22,6 +22,7 @@ enum PermissionName: string
     case MANAGE_SETTINGS = 'settings.manage';
     case MANAGE_CONTENT = 'content.manage';
     case MANAGE_LINKS = 'links.manage';
+    case FOLLOW_UP_STUDENTS = 'students.follow-up';
 
     public function label(): string
     {
@@ -37,6 +38,7 @@ enum PermissionName: string
             self::MANAGE_SETTINGS => 'إدارة إعدادات المنصة',
             self::MANAGE_CONTENT => 'إدارة المحتوى التعليمي ومصادره وتصنيفاته',
             self::MANAGE_LINKS => 'إدارة الروابط المهمة',
+            self::FOLLOW_UP_STUDENTS => 'متابعة الطالبات (الملاحظات والتنبيهات وحالة المتابعة)',
         };
     }
 }

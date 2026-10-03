@@ -18,7 +18,7 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 |---|---|
 | `app/Enums` | `UserStatus`, `RoleName`, `PermissionName`, `EmailStatus`, `ImportStatus` |
 | `app/Services` | `SettingsService`, `AuditLogger`, `DashboardRedirector`, `AccountActivation`, `SchoolMembershipService`, `SchoolStructureService`, `StudentImportService`, `DashboardMetricsService` |
-| `app/Policies` | `StudentProfilePolicy`, `ExamAttemptPolicy` |
+| `app/Policies` | `StudentProfilePolicy` (incl. `followUp`), `ExamAttemptPolicy`, `CounselorNotePolicy`, `StudentAlertPolicy` |
 | `app/Jobs` | `ImportStudents` (queued CSV import) |
 | `app/Http/Middleware` | `SecurityHeaders` (global web), `EnsureUserIsActive` (alias `active`) |
 | `app/Http/Controllers/{Student,Counselor,Admin}` | Area controllers |
@@ -52,6 +52,9 @@ Tamakkun is a server-rendered Laravel 13 website. Pages are Blade templates, lig
 | `StudentProgressService` | **The only place progress numbers are calculated** (completion, sections, weekly, streak). See [progress.md](progress.md). |
 | `ExamAttemptService` | Create, update and delete a student's attempts: automatic numbering, score clean-up, audit and activity log |
 | `ExamProgressService` | **The only place exam figures are calculated** (latest, best, improvement, target, gap, next exam). See [exams.md](exams.md). |
+| `StudentAlertService` | Evaluates, creates and auto-resolves automatic alerts. Counselors acknowledge or resolve them. See [alerts.md](alerts.md). |
+| `FollowUpService` | Manual follow-up status and counselor notes (audited without the note text) |
+| `StudentRosterService` | The counselor roster: every column for all visible students in a few grouped queries, plus KPIs and filters |
 | `ActivityLogger` | Writes `activity_logs` for student learning actions and logins |
 | `ImageOptimizer` | Decodes uploaded raster images, resizes them to at most 1280px wide, re-encodes them as WebP (which strips metadata) and stores them on the `public` disk. SVG is never accepted. |
 
@@ -132,6 +135,8 @@ Supported widths: 360, 375, 390, 414, 768, 1024, and 1280px and up.
 | `<x-progress-bar label percentage>` | Accessible progress bar (`role=progressbar`) |
 | `<x-exam-countdown :next>` | Next booked exam with an Arabic countdown |
 | `<x-score-summary :exam>` | Latest, best, target, gap and improvement for one exam type |
+| `<x-student-status-badge :status>` | Follow-up status badge |
+| `<x-follow-up-alert :alert show-student actions>` | Alert card with acknowledge and resolve |
 | `<x-flash>` | Session `success` message and `delete`/`account_status`/`import` errors. Included in the app layout |
 | `<x-text-input>`, `<x-input-label>`, `<x-input-error>`, `<x-primary-button>`, `<x-auth-session-status>` | Restyled Breeze components |
 

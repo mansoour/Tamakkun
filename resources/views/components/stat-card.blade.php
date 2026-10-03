@@ -6,7 +6,7 @@
     </span>
     <div>
         <p class="text-sm text-muted">{{ $label }}</p>
-        <p class="mt-1 font-heading text-2xl font-bold text-ink">{{ $value }}</p>
+        <p class="mt-1 font-heading text-2xl font-bold text-ink"><bdi>{{ $value }}</bdi></p>
         @if ($hint)
             <p class="mt-1 text-xs text-muted">{{ $hint }}</p>
         @endif

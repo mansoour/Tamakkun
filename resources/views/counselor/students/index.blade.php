@@ -1,33 +1,26 @@
 <x-app-layout area="counselor" title="الطالبات">
-    <x-page-header title="طالباتي" description="الطالبات المسندات إليكِ." />
+    <x-page-header title="طالباتي" description="كل الأعمدة محسوبة من بيانات الطالبة الفعلية." />
 
-    <form method="GET" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end">
-        <div class="sm:w-80"><x-form.input name="q" label="بحث" :value="request('q')" placeholder="الاسم أو رقم الطالبة" /></div>
-        <button class="btn-secondary">بحث</button>
+    <form method="GET" class="card mt-6 grid gap-4 p-4 sm:grid-cols-2 lg:grid-cols-4 lg:items-end">
+        <x-form.input name="q" label="بحث" :value="request('q')" placeholder="الاسم أو رقم الطالبة" />
+        <x-form.select name="classroom_id" label="الفصل" :options="$classrooms" :value="request('classroom_id')" placeholder="كل الفصول" />
+        <x-form.select name="booking" label="الحجز" :options="['booked' => 'محجوز', 'not_booked' => 'لم تحجز']" :value="request('booking')" placeholder="الكل" />
+        <x-form.select name="exam_type" label="الاختبار القادم" :options="collect($examTypes)->mapWithKeys(fn ($t) => [$t->value => $t->label()])" :value="request('exam_type')" placeholder="الكل" />
+        <x-form.select name="activity" label="النشاط" :options="['active' => 'نشطة', 'inactive' => 'غير نشطة']" :value="request('activity')" placeholder="الكل" />
+        <x-form.select name="completion" label="الإنجاز" :options="['low' => 'أقل من 40%', 'mid' => '40% – 74%', 'high' => '75% فأكثر']" :value="request('completion')" placeholder="الكل" />
+        <x-form.select name="follow_up" label="المتابعة" :value="request('follow_up')" placeholder="الكل"
+            :options="['attention' => 'تحتاج متابعة (تلقائي أو يدوي)'] + collect($followUpStatuses)->mapWithKeys(fn ($s) => [$s->value => $s->label()])->all()" />
+        <div class="flex gap-2">
+            <div class="flex-1"><x-form.input name="score_below" type="number" min="0" max="100" label="أفضل قدرات أقل من" :value="request('score_below')" /></div>
+            <button class="btn-primary self-end">تصفية</button>
+        </div>
     </form>
 
     <div class="mt-6">
         @if ($students->isEmpty())
-            <x-empty-state icon="users" title="لا توجد طالبات" description="لم تُسند إليكِ طالبات بعد، أو لا توجد نتائج مطابقة للبحث." />
+            <x-empty-state icon="users" title="لا توجد طالبات مطابقة" description="لم تُسند إليكِ طالبات بعد، أو لا توجد نتائج لهذه التصفية." />
         @else
-            <x-table>
-                <x-slot:head>
-                    <th scope="col" class="px-4 py-3 text-start">الطالبة</th>
-                    <th scope="col" class="px-4 py-3 text-start">رقم الطالبة</th>
-                    <th scope="col" class="px-4 py-3 text-start">الفصل</th>
-                    <th scope="col" class="px-4 py-3 text-start">الحالة</th>
-                </x-slot:head>
-                @foreach ($students as $student)
-                    <tr>
-                        <td class="px-4 py-3">
-                            <a href="{{ route('counselor.students.show', $student) }}" class="font-medium text-brand-700 underline-offset-4 hover:underline">{{ $student->user->name }}</a>
-                        </td>
-                        <td class="px-4 py-3" dir="ltr">{{ $student->student_code }}</td>
-                        <td class="px-4 py-3">{{ $student->classroom?->label() ?? '—' }}</td>
-                        <td class="px-4 py-3"><x-badge :color="$student->user->status->color()">{{ $student->user->status->label() }}</x-badge></td>
-                    </tr>
-                @endforeach
-            </x-table>
+            @include('counselor.partials.roster-table', ['rows' => $students])
             {{ $students->links() }}
         @endif
     </div>

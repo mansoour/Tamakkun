@@ -46,3 +46,13 @@ The team's own Google Site [العب وتدرب قدرات وتحصيلي](https
 - **Tests:** the import is skipped while unit tests run, so feature tests keep their own fixtures. `QuduratContentImportTest` runs it explicitly.
 
 To add items the site gains later, add them in the admin area. To re-import from the site, extend the data file with new slugs and add a new migration; never change an existing slug.
+
+## Imported التحصيلي – الرياضيات content (migration `2026_10_14_000001`)
+
+From the التحصيلي pages of the same Google Site. Rows are in `database/data/tahsili-math-content.php` (slugs `tahsili-math-NNN`), under the subject الرياضيات.
+
+- **Chapters:** the 24 curriculum chapters, named «<grade> – الفصل <n>: <name>» (أول، ثاني، ثالث ثانوي), then تجميعات تحصيلي 1447هـ, تجميعات تحصيلي 1446هـ, اختبارات إلكترونية شاملة, مبادرة مهارات التعامل مع أسئلة التحصيلي (جسم) and مراجع وتجميعات. The site left ثالث ثانوي's sixth chapter untitled. It is named «الإحداثيات القطبية والأعداد المركبة» after its lessons. The site labels ثاني ثانوي's fifth chapter «الفصل الرابع» twice. It is numbered correctly here.
+- **Inside a curriculum chapter:** the «دورة فن التحصيلي» topic (course lessons, activities and activity solutions for that chapter), then one topic per lesson (its game, then its solution video), then «اختبار إلكتروني» for ثالث ثانوي chapters. ثاني and أول ثانوي e-tests cover the whole grade, so they sit in «اختبارات إلكترونية شاملة».
+- **Stages:** course lessons and جسم videos → تأسيس. Games, solutions, activities and models → تدريب. E-tests → إتقان. Files → مراجعة.
+- **Not imported:** tiles with no link, and links the site reuses for a different item. The 1447 solutions for models 9–12 reuse the videos of 7 and 8. 1446 «حل نموذج 1» is the video of model 15. «حل الدراسات المسحية» is the التحليل الإحصائي video. The «التبرير الاستنتاجي» game is the same quiz as «العبارات الشرطية». «دورة منصة تميز» is week 2 of جسم.
+- **Files:** most PDFs under مراجع وتجميعات are full Tahsili packs (all four subjects), not math only.

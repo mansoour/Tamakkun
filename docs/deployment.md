@@ -1,6 +1,6 @@
 # Deployment
 
-> Production deployment has **not** been performed yet. This is the agreed procedure.
+> **Live at https://tamakkun.mror.top** (deployed 2026-10-04), behind Cloudflare (SSL/TLS: Full (strict)). The procedure below is what was used; see «Notes from the first deployment».
 
 ## Server
 
@@ -158,3 +158,33 @@ php artisan up
 ```
 
 **Chosen caching approach:** `php artisan optimize` (Laravel 13 caches config, events, routes and views). Use it consistently. Clear with `php artisan optimize:clear`. Always restart the queue worker after deploying code.
+
+## Notes from the first deployment
+
+- **Layout used:** the project lives in the CyberPanel child-domain folder (`/home/<domain>/<subdomain-folder>`), cloned there directly (CyberPanel's placeholder `index.html` removed first). The vHost `docRoot` was changed to `…/public` with `sed` on `/usr/local/lsws/conf/vhosts/<subdomain>/vhost.conf`, then `lswsctrl restart`.
+- **Repository is public**, so the server clones over HTTPS (`https://github.com/mansoour/Tamakkun.git`) and no deploy key is needed. If the repo is made private, use the deploy-key setup above.
+- **Run PHP, Composer and artisan as the site user** (`sudo -u <site-user> …`), so files in `storage/` and `bootstrap/cache/` stay writable by the PHP process.
+- **Node.js:** the server's Node 20 is installed with nvm under `/root/.nvm`, which the site user cannot read (it falls back to an old Node 18 that cannot run Vite 8). Build the assets **as root** and hand them back:
+
+  ```bash
+  npm ci && npm run build && chown -R <site-user>:<site-user> public/build node_modules
+  ```
+
+  If the build reports «Cannot find native binding», delete `node_modules` and run `npm ci` again with Node 20.
+- **Cloudflare:** `bootstrap/app.php` trusts only Cloudflare's IP ranges, so rate limits and logs see the visitor's real IP. Keep this list in sync with https://www.cloudflare.com/ips/.
+- **Mail:** `MAIL_MAILER=log` until a Resend API key is added (then `MAIL_MAILER=resend` and `RESEND_API_KEY=…` in `.env`, followed by `php artisan optimize`).
+
+### Update routine on this server
+
+```bash
+PHP=/usr/local/lsws/lsphp83/bin/php
+cd /home/<domain>/<subdomain-folder>
+sudo -u <site-user> $PHP artisan down --retry=60
+sudo -u <site-user> git pull origin main
+sudo -u <site-user> $PHP $(which composer) install --no-dev --optimize-autoloader --no-interaction
+sudo -u <site-user> $PHP artisan migrate --force
+npm ci && npm run build && chown -R <site-user>:<site-user> public/build node_modules
+sudo -u <site-user> $PHP artisan optimize
+systemctl restart tamakkun-queue
+sudo -u <site-user> $PHP artisan up
+```

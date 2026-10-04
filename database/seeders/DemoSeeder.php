@@ -2,15 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Enums\ContentSection;
-use App\Enums\ContentStage;
-use App\Enums\ContentType;
 use App\Enums\FollowUpStatus;
 use App\Enums\MotivationType;
 use App\Enums\UserStatus;
 use App\Models\AcademicYear;
-use App\Models\Category;
-use App\Models\Chapter;
 use App\Models\Classroom;
 use App\Models\Content;
 use App\Models\CounselorProfile;
@@ -20,13 +15,10 @@ use App\Models\Grade;
 use App\Models\Motivation;
 use App\Models\School;
 use App\Models\StudentProfile;
-use App\Models\Subject;
-use App\Models\Topic;
 use App\Models\User;
 use App\Services\AnnouncementService;
 use App\Services\ContentCompletionService;
 use App\Services\FollowUpService;
-use App\Services\QuizService;
 use App\Services\StudentAlertService;
 use Illuminate\Database\Seeder;
 use RuntimeException;
@@ -94,7 +86,6 @@ class DemoSeeder extends Seeder
         // A few students without a counselor, to exercise the "unassigned" filter.
         StudentProfile::factory()->count(2)->inClassroom($classrooms[1])->create();
 
-        $this->seedDemoContent();
         $this->seedDemoProgress(User::where('username', 'student')->sole());
         $this->seedDemoExams();
         $this->seedDemoFollowUp($counselor);
@@ -166,62 +157,6 @@ class DemoSeeder extends Seeder
 
         if ($contents->count() === 3) {
             $completion->start($student, $contents[2]);
-        }
-    }
-
-    /**
-     * Clearly labelled demo lessons in the stakeholder's real categories.
-     * No external URLs are invented; demo items carry text only.
-     */
-    private function seedDemoContent(): void
-    {
-        $stages = ContentStage::cases();
-
-        foreach ([ContentSection::QUANTITATIVE, ContentSection::VERBAL] as $section) {
-            Category::where('section', $section)->ordered()->limit(3)->get()->each(function (Category $category) use ($stages) {
-                foreach (range(0, 1) as $i) {
-                    Content::factory()->forCategory($category)->create([
-                        'title' => "درس تجريبي: {$category->name} ".($i + 1),
-                        'description' => 'محتوى تجريبي لأغراض العرض فقط.',
-                        'body' => "هذا نص تجريبي.\nسيُستبدل بمحتوى حقيقي من مصدر مصرّح به.",
-                        'stage' => $stages[$i],
-                        'duration_seconds' => 600,
-                    ]);
-                }
-            });
-        }
-
-        $math = Subject::where('slug', 'الرياضيات')->first();
-
-        if ($math) {
-            $chapter = Chapter::create(['subject_id' => $math->id, 'name' => 'باب تجريبي: الدوال']);
-            $topic = Topic::create(['chapter_id' => $chapter->id, 'name' => 'موضوع تجريبي: مجال الدالة']);
-            Content::factory()->tahsili($math)->create([
-                'title' => 'درس تجريبي: مجال الدالة',
-                'chapter_id' => $chapter->id,
-                'topic_id' => $topic->id,
-                'description' => 'محتوى تجريبي لأغراض العرض فقط.',
-            ]);
-        }
-
-        $category = Category::where('section', ContentSection::QUANTITATIVE)->ordered()->first();
-
-        if ($category) {
-            $quiz = Content::factory()->forCategory($category)->create([
-                'title' => 'اختبار قصير تجريبي: '.$category->name,
-                'content_type' => ContentType::QUIZ,
-                'description' => 'أسئلة تجريبية لأغراض العرض فقط.',
-                'stage' => ContentStage::PRACTICE,
-            ]);
-
-            app(QuizService::class)->saveQuestions($quiz, [
-                'pass_percentage' => 60,
-                'questions' => [
-                    ['question_type' => 'multiple_choice', 'prompt' => 'سؤال تجريبي: كم يساوي 15 + 27؟', 'explanation' => '15 + 27 = 42', 'options' => ['32', '42', '52', '41'], 'correct' => 1],
-                    ['question_type' => 'multiple_choice', 'prompt' => 'سؤال تجريبي: ما نصف العدد 64؟', 'explanation' => '64 ÷ 2 = 32', 'options' => ['16', '32', '34', '128'], 'correct' => 1],
-                    ['question_type' => 'true_false', 'prompt' => 'سؤال تجريبي: العدد 7 عدد أولي.', 'explanation' => 'لا يقبل 7 القسمة إلا على 1 وعلى نفسه.', 'correct' => 0],
-                ],
-            ], null);
         }
     }
 }

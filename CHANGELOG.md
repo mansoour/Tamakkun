@@ -4,8 +4,15 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ## [Unreleased]
 
+### Added
+- Real القدرات content (الكمي واللفظي) from the team's Google Site «العب وتدرب قدرات وتحصيلي»: 258 published items (90 YouTube videos, 139 games and e-tests on Wordwall, Quizalize and Google/Microsoft Forms, 29 Google Drive files). Each item is placed in the category it is about and keeps the site's order. Rows live in `database/data/qudurat-content.php` and are imported by migration `2026_10_13_000001_import_qudurat_content` (idempotent; admin edits are never overwritten).
+- New categories: كمي «استراتيجيات الحل», «أسئلة المقارنة», «نماذج وتجميعات محلولة», «اختبارات شاملة ومحاكية», «مراجع وتجميعات»; لفظي «المفردة الشاذة», «اختبارات شاملة ومحاكية», «مراجع وتجميعات». New source «منصة العب وتدرب قدرات وتحصيلي».
+
 ### Changed
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
+
+### Removed
+- Fake demo lessons, the demo Tahsili lesson and the demo quiz from `DemoSeeder`. Demo users, progress, exams, follow-up and engagement data stay for local testing.
 
 ## [v0.9.0] — 2026-10-12 — Completion and polish
 

@@ -26,10 +26,10 @@ class ContentCatalogTest extends TestCase
 
     public function test_migration_seeds_stakeholder_structure_without_inventing_urls(): void
     {
-        $this->assertSame(['المعاصر', 'المنصف', 'المفكر', 'هيئة تقويم التعليم والتدريب'], Source::orderBy('id')->pluck('name')->all());
-        $this->assertSame(0, Source::whereNotNull('website_url')->count(), 'no provider URL is invented');
-        $this->assertSame(17, Category::where('section', 'quantitative')->count());
-        $this->assertSame(7, Category::where('section', 'verbal')->count());
+        $this->assertSame(['المعاصر', 'المنصف', 'المفكر', 'هيئة تقويم التعليم والتدريب', 'منصة العب وتدرب قدرات وتحصيلي'], Source::orderBy('id')->pluck('name')->all());
+        $this->assertSame(['play-training-qudrat-tahsyle'], Source::whereNotNull('website_url')->pluck('slug')->all(), 'only the team\'s own site has a URL');
+        $this->assertSame(22, Category::where('section', 'quantitative')->count());
+        $this->assertSame(10, Category::where('section', 'verbal')->count());
         $this->assertSame(['الرياضيات', 'الفيزياء', 'الكيمياء', 'الأحياء'], Subject::orderBy('sort_order')->pluck('name')->all());
     }
 

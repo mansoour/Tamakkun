@@ -1,0 +1,85 @@
+<?php
+
+namespace Tests\Feature\Admin;
+
+use App\Enums\ContentType;
+use App\Models\Category;
+use App\Models\Content;
+use App\Models\User;
+use App\Support\VideoEmbed;
+use Illuminate\Foundation\Testing\RefreshDatabase;
+use Tests\TestCase;
+
+class QuduratContentImportTest extends TestCase
+{
+    use RefreshDatabase;
+
+    private function import(): void
+    {
+        (require database_path('migrations/2026_10_13_000001_import_qudurat_content.php'))->importContent();
+    }
+
+    public function test_categories_are_placed_around_the_seeded_ones(): void
+    {
+        $this->assertSame(
+            ['استراتيجيات الحل', 'الأعداد'],
+            Category::where('section', 'quantitative')->ordered()->limit(2)->pluck('name')->all(),
+        );
+        $this->assertSame(
+            ['أسئلة المقارنة', 'نماذج وتجميعات محلولة', 'اختبارات شاملة ومحاكية', 'مراجع وتجميعات'],
+            Category::where('section', 'quantitative')->ordered()->get()->slice(-4)->pluck('name')->values()->all(),
+        );
+        $this->assertSame(
+            ['استيعاب المقروء', 'التناظر اللفظي', 'إكمال الجمل', 'الخطأ السياقي', 'المفردة الشاذة', 'الارتباط والاختلاف'],
+            Category::where('section', 'verbal')->ordered()->limit(6)->pluck('name')->all(),
+        );
+    }
+
+    public function test_every_row_is_imported_once_and_is_valid(): void
+    {
+        $rows = require database_path('data/qudurat-content.php');
+
+        $this->import();
+        $this->import();
+
+        $this->assertSame(count($rows), Content::count(), 're-running the import adds nothing');
+        $this->assertSame(count($rows), Content::visible()->count());
+        $this->assertSame(0, Content::whereNull('category_id')->count());
+
+        Content::all()->each(function (Content $content) {
+            $this->assertSame($content->section, $content->category->section, $content->title);
+
+            if ($content->content_type === ContentType::VIDEO) {
+                $this->assertTrue(VideoEmbed::isSupported($content->video_url), $content->title);
+            } else {
+                $this->assertStringStartsWith('https://', $content->external_url, $content->title);
+            }
+        });
+
+        $this->assertSame(count($rows), count(array_unique(array_column($rows, 'url'))), 'no link is imported twice');
+    }
+
+    public function test_admin_edits_are_never_overwritten(): void
+    {
+        $this->import();
+        $content = Content::where('slug', 'qudurat-q-001')->sole();
+        $content->update(['title' => 'عنوان عدّلته الإدارة', 'is_published' => false]);
+
+        $this->import();
+
+        $this->assertSame('عنوان عدّلته الإدارة', $content->fresh()->title);
+        $this->assertFalse($content->fresh()->is_published);
+    }
+
+    public function test_student_sees_imported_content_in_its_category(): void
+    {
+        $this->import();
+        $student = User::factory()->student()->create();
+
+        $this->actingAs($student)->get('/student/quantitative')->assertOk()
+            ->assertSeeInOrder(['استراتيجيات الحل', 'دورة القدرات الكمي: استراتيجية التجريب', 'الهندسة', 'لعبة هندسة 1']);
+
+        $this->actingAs($student)->get('/student/verbal')->assertOk()
+            ->assertSeeInOrder(['المفردة الشاذة', 'لعبة المفردة الشاذة 1']);
+    }
+}

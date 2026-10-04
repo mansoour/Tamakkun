@@ -33,3 +33,16 @@ Do not claim that المعاصر, المنصف or المفكر provide verbal ma
 
 - The official URL for **المفكر** was not confirmed in the brief, so it stays empty.
 - Current official ETEC service links (registration, results, individual services) must be verified live before production.
+
+## Imported القدرات content (migration `2026_10_13_000001`)
+
+The team's own Google Site [العب وتدرب قدرات وتحصيلي](https://sites.google.com/view/play-training-qudrat-tahsyle) is the source of the real Qudurat content. Every item links to where it already lives (YouTube, Wordwall, Quizalize, Google/Microsoft Forms, Google Drive). Nothing is re-hosted on Tamakkun.
+
+- **Data file:** `database/data/qudurat-content.php`, one row per item (slug, section, category, title, description, type, stage, URL, order). Slugs are `qudurat-q-NNN` (كمي) and `qudurat-v-NNN` (لفظي).
+- **Placement:** each item is in the category it is about. For example, geometry lessons, games and tests are all under الهندسة. Items that mix several skills go to «نماذج وتجميعات محلولة», «اختبارات شاملة ومحاكية» or «مراجع وتجميعات». Course activities stay with the lesson they follow.
+- **Order inside a category:** course and summary videos, then games, then e-tests, then files, each in the site's own order.
+- **Types and stages:** YouTube → مقطع فيديو, embedded (تأسيس, or تدريب for game and activity solutions). Games and activities → تدريب, opened in a new tab. E-tests → تدريب type at stage إتقان. Drive files (PDFs and two MP4s that Drive does not allow us to embed) → رابط خارجي at stage مراجعة (the MP4s at تأسيس).
+- **Not imported:** tiles on the site that have no link yet (for example حل هندسة 11–15 and حل كمي 17–20, still being recorded), and «هندسة 7» in the course, which points to the same video as «هندسة 6».
+- **Tests:** the import is skipped while unit tests run, so feature tests keep their own fixtures. `QuduratContentImportTest` runs it explicitly.
+
+To add items the site gains later, add them in the admin area. To re-import from the site, extend the data file with new slugs and add a new migration; never change an existing slug.

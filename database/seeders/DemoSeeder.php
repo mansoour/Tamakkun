@@ -40,7 +40,7 @@ class DemoSeeder extends Seeder
             'email' => 'admin@tamakkun.test',
         ]);
 
-        $school = School::create(['name' => 'مدرسة تمكّن الثانوية', 'city' => 'جدة', 'is_active' => true]);
+        $school = School::create(['name' => 'مدرسة تمكّن الثانوية', 'city' => 'بيشة', 'is_active' => true]);
         $year = AcademicYear::create(['school_id' => $school->id, 'name' => '1447–1448', 'is_current' => true]);
 
         $classrooms = collect(['الأول الثانوي' => 10, 'الثاني الثانوي' => 11, 'الثالث الثانوي' => 12])

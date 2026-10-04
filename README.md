@@ -1,17 +1,47 @@
 # Tamakkun (تمكّن)
 
+![Tamakkun — responsive Arabic learning platform for Qudurat and Tahsili](screenshots/cover.webp)
+
 > خطوتك اليوم… تصنع نتيجتك غدًا
 > استعداد • تدريب • متابعة • إنجاز
 
-**Tamakkun** is a responsive, Arabic-first (RTL) website for Grade 12 female students preparing for the **Qudurat** (القدرات العامة, General Aptitude Test) and **Tahsili** (التحصيلي, Achievement Test) exams, and for the school counselors who follow their progress.
+**Tamakkun** is a responsive, Arabic-first (RTL) learning platform for female secondary-school students (Grades 10–12) preparing for the **Qudurat** (القدرات العامة, General Aptitude Test) and **Tahsili** (التحصيلي, Achievement Test) exams, and for the school counselors who follow their progress. The platform is run under the supervision of **أ. فاطمة الشهراني** and developed by **[Mansoour](https://mansoour.com)**.
 
-- **Students** (mostly on mobile browsers) get structured quantitative, verbal and Tahsili resources, videos, official links, daily challenges, motivation, exam-date and score tracking, and personal progress.
-- **Counselors** (mostly on desktop/tablet) monitor assigned students, identify who needs follow-up, review scores and activity, manage content, send announcements and run reports.
-- **Admins** manage schools, classes, users, permissions, content and settings.
+- **Visitors** browse every section, category and lesson title, see the top students on «لوحة الشرف», and create a student account in under a minute.
+- **Students** (mostly on mobile browsers) learn in a set order (تأسيس ← تدريب ← إتقان ← مراجعة): embedded video lessons, interactive games, e-tests and reference files, plus a daily challenge, daily motivation, exam-date and score tracking, badges and personal progress.
+- **Counselors** (mostly on desktop/tablet) monitor assigned students, see who needs follow-up, review scores and activity, send announcements and run PDF/CSV reports.
+- **Admins** manage schools, classes, users, roles, content, registration and settings.
 
 The site is built website-first. A native mobile app may come later, so business logic lives in services that a future `/api/v1` can reuse.
 
-**Current version: v0.9 — Completion and polish.** See [CHANGELOG.md](CHANGELOG.md) and the roadmap in [docs/decisions.md](docs/decisions.md).
+**Current version: v0.9 plus the unreleased content and features listed in [CHANGELOG.md](CHANGELOG.md).** The roadmap is in [docs/decisions.md](docs/decisions.md).
+
+---
+
+## Highlights
+
+| Area | What is included |
+|---|---|
+| **Content** | **833 published items**: القدرات الكمي (266), القدرات اللفظي (66) and التحصيلي – رياضيات (501, in 29 chapters for Grades 10–12). Includes 400 embedded YouTube lessons, 383 games and e-tests (Wordwall, Quizalize, Google/Microsoft Forms) and 50 reference files. Each item is placed in the skill or chapter it covers. See [docs/content-sources.md](docs/content-sources.md). |
+| **Daily engagement** | 20 ready-made «تحدي اليوم» challenges (60 questions with explanations) and 16 «دفعة اليوم» motivation items. |
+| **Public site** | Navbar, home page with live numbers, browsable content catalogue (`/content`, every item opens only after sign-in), «لوحة الشرف» (`/leaderboard`, first name and family initial only), about and resources pages. |
+| **Accounts** | Student self-registration (school → grade → classroom; email required; open / approval / closed setting). Counselor and admin accounts are created by an admin. |
+| **Safety** | A privacy warning on every external link (no real personal data; use a dummy phone number). Role-based permissions, audit log, rate limits and encrypted backups. |
+| **Arabic-first UI** | Full RTL including form fields, dropdown arrows and the page scrollbar. Alexandria and IBM Plex Sans Arabic fonts. Installable on the home screen. |
+
+## Screenshots
+
+| Home page | Content catalogue |
+|---|---|
+| ![Home page](screenshots/home.webp) | ![Content catalogue](screenshots/content-catalogue.webp) |
+| **Section with lessons** | **Lesson page (embedded video)** |
+| ![Quantitative section](screenshots/content-section.webp) | ![Lesson](screenshots/lesson.webp) |
+| **Student dashboard** | **Counselor dashboard** |
+| ![Student dashboard](screenshots/student-dashboard.webp) | ![Counselor dashboard](screenshots/counselor-dashboard.webp) |
+| **Admin dashboard** | **Overview** |
+| ![Admin dashboard](screenshots/admin-dashboard.webp) | ![Overview](screenshots/overview.webp) |
+
+Screenshots use the local demo data only (no real students).
 
 ---
 

@@ -5,6 +5,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- README: cover image, highlights with content numbers, and a screenshot gallery (`screenshots/`, WebP).
 - Public navbar on every public page (الرئيسية، المحتوى، لوحة الشرف، عن المنصة، مصادر رسمية), with a phone menu.
 - Public content catalogue (`/content`): visitors browse every section, category, chapter and lesson title. Opening a lesson, game, test or file requires an account; no video or external URL is sent to guests.
 - «لوحة الشرف» (`/leaderboard`): top students this month and all time (first name and family initial only), with an admin switch.

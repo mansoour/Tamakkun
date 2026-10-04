@@ -5,6 +5,8 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- Twelve free القدرات sample tests (Google Forms), each in the category it tests, including a placement test for each section. The listing store is not recorded as a source.
+- Privacy warning on every external link (content «فتح المصدر», «روابط مهمة», public resources): do not enter real personal details; use a dummy phone number such as 0500000000 if one is required.
 - Student self-registration at `/register`: name, username, optional email, password, and school → grade → classroom chosen from linked lists (active schools, current academic year). New setting «تسجيل الطالبات»: open (active at once), approval (an admin activates) or closed. A school with a single counselor gets new students assigned to her.
 - New home page: hero with the supervision badge, live content numbers, the three learning paths, «كيف تبدئين؟» steps, features, a counselor section, a supervision card and a call to action. Open Graph tags for link previews.
 - Settings «اسم المشرفة» and «صفة الإشراف» (default: إشراف وإدارة المنصة: أ. فاطمة الشهراني), shown on the home page, login and register pages and the footer.

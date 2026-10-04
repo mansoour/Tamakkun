@@ -53,6 +53,7 @@
             @endif
 
             @if ($content->external_url)
+                <x-external-link-notice />
                 <a href="{{ $content->external_url }}" target="_blank" rel="noopener noreferrer" class="btn-primary">
                     <x-icon name="link" /> فتح المصدر
                     <span class="sr-only">(يفتح في نافذة جديدة)</span>

@@ -4,6 +4,7 @@
     @if ($groups->isEmpty())
         <x-empty-state class="mt-6" icon="link" title="لم تُضف روابط بعد" description="ستضيف الإدارة الروابط الرسمية بعد التحقق منها." />
     @else
+        <x-external-link-notice official-exception class="mt-6" />
         <div class="mt-6 space-y-8">
             @foreach ($groups as $group)
                 <section aria-labelledby="links-{{ $group['category']->value }}">

@@ -56,3 +56,15 @@ From the التحصيلي pages of the same Google Site. Rows are in `database/d
 - **Stages:** course lessons and جسم videos → تأسيس. Games, solutions, activities and models → تدريب. E-tests → إتقان. Files → مراجعة.
 - **Not imported:** tiles with no link, and links the site reuses for a different item. The 1447 solutions for models 9–12 reuse the videos of 7 and 8. 1446 «حل نموذج 1» is the video of model 15. «حل الدراسات المسحية» is the التحليل الإحصائي video. The «التبرير الاستنتاجي» game is the same quiz as «العبارات الشرطية». «دورة منصة تميز» is week 2 of جسم.
 - **Files:** most PDFs under مراجع وتجميعات are full Tahsili packs (all four subjects), not math only.
+
+## Free sample tests (migration `2026_10_15_000001`)
+
+Twelve free sample tests (Google Forms) listed on a test-preparation store's public page. The store sells courses and is **not** a partner, so it is not recorded as a source and its own pages are not linked. Only the free form links are. Rows are in `database/data/sample-tests-content.php`.
+
+- Placement follows each form's own title, not the store's label: «اختبار كمي (2)–(5)» are geometry tests 1–4 and sit under الهندسة. «اختبار كمي (1)» is a general test under «اختبارات شاملة ومحاكية». The verbal tests go to their skill category.
+- The two placement tests («اختبار تحديد المستوى») open «اختبارات شاملة ومحاكية» in each section. The others follow the category's last e-test.
+- Several of these forms ask for a name and a phone number. The external-link warning (below) covers this.
+
+## External-link warning
+
+Every place that sends a student to another website shows `<x-external-link-notice>`: the content page above «فتح المصدر», the «روابط مهمة» page and the public resources page. It tells students not to enter real personal data (phone, ID, address, passwords), to use a dummy phone number such as 0500000000 if one is required, and that a first name is enough. On the link lists it adds that sites marked «مصدر رسمي» (for example قياس) need real details. Embedded YouTube/Vimeo videos do not show it, because they ask for nothing.

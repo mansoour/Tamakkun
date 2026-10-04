@@ -3,6 +3,8 @@
 
     @if ($links->isEmpty() && $sources->isEmpty())
         <x-empty-state class="mt-6" icon="link" title="لم تُضف روابط رسمية بعد" description="تُضاف الروابط هنا بعد أن تتحقق منها الإدارة." />
+    @else
+        <x-external-link-notice official-exception class="mt-6" />
     @endif
 
     @if ($links->isNotEmpty())

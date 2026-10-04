@@ -19,6 +19,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Real التحصيلي – الرياضيات content from the same site: 501 published items (249 YouTube videos, 232 games, activities and e-tests, 20 Google Drive files) in 29 chapters and 174 topics. The 24 curriculum chapters (أول، ثاني، ثالث ثانوي) each hold the matching «دورة فن التحصيلي» lessons, every lesson's game with its solution video and, for ثالث ثانوي, the chapter e-test; then تجميعات 1447هـ, تجميعات 1446هـ, the comprehensive e-tests, مبادرة جسم and مراجع وتجميعات. Rows live in `database/data/tahsili-math-content.php`, imported by migration `2026_10_14_000001_import_tahsili_math_content`.
 
 ### Changed
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
 
 ### Fixed
@@ -43,6 +44,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Installable site: web app manifest, home-screen icons and Apple touch icon (no service worker, no offline mode).
 
 ### Changed
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - `SettingsService` reads are memoised per request; the service is `scoped` so queue workers read fresh values for each job.
 - Accessibility fixes from an axe-core audit of 40 pages at 375px and 1280px: score card heading level, the desktop notification bell inside a landmark, contrast of unearned badges, keyboard-scrollable tables. Quiz answers with numbers render in the correct direction.
 
@@ -69,6 +71,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - CSV exports neutralise spreadsheet formula injection.
 
 ### Changed
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Every navigation section is now built, so no "قريبًا" placeholders remain.
 
 ## [v0.7.0] — 2026-10-10 — Challenge, motivation, announcements, notifications
@@ -110,6 +113,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Docs: `docs/exams.md`, plus updates to the schema, architecture, permissions, testing and decisions docs.
 
 ### Changed
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Badges no longer wrap inside table cells on small screens.
 
 ## [v0.4.0] — 2026-10-07 — Progress

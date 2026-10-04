@@ -35,13 +35,13 @@ class Navigation
         return match ($area) {
             'student' => [
                 ['label' => 'الرئيسية', 'icon' => 'home', 'route' => 'student.dashboard'],
+                ['label' => 'موعدي ودرجتي', 'icon' => 'calendar-days', 'route' => 'student.exams.index', 'active' => 'student.exams.*'],
                 ['label' => 'القدرات الكمي', 'icon' => 'calculator', 'route' => 'student.quantitative'],
                 ['label' => 'القدرات اللفظي', 'icon' => 'book-open', 'route' => 'student.verbal'],
                 ['label' => 'التحصيلي', 'icon' => 'beaker', 'route' => 'student.achievement', 'active' => 'student.achievement*'],
                 ['label' => 'تحدي اليوم', 'icon' => 'bolt', 'route' => 'student.challenge'],
                 ['label' => 'مكتبة المقاطع', 'icon' => 'play-circle', 'route' => 'student.videos'],
                 ['label' => 'روابط مهمة', 'icon' => 'link', 'route' => 'student.links'],
-                ['label' => 'موعدي ودرجتي', 'icon' => 'calendar-days', 'route' => 'student.exams.index', 'active' => 'student.exams.*'],
                 ['label' => 'دفعة اليوم', 'icon' => 'sparkles', 'route' => 'student.motivation'],
                 ['label' => 'تقدمي', 'icon' => 'chart-bar', 'route' => 'student.progress'],
                 ['label' => 'الإشعارات', 'icon' => 'bell', 'route' => 'student.notifications'],

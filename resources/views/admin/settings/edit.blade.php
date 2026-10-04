@@ -24,6 +24,8 @@
             <x-form.select name="student_registration" label="إنشاء الطالبة حسابها بنفسها" :value="$settings['student_registration']"
                 :options="['open' => 'مفتوح: يُفعَّل الحساب فورًا', 'approval' => 'مفتوح بموافقة: تفعّل الإدارة الحساب', 'closed' => 'مغلق: الحسابات تُنشأ من المدرسة فقط']"
                 hint="تختار الطالبة مدرستها وصفّها وفصلها من القوائم. تظهر المدارس النشطة ذات العام الدراسي الحالي فقط." />
+            <x-form.checkbox name="show_leaderboard" label="إظهار «لوحة الشرف» للزوار" :checked="$settings['show_leaderboard']"
+                hint="تعرض الاسم الأول والحرف الأول من اسم العائلة والصف فقط، دون المدرسة أو اسم المستخدم." />
         </section>
 
         <section aria-labelledby="security-title" class="space-y-3 border-t border-line pt-6">

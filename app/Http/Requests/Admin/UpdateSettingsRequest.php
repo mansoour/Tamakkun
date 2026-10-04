@@ -44,6 +44,7 @@ class UpdateSettingsRequest extends FormRequest
             'force_password_change' => ['required', 'boolean'],
             'enable_gamification' => ['boolean'],
             'email_notifications' => ['boolean'],
+            'show_leaderboard' => ['boolean'],
 
             'platform_name' => ['sometimes', 'required', 'string', 'max:40'],
             'tagline' => ['sometimes', 'nullable', 'string', 'max:120'],
@@ -119,6 +120,7 @@ class UpdateSettingsRequest extends FormRequest
             'force_password_change' => $this->boolean('force_password_change'),
             'enable_gamification' => $this->boolean('enable_gamification'),
             'email_notifications' => $this->boolean('email_notifications'),
+            'show_leaderboard' => $this->boolean('show_leaderboard'),
         ];
 
         foreach (self::INTEGERS as $key) {

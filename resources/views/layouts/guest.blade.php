@@ -33,6 +33,8 @@
                 <div class="card w-full max-w-md p-6 sm:p-8">
                     {{ $slot }}
                 </div>
+
+                <x-developer-credit class="mt-6 text-muted" />
             </main>
         </div>
     </body>

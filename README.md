@@ -243,4 +243,6 @@ This project is also developed with [Claude Code](https://claude.ai/code) cloud 
 
 ## License
 
-Private and proprietary. All rights reserved.
+Copyright © 2026 [Mansoour](https://mansoour.com). All rights reserved.
+
+Private and proprietary; see [LICENSE](LICENSE). Developed by [Mansoour](https://mansoour.com).

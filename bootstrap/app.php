@@ -1,5 +1,7 @@
 <?php
 
+// Tamakkun (تمكّن) · Copyright (c) 2026 Mansoour (https://mansoour.com). All rights reserved.
+
 use App\Http\Middleware\EnsurePasswordIsChanged;
 use App\Http\Middleware\EnsureUserIsActive;
 use App\Http\Middleware\SecurityHeaders;

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Services\LeaderboardService;
 use App\Services\PublicPageService;
 use App\Services\SettingsService;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class PublicPageController extends Controller
@@ -14,6 +16,19 @@ class PublicPageController extends Controller
     public function home(): View
     {
         return view('welcome', ['stats' => $this->pages->homeStats()]);
+    }
+
+    public function leaderboard(Request $request, LeaderboardService $leaderboard): View
+    {
+        abort_unless($leaderboard->enabled(), 404);
+
+        $period = array_key_exists((string) $request->query('period'), LeaderboardService::PERIODS) ? (string) $request->query('period') : 'month';
+
+        return view('public.leaderboard', [
+            'period' => $period,
+            'periods' => LeaderboardService::PERIODS,
+            'rows' => $leaderboard->top($period),
+        ]);
     }
 
     public function about(): View

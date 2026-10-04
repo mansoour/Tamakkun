@@ -33,7 +33,7 @@ class RegisterStudentRequest extends FormRequest
             'name' => ['required', 'string', 'min:3', 'max:255'],
             'username' => ['required', ...Username::rules(Username::CODE_MAX), 'min:3',
                 Rule::unique('users', 'username'), Rule::unique('student_profiles', 'student_code')],
-            'email' => ['nullable', 'email', 'max:255', Rule::unique('users', 'email')],
+            'email' => ['required', 'email', 'max:255', Rule::unique('users', 'email')],
             'password' => ['required', 'confirmed', Password::min(8), 'max:72'],
             'school_id' => ['required', 'integer', 'exists:schools,id'],
             'grade_id' => ['required', 'integer', 'exists:grades,id'],

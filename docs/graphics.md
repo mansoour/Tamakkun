@@ -49,7 +49,7 @@ Other images:
 
 | # | Path | Size (px) | Purpose | Notes |
 |---|---|---|---|---|
-| 9 | `public/images/og-image.png` | 1200 × 630 | Link preview when the site is shared (WhatsApp, X, Telegram) | Solid brand gradient background (`#7458B5` → `#9B83D1`), illustration on one side, empty space on the right for the logo. The image AI should add no text. You can add the platform name «تمكّن» yourself afterwards, in Alexandria ExtraBold. |
+| 9 | `public/images/og-image.jpg` | 1200 × 630 | Link preview when the site is shared (WhatsApp, X, Telegram) | Solid brand gradient background (`#7458B5` → `#9B83D1`), illustration on one side, empty space on the right for the logo. The image AI should add no text. You can add the platform name «تمكّن» yourself afterwards, in Alexandria ExtraBold. |
 | 10 | `public/icons/icon-512.png` | 512 × 512 | App icon (home screen, manifest) | Square, solid `#7458B5` background, simple white mark (graduation cap or an abstract "rising step"), with 20% safe padding (maskable). |
 | 11 | `public/icons/icon-192.png` | 192 × 192 | App icon (small) | Same design as #10, scaled down. |
 | 12 | `public/icons/apple-touch-icon.png` | 180 × 180 | iPhone home screen | Same design as #10, no transparency. |

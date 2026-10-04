@@ -106,6 +106,25 @@ class PublicPageService
      *
      * @return list<array{label: string, route: string}>
      */
+    /**
+     * Top navigation of the public pages.
+     *
+     * @return list<array{label: string, route: string, icon: string, active?: string}>
+     */
+    public function navLinks(): array
+    {
+        return array_values(array_filter([
+            ['label' => 'الرئيسية', 'route' => 'home', 'icon' => 'home'],
+            ['label' => 'المحتوى', 'route' => 'browse', 'icon' => 'book-open', 'active' => 'browse*'],
+            app(LeaderboardService::class)->enabled() ? ['label' => 'لوحة الشرف', 'route' => 'leaderboard', 'icon' => 'trophy'] : null,
+            ['label' => 'عن المنصة', 'route' => 'about', 'icon' => 'information-circle'],
+            ['label' => 'مصادر رسمية', 'route' => 'resources', 'icon' => 'link'],
+        ]));
+    }
+
+    /**
+     * @return list<array{label: string, route: string}>
+     */
     public function footerLinks(): array
     {
         $links = [

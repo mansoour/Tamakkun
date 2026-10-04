@@ -37,6 +37,8 @@ return [
         'supervisor_title' => 'إشراف وإدارة المنصة',
         // Student self-registration: open (active at once), approval (an admin activates) or closed.
         'student_registration' => 'open',
+        // Public «لوحة الشرف» (/leaderboard): first name + family initial and grade only.
+        'show_leaderboard' => true,
     ],
 
 ];

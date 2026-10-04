@@ -34,7 +34,7 @@ class StudentRegistrationTest extends TestCase
         return array_merge([
             'name' => 'سارة أحمد علي',
             'username' => 'Sara.Ahmad',
-            'email' => '',
+            'email' => 'sara@example.com',
             'password' => 'secret-pass-1',
             'password_confirmation' => 'secret-pass-1',
             'school_id' => $this->classroom->schoolId(),
@@ -114,6 +114,7 @@ class StudentRegistrationTest extends TestCase
         $this->post('/register', $this->payload(['username' => 'سارة']))->assertSessionHasErrors('username');
         $this->post('/register', $this->payload(['username' => 'taken']))->assertSessionHasErrors('username');
         $this->post('/register', $this->payload(['password_confirmation' => 'different']))->assertSessionHasErrors('password');
+        $this->post('/register', $this->payload(['email' => '']))->assertSessionHasErrors('email');
     }
 
     public function test_login_page_links_to_registration_only_when_open(): void

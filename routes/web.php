@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin;
 use App\Http\Controllers\Counselor;
 use App\Http\Controllers\DashboardRedirectController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\PublicContentController;
 use App\Http\Controllers\PublicPageController;
 use App\Http\Controllers\Shared;
 use App\Http\Controllers\Student;
@@ -12,6 +13,10 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [PublicPageController::class, 'home'])->name('home');
 Route::get('/about', [PublicPageController::class, 'about'])->name('about');
+Route::get('/leaderboard', [PublicPageController::class, 'leaderboard'])->name('leaderboard');
+Route::get('/content', [PublicContentController::class, 'index'])->name('browse');
+Route::get('/content/{section}', [PublicContentController::class, 'section'])
+    ->whereIn('section', ['quantitative', 'verbal', 'tahsili'])->name('browse.section');
 Route::get('/resources', [PublicPageController::class, 'resources'])->name('resources');
 Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');
 Route::get('/terms', [PublicPageController::class, 'terms'])->name('terms');

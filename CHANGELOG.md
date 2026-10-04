@@ -5,6 +5,11 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- Public navbar on every public page (الرئيسية، المحتوى، لوحة الشرف، عن المنصة، مصادر رسمية), with a phone menu.
+- Public content catalogue (`/content`): visitors browse every section, category, chapter and lesson title. Opening a lesson, game, test or file requires an account; no video or external URL is sent to guests.
+- «لوحة الشرف» (`/leaderboard`): top students this month and all time (first name and family initial only), with an admin switch.
+- Footer credit «تمكّن © 2026 · تطوير Mansoour» (links to mansoour.com; the year becomes a range automatically) on every page; LICENSE file and copyright notices (© 2026 Mansoour, mansoour.com) in the code, README, composer.json, package.json and page metadata.
+- New, higher-quality site graphics, app icons and favicon; the link-preview image is now `og-image.jpg` (79 KB).
 - Site graphics from docs/graphics.md: 8 illustrations (home page, learning paths, steps, counselor, supervision, login/register panel), the link-preview image, and new app icons and favicon.
 - «تأسيس أينشتاين»: a 61-video foundation course for القدرات الكمي (YouTube playlist), in its own category at the top of the section, in lecture order, with the new source «أينشتاين». See the source caveat in docs/content-sources.md.
 - «تجميعات المنصف 1500 سؤال» (free PDF) at the top of القدرات الكمي ← مراجع وتجميعات, source المنصف.
@@ -20,6 +25,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Real التحصيلي – الرياضيات content from the same site: 501 published items (249 YouTube videos, 232 games, activities and e-tests, 20 Google Drive files) in 29 chapters and 174 topics. The 24 curriculum chapters (أول، ثاني، ثالث ثانوي) each hold the matching «دورة فن التحصيلي» lessons, every lesson's game with its solution video and, for ثالث ثانوي, the chapter e-test; then تجميعات 1447هـ, تجميعات 1446هـ, the comprehensive e-tests, مبادرة جسم and مراجع وتجميعات. Rows live in `database/data/tahsili-math-content.php`, imported by migration `2026_10_14_000001_import_tahsili_math_content`.
 
 ### Changed
+- Student sign-up requires an email address. No verification email is sent and the account is still active at once.
 - Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
 
@@ -45,6 +51,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Installable site: web app manifest, home-screen icons and Apple touch icon (no service worker, no offline mode).
 
 ### Changed
+- Student sign-up requires an email address. No verification email is sent and the account is still active at once.
 - Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - `SettingsService` reads are memoised per request; the service is `scoped` so queue workers read fresh values for each job.
 - Accessibility fixes from an axe-core audit of 40 pages at 375px and 1280px: score card heading level, the desktop notification bell inside a landmark, contrast of unearned badges, keyboard-scrollable tables. Quiz answers with numbers render in the correct direction.
@@ -72,6 +79,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - CSV exports neutralise spreadsheet formula injection.
 
 ### Changed
+- Student sign-up requires an email address. No verification email is sent and the account is still active at once.
 - Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Every navigation section is now built, so no "قريبًا" placeholders remain.
 
@@ -114,6 +122,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Docs: `docs/exams.md`, plus updates to the schema, architecture, permissions, testing and decisions docs.
 
 ### Changed
+- Student sign-up requires an email address. No verification email is sent and the account is still active at once.
 - Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
 - Badges no longer wrap inside table cells on small screens.
 

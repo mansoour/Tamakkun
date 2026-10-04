@@ -27,8 +27,8 @@
             <x-form.input name="username" label="اسم المستخدم" required autocomplete="username" maxlength="32"
                 hint="بالحروف الإنجليزية أو الأرقام، وستستخدمينه لتسجيل الدخول. مثال: sara.ahmad" />
 
-            <x-form.input name="email" type="email" label="البريد الإلكتروني (اختياري)" autocomplete="email"
-                hint="يساعدك على استعادة كلمة المرور إن نسيتِها." />
+            <x-form.input name="email" type="email" label="البريد الإلكتروني" required autocomplete="email"
+                hint="تستخدمينه لاستعادة كلمة المرور إن نسيتِها." />
 
             <fieldset class="space-y-4 rounded-2xl border border-line p-4">
                 <legend class="px-1 text-sm font-bold text-ink">المدرسة والصف</legend>

@@ -1,7 +1,11 @@
 <meta charset="utf-8">
+{{-- Tamakkun (تمكّن). Copyright (c) 2026 Mansoour (https://mansoour.com). All rights reserved. --}}
+<!-- Developed by Mansoour · https://mansoour.com · © 2026 All rights reserved -->
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <meta name="theme-color" content="#7458B5">
+<meta name="author" content="Mansoour (mansoour.com)">
+<meta name="copyright" content="© 2026 Mansoour (mansoour.com)">
 <link rel="manifest" href="{{ route('manifest') }}">
 <link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
 <meta name="apple-mobile-web-app-title" content="{{ $platformName }}">
@@ -16,8 +20,8 @@
 <meta property="og:title" content="{{ isset($title) && $title ? $title.' — ' : '' }}{{ $platformName }}">
 <meta property="og:description" content="استعداد • تدريب • متابعة • إنجاز — القدرات الكمي واللفظي والتحصيلي في مسار واحد.">
 <meta property="og:url" content="{{ url()->current() }}">
-@if (is_file(public_path('images/og-image.png')))
-    <meta property="og:image" content="{{ asset('images/og-image.png') }}">
+@if (is_file(public_path('images/og-image.jpg')))
+    <meta property="og:image" content="{{ asset('images/og-image.jpg') }}">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta name="twitter:card" content="summary_large_image">

@@ -16,6 +16,8 @@ class PublicLayout extends Component
 
     public function render(): View
     {
-        return view('layouts.public', ['footerLinks' => app(PublicPageService::class)->footerLinks()]);
+        $pages = app(PublicPageService::class);
+
+        return view('layouts.public', ['navLinks' => $pages->navLinks(), 'footerLinks' => $pages->footerLinks()]);
     }
 }

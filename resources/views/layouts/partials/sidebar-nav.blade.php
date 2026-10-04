@@ -34,5 +34,6 @@
                 تسجيل الخروج
             </button>
         </form>
+        <x-developer-credit class="mt-3 text-center text-muted" />
     </div>
 </div>

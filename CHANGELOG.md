@@ -26,7 +26,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ### Changed
 - Student sign-up requires an email address. No verification email is sent and the account is still active at once.
-- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية», followed by «دفعة اليوم».
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
 
 ### Fixed
@@ -52,7 +52,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ### Changed
 - Student sign-up requires an email address. No verification email is sent and the account is still active at once.
-- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية», followed by «دفعة اليوم».
 - `SettingsService` reads are memoised per request; the service is `scoped` so queue workers read fresh values for each job.
 - Accessibility fixes from an axe-core audit of 40 pages at 375px and 1280px: score card heading level, the desktop notification bell inside a landmark, contrast of unearned badges, keyboard-scrollable tables. Quiz answers with numbers render in the correct direction.
 
@@ -80,7 +80,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ### Changed
 - Student sign-up requires an email address. No verification email is sent and the account is still active at once.
-- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية», followed by «دفعة اليوم».
 - Every navigation section is now built, so no "قريبًا" placeholders remain.
 
 ## [v0.7.0] — 2026-10-10 — Challenge, motivation, announcements, notifications
@@ -123,7 +123,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ### Changed
 - Student sign-up requires an email address. No verification email is sent and the account is still active at once.
-- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية».
+- Student menu: «موعدي ودرجتي» moved to second place, right after «الرئيسية», followed by «دفعة اليوم».
 - Badges no longer wrap inside table cells on small screens.
 
 ## [v0.4.0] — 2026-10-07 — Progress

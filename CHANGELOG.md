@@ -5,6 +5,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- 20 real «تحدي اليوم» challenges (60 questions with explanations: كمي، لفظي، تحصيلي), scheduled one per day from the day the migration runs, and 16 real «دفعة اليوم» motivation items.
 - Twelve free القدرات sample tests (Google Forms), each in the category it tests, including a placement test for each section. The listing store is not recorded as a source.
 - Privacy warning on every external link (content «فتح المصدر», «روابط مهمة», public resources): do not enter real personal details; use a dummy phone number such as 0500000000 if one is required.
 - Student self-registration at `/register`: name, username, optional email, password, and school → grade → classroom chosen from linked lists (active schools, current academic year). New setting «تسجيل الطالبات»: open (active at once), approval (an admin activates) or closed. A school with a single counselor gets new students assigned to her.
@@ -23,7 +24,8 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - The page scrollbar is on the left, as on an Arabic site, on desktop and laptop screens: the body is the scroll container, so it follows `dir="rtl"`. Touch devices keep normal page scrolling.
 
 ### Removed
-- Fake demo lessons, the demo Tahsili lesson and the demo quiz from `DemoSeeder`. Demo users, progress, exams, follow-up and engagement data stay for local testing.
+- Fake demo lessons, the demo Tahsili lesson and the demo quiz from `DemoSeeder`.
+- Every «تجريبي» demo record: `DemoSeeder` now creates only an admin, one counselor and one student (no labels, realistic notes and a welcome announcement) in «مدرسة تمكّن الثانوية», with grades 1–3 so self-registration can be tried locally. The fake challenge and motivations were replaced by the real ones.
 
 ## [v0.9.0] — 2026-10-12 — Completion and polish
 

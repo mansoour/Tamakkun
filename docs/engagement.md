@@ -50,3 +50,9 @@ Personal and positive, computed from real data (`BadgeService`), and shown on ت
 | أول اختبار | Any exam result received |
 | تحسن 10 درجات | Improvement ≥ 10 in either exam |
 | إكمال مرحلة التأسيس | All visible foundation-stage content completed |
+
+## Seeded تحدي اليوم and دفعة اليوم (migration `2026_10_16_000001`)
+
+- **20 challenges** in `database/data/daily-challenges.php`. Each has three multiple-choice questions: القدرات الكمي, القدرات اللفظي and التحصيلي (رياضيات). Every question carries a worked explanation and follows the skills and chapters of the imported content (النسبة المئوية, الهندسة, أسئلة المقارنة, التناظر اللفظي, المفردة الشاذة, الخطأ السياقي, المصفوفات, المتتابعات, اللوغاريتمات, النهايات…). They are scheduled one per day starting on the day the migration runs, skipping dates that already have a challenge. After the 20th day, add new challenges in the admin area.
+- **16 motivation items** in `database/data/motivations.php` (messages, tips, study habits, 15-minute tasks and pre-exam reminders), shown in the daily rotation. They contain general study advice only: exam rules and dates must come from the official source.
+- Both imports match on title, so re-running never duplicates anything or overwrites admin edits. They are skipped while unit tests run. `EngagementContentImportTest` runs them explicitly.

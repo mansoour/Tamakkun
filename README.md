@@ -125,15 +125,13 @@ php artisan serve             # http://localhost:8000
 
 ### Demo credentials (local only)
 
-`php artisan db:seed` creates these **fake** accounts. All passwords are `password`.
+`php artisan db:seed` creates these **fake** accounts in one demo school (مدرسة تمكّن الثانوية, grades 1–3, two classrooms each). All passwords are `password`. Learning content, تحدي اليوم and دفعة اليوم are real and come from migrations, not the seeder.
 
 | Role | Login (username or email) |
 |---|---|
-| Admin | `admin` or `admin@tamakkun.test` |
-| Counselor | `counselor` or `counselor@tamakkun.test` |
-| Second counselor | `counselor2` |
-| Student | `student` |
-| Disabled student (to test the block) | `disabled-student` |
+| Admin (مديرة المنصة) | `admin` or `admin@tamakkun.test` |
+| Counselor (نورة العتيبي) | `counselor` or `counselor@tamakkun.test` |
+| Student (سارة أحمد, 3/1) | `student` |
 
 The seeder refuses to run in production. For a real install, create the first admin with `php artisan tamakkun:create-admin`.
 

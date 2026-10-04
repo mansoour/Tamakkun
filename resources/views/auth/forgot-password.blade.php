@@ -10,7 +10,7 @@
     <form method="POST" action="{{ route('password.email') }}" class="mt-6 space-y-5">
         @csrf
 
-        <x-form.input name="email" type="email" label="البريد الإلكتروني" required autofocus autocomplete="email" dir="ltr" class="text-start" />
+        <x-form.input name="email" type="email" label="البريد الإلكتروني" required autofocus autocomplete="email" />
 
         <x-primary-button class="w-full">إرسال رابط الاستعادة</x-primary-button>
 

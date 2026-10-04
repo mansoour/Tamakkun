@@ -5,7 +5,7 @@
     <form method="POST" action="{{ route('password.confirm') }}" class="mt-6 space-y-5">
         @csrf
 
-        <x-form.input name="password" type="password" label="كلمة المرور" required autocomplete="current-password" dir="ltr" class="text-start" />
+        <x-form.input name="password" type="password" label="كلمة المرور" required autocomplete="current-password" />
 
         <x-primary-button class="w-full">تأكيد</x-primary-button>
     </form>

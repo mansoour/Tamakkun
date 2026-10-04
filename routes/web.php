@@ -10,7 +10,7 @@ use App\Http\Controllers\Shared;
 use App\Http\Controllers\Student;
 use Illuminate\Support\Facades\Route;
 
-Route::view('/', 'welcome')->name('home');
+Route::get('/', [PublicPageController::class, 'home'])->name('home');
 Route::get('/about', [PublicPageController::class, 'about'])->name('about');
 Route::get('/resources', [PublicPageController::class, 'resources'])->name('resources');
 Route::get('/privacy', [PublicPageController::class, 'privacy'])->name('privacy');

@@ -7,12 +7,18 @@ use App\Http\Controllers\Auth\EmailVerificationPromptController;
 use App\Http\Controllers\Auth\NewPasswordController;
 use App\Http\Controllers\Auth\PasswordController;
 use App\Http\Controllers\Auth\PasswordResetLinkController;
+use App\Http\Controllers\Auth\RegisteredStudentController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use Illuminate\Support\Facades\Route;
 
-// Public self-registration is disabled: accounts are created by the school.
-
 Route::middleware('guest')->group(function () {
+    // Student self-registration; 404 while the student_registration setting is "closed".
+    Route::get('register', [RegisteredStudentController::class, 'create'])
+        ->name('register');
+
+    Route::post('register', [RegisteredStudentController::class, 'store'])
+        ->middleware('throttle:registration');
+
     Route::get('login', [AuthenticatedSessionController::class, 'create'])
         ->name('login');
 

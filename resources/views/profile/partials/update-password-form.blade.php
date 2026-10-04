@@ -12,19 +12,19 @@
 
         <div>
             <x-input-label for="update_password_current_password" value="كلمة المرور الحالية" />
-            <x-password-input id="update_password_current_password" name="current_password" autocomplete="current-password" dir="ltr" class="text-start" />
+            <x-password-input id="update_password_current_password" name="current_password" autocomplete="current-password" />
             <x-input-error :messages="$errors->updatePassword->get('current_password')" />
         </div>
 
         <div>
             <x-input-label for="update_password_password" value="كلمة المرور الجديدة" />
-            <x-password-input id="update_password_password" name="password" autocomplete="new-password" dir="ltr" class="text-start" />
+            <x-password-input id="update_password_password" name="password" autocomplete="new-password" />
             <x-input-error :messages="$errors->updatePassword->get('password')" />
         </div>
 
         <div>
             <x-input-label for="update_password_password_confirmation" value="تأكيد كلمة المرور الجديدة" />
-            <x-password-input id="update_password_password_confirmation" name="password_confirmation" autocomplete="new-password" dir="ltr" class="text-start" />
+            <x-password-input id="update_password_password_confirmation" name="password_confirmation" autocomplete="new-password" />
             <x-input-error :messages="$errors->updatePassword->get('password_confirmation')" />
         </div>
 

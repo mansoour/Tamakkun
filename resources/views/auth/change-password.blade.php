@@ -10,17 +10,17 @@
 
         <div>
             <x-input-label for="current_password" value="كلمة المرور الحالية" />
-            <x-password-input id="current_password" name="current_password" required autocomplete="current-password" dir="ltr" class="text-start" />
+            <x-password-input id="current_password" name="current_password" required autocomplete="current-password" />
             <x-input-error :messages="$errors->updatePassword->get('current_password')" />
         </div>
         <div>
             <x-input-label for="password" value="كلمة المرور الجديدة" />
-            <x-password-input id="password" name="password" required autocomplete="new-password" dir="ltr" class="text-start" />
+            <x-password-input id="password" name="password" required autocomplete="new-password" />
             <x-input-error :messages="$errors->updatePassword->get('password')" />
         </div>
         <div>
             <x-input-label for="password_confirmation" value="تأكيد كلمة المرور الجديدة" />
-            <x-password-input id="password_confirmation" name="password_confirmation" required autocomplete="new-password" dir="ltr" class="text-start" />
+            <x-password-input id="password_confirmation" name="password_confirmation" required autocomplete="new-password" />
         </div>
 
         <x-primary-button class="w-full">حفظ كلمة المرور والمتابعة</x-primary-button>

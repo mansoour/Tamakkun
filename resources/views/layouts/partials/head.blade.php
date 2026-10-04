@@ -8,6 +8,21 @@
 
 <title>{{ isset($title) && $title ? $title.' — ' : '' }}{{ $platformName }}</title>
 
+{{-- Link previews (WhatsApp, X, Telegram). The image is optional; see docs/graphics.md. --}}
+<meta name="description" content="{{ $platformName }}: منصة للاستعداد لاختباري القدرات العامة والتحصيلي بدروس مصوّرة وألعاب واختبارات إلكترونية ومتابعة من الموجهة الطلابية.">
+<meta property="og:type" content="website">
+<meta property="og:locale" content="ar_SA">
+<meta property="og:site_name" content="{{ $platformName }}">
+<meta property="og:title" content="{{ isset($title) && $title ? $title.' — ' : '' }}{{ $platformName }}">
+<meta property="og:description" content="استعداد • تدريب • متابعة • إنجاز — القدرات الكمي واللفظي والتحصيلي في مسار واحد.">
+<meta property="og:url" content="{{ url()->current() }}">
+@if (is_file(public_path('images/og-image.png')))
+    <meta property="og:image" content="{{ asset('images/og-image.png') }}">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta name="twitter:card" content="summary_large_image">
+@endif
+
 <link rel="preconnect" href="https://fonts.bunny.net">
 <link href="https://fonts.bunny.net/css?family=alexandria:700,800|ibm-plex-sans-arabic:400,500,700&display=swap" rel="stylesheet">
 

@@ -7,6 +7,39 @@
         -webkit-tap-highlight-color: transparent;
     }
 
+    /*
+     * Arabic site: the page scrollbar belongs on the left. Browsers always draw
+     * the viewport (html) scrollbar on the right, so on devices with a classic
+     * scrollbar (mouse/trackpad) the body becomes the scroll container: it
+     * inherits dir="rtl", which puts its scrollbar on the left. Touch devices
+     * keep normal page scrolling (overlay scrollbars, address-bar collapse).
+     */
+    @media (hover: hover) and (pointer: fine) {
+        html {
+            height: 100%;
+            overflow: hidden;
+        }
+
+        body {
+            height: 100%;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+
+        /* Alpine's x-trap.noscroll locks <html>; lock the real scroller too. */
+        html[style*='overflow: hidden'] > body {
+            overflow: hidden;
+        }
+    }
+
+    /* Every field types right-to-left, including email, URL, phone and password. */
+    input:not([type='checkbox']):not([type='radio']),
+    textarea,
+    select {
+        direction: rtl;
+        text-align: right;
+    }
+
     body {
         @apply bg-canvas font-sans text-ink antialiased;
     }

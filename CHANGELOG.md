@@ -5,12 +5,20 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- Student self-registration at `/register`: name, username, optional email, password, and school → grade → classroom chosen from linked lists (active schools, current academic year). New setting «تسجيل الطالبات»: open (active at once), approval (an admin activates) or closed. A school with a single counselor gets new students assigned to her.
+- New home page: hero with the supervision badge, live content numbers, the three learning paths, «كيف تبدئين؟» steps, features, a counselor section, a supervision card and a call to action. Open Graph tags for link previews.
+- Settings «اسم المشرفة» and «صفة الإشراف» (default: إشراف وإدارة المنصة: أ. فاطمة الشهراني), shown on the home page, login and register pages and the footer.
+- `<x-illustration>` and `docs/graphics.md`: every site graphic with its file name, size, palette and prompt. A graphic appears as soon as its file is added under `public/images/`.
 - Real القدرات content (الكمي واللفظي) from the team's Google Site «العب وتدرب قدرات وتحصيلي»: 258 published items (90 YouTube videos, 139 games and e-tests on Wordwall, Quizalize and Google/Microsoft Forms, 29 Google Drive files). Each item is placed in the category it is about and keeps the site's order. Rows live in `database/data/qudurat-content.php` and are imported by migration `2026_10_13_000001_import_qudurat_content` (idempotent; admin edits are never overwritten).
 - New categories: كمي «استراتيجيات الحل», «أسئلة المقارنة», «نماذج وتجميعات محلولة», «اختبارات شاملة ومحاكية», «مراجع وتجميعات»; لفظي «المفردة الشاذة», «اختبارات شاملة ومحاكية», «مراجع وتجميعات». New source «منصة العب وتدرب قدرات وتحصيلي».
 - Real التحصيلي – الرياضيات content from the same site: 501 published items (249 YouTube videos, 232 games, activities and e-tests, 20 Google Drive files) in 29 chapters and 174 topics. The 24 curriculum chapters (أول، ثاني، ثالث ثانوي) each hold the matching «دورة فن التحصيلي» lessons, every lesson's game with its solution video and, for ثالث ثانوي, the chapter e-test; then تجميعات 1447هـ, تجميعات 1446هـ, the comprehensive e-tests, مبادرة جسم and مراجع وتجميعات. Rows live in `database/data/tahsili-math-content.php`, imported by migration `2026_10_14_000001_import_tahsili_math_content`.
 
 ### Changed
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
+
+### Fixed
+- Every form field is now right-to-left (usernames, email, URLs, phone numbers and passwords used to be forced left-to-right).
+- The page scrollbar is on the left, as on an Arabic site, on desktop and laptop screens: the body is the scroll container, so it follows `dir="rtl"`. Touch devices keep normal page scrolling.
 
 ### Removed
 - Fake demo lessons, the demo Tahsili lesson and the demo quiz from `DemoSeeder`. Demo users, progress, exams, follow-up and engagement data stay for local testing.

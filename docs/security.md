@@ -6,7 +6,7 @@
 |---|---|
 | Authentication | Breeze (Blade). Login by username or email. Only `active` users can sign in. |
 | Account status | `EnsureUserIsActive` (`active` middleware) signs out a user whose account is suspended or disabled mid-session. |
-| Registration | Public self-registration is **removed**. Accounts are created by the school. |
+| Registration | Student self-registration at `/register`, controlled by the `student_registration` setting: **open** (active at once), **approval** (pending until an admin activates it) or **closed** (404). Students pick an active school, a grade of its current academic year and a classroom. The username doubles as the student code. Rate limit: 5 per minute and 20 per hour per IP. Audited as `student.self_registered`. Counselor and admin accounts are still created by an admin only. |
 | Forced password change | Whenever an admin sets a password (account creation, CSV import or a reset), the user gets `must_change_password = true`. While the admin setting `force_password_change` is on (default **on**, toggled at `/admin/settings`), `EnsurePasswordIsChanged` (`password.changed` middleware) sends that user to `/password/change` until they choose a new password, which must differ from the current one. A self-service email reset also clears the flag. |
 | Status changes | `users.status` is not mass assignable. It changes only through explicit code (later the `AccountActivation` service, with audit). |
 | Authorization | Permission-driven `can:` middleware on every area. Policies are added per feature. |

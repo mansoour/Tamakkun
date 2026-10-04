@@ -17,7 +17,7 @@
             <x-input-error :messages="$errors->get('content')" />
         </div>
         <div x-show="type === 'video'">
-            <x-form.input name="video_url" type="url" label="رابط المقطع (يوتيوب أو فيميو)" :value="$motivation->video_url" dir="ltr" class="text-start" />
+            <x-form.input name="video_url" type="url" label="رابط المقطع (يوتيوب أو فيميو)" :value="$motivation->video_url" />
         </div>
         <div x-show="type === 'image'">
             <x-input-label for="image" value="صورة (JPG/PNG/WebP حتى 2MB، تُحوّل إلى WebP)" />

@@ -22,14 +22,14 @@
                     <span x-text="audience === 'student' ? 'اسم المستخدم أو رقم الطالبة' : 'البريد الإلكتروني أو اسم المستخدم'">اسم المستخدم أو البريد الإلكتروني</span>
                 </x-input-label>
                 <x-text-input id="login" name="login" type="text" :value="old('login')" required autofocus
-                    autocomplete="username" dir="ltr" class="text-start"
+                    autocomplete="username"
                     :aria-invalid="$errors->has('login') ? 'true' : 'false'" aria-describedby="login-error" />
                 <x-input-error id="login-error" :messages="$errors->get('login')" />
             </div>
 
             <div>
                 <x-input-label for="password" value="كلمة المرور" />
-                <x-password-input id="password" name="password" required autocomplete="current-password" dir="ltr" class="text-start" />
+                <x-password-input id="password" name="password" required autocomplete="current-password" />
                 <x-input-error :messages="$errors->get('password')" />
             </div>
 
@@ -50,8 +50,21 @@
             </x-primary-button>
         </form>
 
-        <p class="mt-6 text-center text-xs text-muted">
-            الحسابات تُنشأ من قِبل المدرسة. إن لم يكن لديك حساب فتواصلي مع الموجهة الطلابية.
-        </p>
+        @if ($registrationOpen)
+            <div class="mt-6 rounded-xl bg-brand-50 p-4 text-center" x-show="audience === 'student'">
+                <p class="text-sm text-ink">طالبة جديدة وليس لديكِ حساب؟</p>
+                <a href="{{ route('register') }}" class="btn-secondary mt-3 w-full">
+                    <x-icon name="user-plus" />
+                    إنشاء حساب طالبة
+                </a>
+            </div>
+            <p class="mt-4 text-center text-xs text-muted" x-show="audience === 'counselor'" x-cloak>
+                حسابات الموجهات تُنشأ من إدارة المنصة.
+            </p>
+        @else
+            <p class="mt-6 text-center text-xs text-muted">
+                الحسابات تُنشأ من قِبل المدرسة. إن لم يكن لديك حساب فتواصلي مع الموجهة الطلابية.
+            </p>
+        @endif
     </div>
 </x-guest-layout>

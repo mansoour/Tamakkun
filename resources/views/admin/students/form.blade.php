@@ -18,13 +18,13 @@
 
             <x-form.input name="name" label="الاسم الكامل" :value="$student->user?->name" required />
             <div class="grid gap-5 sm:grid-cols-2">
-                <x-form.input name="student_code" label="رقم الطالبة" :value="$student->student_code" dir="ltr" class="text-start" required
+                <x-form.input name="student_code" label="رقم الطالبة" :value="$student->student_code" required
                     hint="أحرف لاتينية وأرقام فقط. لا تستخدمي رقم الهوية." />
-                <x-form.input name="username" label="اسم المستخدم" :value="$student->user?->username" dir="ltr" class="text-start"
+                <x-form.input name="username" label="اسم المستخدم" :value="$student->user?->username"
                     hint="يُستخدم لتسجيل الدخول. يُترك فارغًا ليكون مثل رقم الطالبة." />
             </div>
             <x-form.input name="password" type="password" :label="$editing ? 'كلمة مرور جديدة (اختياري)' : 'كلمة المرور الأولية'"
-                autocomplete="new-password" dir="ltr" class="text-start" :required="! $editing" hint="8 أحرف على الأقل." />
+                autocomplete="new-password" :required="! $editing" hint="8 أحرف على الأقل." />
 
             <x-form.select name="school_id" label="المدرسة" :options="$schools" :value="$student->school_id" placeholder="اختاري المدرسة"
                 x-model="schoolId" x-on:change="classroomId = ''; counselorId = ''" required />

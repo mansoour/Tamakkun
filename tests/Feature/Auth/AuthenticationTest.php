@@ -5,6 +5,7 @@ namespace Tests\Feature\Auth;
 use App\Enums\UserStatus;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use App\Services\SettingsService;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use PHPUnit\Framework\Attributes\DataProvider;
 use Tests\TestCase;
@@ -136,8 +137,10 @@ class AuthenticationTest extends TestCase
         $this->assertGuest();
     }
 
-    public function test_public_registration_is_disabled(): void
+    public function test_registration_is_unavailable_when_closed(): void
     {
+        app(SettingsService::class)->set('student_registration', 'closed');
+
         $this->get('/register')->assertNotFound();
         $this->post('/register', [
             'name' => 'x', 'email' => 'x@example.com', 'password' => 'password', 'password_confirmation' => 'password',

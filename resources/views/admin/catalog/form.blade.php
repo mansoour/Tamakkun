@@ -26,8 +26,7 @@
                     @break
                 @default
                     <x-form.input :name="$field['name']" :label="$field['label']" :type="$field['type']" :value="$value"
-                        :required="$field['required'] ?? false" :hint="$field['hint'] ?? null"
-                        :dir="$field['type'] === 'url' ? 'ltr' : null" />
+                        :required="$field['required'] ?? false" :hint="$field['hint'] ?? null" />
             @endswitch
         @endforeach
 

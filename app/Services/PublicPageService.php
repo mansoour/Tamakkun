@@ -2,9 +2,12 @@
 
 namespace App\Services;
 
+use App\Models\Chapter;
+use App\Models\Content;
 use App\Models\ImportantLink;
 use App\Models\Source;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Data for the lightweight public pages (/about, /resources, /privacy,
@@ -22,6 +25,28 @@ class PublicPageService
     ];
 
     public function __construct(private readonly SettingsService $settings) {}
+
+    /**
+     * Published-content counts for the home page, cached for ten minutes.
+     *
+     * @return array{total: int, videos: int, practice: int, files: int, chapters: int, sections: array<string, int>}
+     */
+    public function homeStats(): array
+    {
+        return Cache::remember('home.stats', now()->addMinutes(10), function () {
+            $byType = Content::visible()->toBase()->selectRaw('content_type, count(*) as n')->groupBy('content_type')->pluck('n', 'content_type');
+            $bySection = Content::visible()->toBase()->selectRaw('section, count(*) as n')->groupBy('section')->pluck('n', 'section');
+
+            return [
+                'total' => (int) $byType->sum(),
+                'videos' => (int) ($byType['video'] ?? 0),
+                'practice' => (int) (($byType['practice'] ?? 0) + ($byType['quiz'] ?? 0)),
+                'files' => (int) ($byType['link'] ?? 0),
+                'chapters' => Chapter::whereHas('contents', fn ($q) => $q->visible())->count(),
+                'sections' => $bySection->map(fn ($n) => (int) $n)->all(),
+            ];
+        });
+    }
 
     /**
      * @return array{title: string, paragraphs: list<string>, url: string|null}

@@ -10,15 +10,15 @@
 
             <x-form.input name="name" label="الاسم الكامل" :value="$counselor->user?->name" required />
             <div class="grid gap-5 sm:grid-cols-2">
-                <x-form.input name="username" label="اسم المستخدم" :value="$counselor->user?->username" dir="ltr" class="text-start" required />
-                <x-form.input name="email" type="email" label="البريد الإلكتروني" :value="$counselor->user?->email" dir="ltr" class="text-start" />
+                <x-form.input name="username" label="اسم المستخدم" :value="$counselor->user?->username" required />
+                <x-form.input name="email" type="email" label="البريد الإلكتروني" :value="$counselor->user?->email" />
             </div>
             <x-form.input name="password" type="password" :label="$editing ? 'كلمة مرور جديدة (اختياري)' : 'كلمة المرور الأولية'"
-                autocomplete="new-password" dir="ltr" class="text-start" :required="! $editing" hint="8 أحرف على الأقل." />
+                autocomplete="new-password" :required="! $editing" hint="8 أحرف على الأقل." />
             <x-form.select name="school_id" label="المدرسة" :options="$schools" :value="$counselor->school_id" placeholder="اختاري المدرسة" required />
             <div class="grid gap-5 sm:grid-cols-2">
                 <x-form.input name="job_title" label="المسمى الوظيفي" :value="$counselor->job_title" />
-                <x-form.input name="phone" label="رقم الجوال" :value="$counselor->phone" dir="ltr" class="text-start" />
+                <x-form.input name="phone" label="رقم الجوال" :value="$counselor->phone" />
             </div>
 
             @unless ($editing)

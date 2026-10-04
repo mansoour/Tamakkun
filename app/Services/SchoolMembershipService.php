@@ -23,7 +23,7 @@ class SchoolMembershipService
     ) {}
 
     /**
-     * @param  array{name: string, username?: string|null, student_code: string, password: string, school_id: int, classroom_id?: int|null, counselor_id?: int|null, status?: UserStatus|string|null}  $data
+     * @param  array{name: string, username?: string|null, student_code: string, email?: string|null, password: string, school_id: int, classroom_id?: int|null, counselor_id?: int|null, status?: UserStatus|string|null}  $data
      */
     public function createStudent(array $data): StudentProfile
     {
@@ -31,7 +31,7 @@ class SchoolMembershipService
             $user = $this->createUser([
                 'name' => $data['name'],
                 'username' => ($data['username'] ?? null) ?: $data['student_code'],
-                'email' => null,
+                'email' => ($data['email'] ?? null) ?: null,
                 'password' => $data['password'],
             ], RoleName::STUDENT, $data['status'] ?? UserStatus::ACTIVE);
 

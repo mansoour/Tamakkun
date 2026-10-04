@@ -91,10 +91,10 @@
             </div>
 
             <div x-show="type === 'video'">
-                <x-form.input name="video_url" type="url" label="رابط الفيديو (يوتيوب أو فيميو)" :value="$content->video_url" dir="ltr" class="text-start"
+                <x-form.input name="video_url" type="url" label="رابط الفيديو (يوتيوب أو فيميو)" :value="$content->video_url"
                     hint="الصقي رابط المقطع العادي من موقعه الرسمي. لا يُقبل كود iframe." />
             </div>
-            <x-form.input name="external_url" type="url" label="رابط خارجي (اختياري لغير الروابط)" :value="$content->external_url" dir="ltr" class="text-start"
+            <x-form.input name="external_url" type="url" label="رابط خارجي (اختياري لغير الروابط)" :value="$content->external_url"
                 hint="رابط https لصفحة رسمية أو مصدر مصرَّح به فقط." />
 
             <div>

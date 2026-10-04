@@ -27,6 +27,7 @@ class UpdateSettingsRequest extends FormRequest
     private const TEXTS = [
         'platform_name', 'tagline', 'support_email', 'support_phone',
         'privacy_url', 'terms_url', 'about_text', 'privacy_text', 'terms_text',
+        'supervisor_name', 'supervisor_title', 'student_registration',
     ];
 
     public function authorize(): bool
@@ -61,6 +62,10 @@ class UpdateSettingsRequest extends FormRequest
             'about_text' => ['sometimes', 'nullable', 'string', 'max:20000'],
             'privacy_text' => ['sometimes', 'nullable', 'string', 'max:20000'],
             'terms_text' => ['sometimes', 'nullable', 'string', 'max:20000'],
+
+            'supervisor_name' => ['sometimes', 'nullable', 'string', 'max:80'],
+            'supervisor_title' => ['sometimes', 'nullable', 'string', 'max:80'],
+            'student_registration' => ['sometimes', 'required', 'in:open,approval,closed'],
         ];
     }
 
@@ -85,6 +90,9 @@ class UpdateSettingsRequest extends FormRequest
             'about_text' => 'نص صفحة عن المنصة',
             'privacy_text' => 'نص سياسة الخصوصية',
             'terms_text' => 'نص الشروط والأحكام',
+            'supervisor_name' => 'اسم المشرفة',
+            'supervisor_title' => 'صفة الإشراف',
+            'student_registration' => 'تسجيل الطالبات',
         ];
     }
 

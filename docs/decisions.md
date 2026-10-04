@@ -100,7 +100,7 @@ Deployment is deferred: the stakeholder will deploy later from their own PC. v0.
 
 1. **Website first, no native app.** A responsive Blade website. Services keep logic reusable for a future `/api/v1`.
 2. **Login by username or email in one field.** Students use their username or student code, and email is optional for them. Counselors and admins may use either. National ID is never the username.
-3. **Public registration removed.** Breeze's register routes, controller, view and test were deleted, because accounts are school-created. It can be reintroduced later behind a setting if requested.
+3. **Public registration removed.** Breeze's register routes, controller, view and test were deleted, because accounts are school-created. *Reintroduced for students only (2026-10), behind the `student_registration` setting (open / approval / closed), at the stakeholder's request.*
 4. **Profile is read-only plus password change.** Name, username and email are school-managed. Self-service profile edit and account deletion were removed.
 5. **Account status is checked after the password.** An inactive account's message appears only for correct credentials, so status is never leaked to someone guessing passwords.
 6. **Roles and permissions created by an idempotent migration**, not a seeder (production safety). Area access uses the permissions `student-area.access`, `counselor-area.access` and `admin-area.access`.

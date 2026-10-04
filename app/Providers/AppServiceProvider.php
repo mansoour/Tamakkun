@@ -32,11 +32,14 @@ class AppServiceProvider extends ServiceProvider
         Paginator::defaultView('vendor.pagination.tamakkun');
 
         // Admin-editable branding (settings table) for the views that show it.
-        View::composer(['components.brand', 'layouts.partials.head', 'layouts.guest', 'layouts.public', 'public.*', 'welcome', 'components.mail.layout'], function ($view): void {
+        View::composer(['components.brand', 'layouts.partials.head', 'layouts.guest', 'layouts.public', 'public.*', 'welcome', 'auth.*', 'components.mail.layout'], function ($view): void {
             $settings = $this->app->make(SettingsService::class);
             $view->with([
                 'platformName' => $settings->get('platform_name') ?: config('tamakkun.settings.platform_name'),
                 'platformTagline' => $settings->get('tagline'),
+                'supervisorName' => $settings->get('supervisor_name'),
+                'supervisorTitle' => $settings->get('supervisor_title') ?: 'إشراف وإدارة المنصة',
+                'registrationOpen' => $settings->get('student_registration') !== 'closed',
             ]);
         });
     }
@@ -48,5 +51,11 @@ class AppServiceProvider extends ServiceProvider
         RateLimiter::for('login', fn (Request $request) => Limit::perMinute(20)->by($request->ip()));
 
         RateLimiter::for('password-reset', fn (Request $request) => Limit::perMinute(5)->by($request->ip()));
+
+        // Self-registration: a few attempts a minute and at most 20 new tries an hour per IP.
+        RateLimiter::for('registration', fn (Request $request) => [
+            Limit::perMinute(5)->by($request->ip()),
+            Limit::perHour(20)->by($request->ip()),
+        ]);
     }
 }

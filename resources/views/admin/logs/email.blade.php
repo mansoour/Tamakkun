@@ -3,7 +3,7 @@
 
     <form method="GET" class="mt-6 flex flex-col gap-3 sm:flex-row sm:items-end">
         <div class="sm:w-48"><x-form.select name="status" label="الحالة" :options="collect($statuses)->mapWithKeys(fn ($s) => [$s->value => $s->label()])" :value="request('status')" placeholder="الكل" /></div>
-        <div class="sm:w-72"><x-form.input name="recipient" label="المستلم" :value="request('recipient')" dir="ltr" /></div>
+        <div class="sm:w-72"><x-form.input name="recipient" label="المستلم" :value="request('recipient')" /></div>
         <button class="btn-secondary">تصفية</button>
     </form>
 

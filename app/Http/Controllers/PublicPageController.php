@@ -11,6 +11,11 @@ class PublicPageController extends Controller
 {
     public function __construct(private readonly PublicPageService $pages) {}
 
+    public function home(): View
+    {
+        return view('welcome', ['stats' => $this->pages->homeStats()]);
+    }
+
     public function about(): View
     {
         return view('public.about', [

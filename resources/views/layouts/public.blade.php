@@ -11,7 +11,12 @@
             @auth
                 <a href="{{ route('dashboard') }}" class="btn-primary">لوحتي</a>
             @else
-                <a href="{{ route('login') }}" class="btn-secondary">تسجيل الدخول</a>
+                <div class="flex items-center gap-2">
+                    @if ($registrationOpen)
+                        <a href="{{ route('register') }}" class="btn-primary hidden sm:inline-flex">إنشاء حساب</a>
+                    @endif
+                    <a href="{{ route('login') }}" class="btn-secondary">تسجيل الدخول</a>
+                </div>
             @endauth
         </header>
 
@@ -28,7 +33,12 @@
                         @endforeach
                     </ul>
                 </nav>
-                <p>{{ $platformName }} © {{ now()->year }}</p>
+                <div class="text-center sm:text-end">
+                    <p>{{ $platformName }} © {{ now()->year }}</p>
+                    @if ($supervisorName)
+                        <p class="mt-1 text-xs">{{ $supervisorTitle }}: <span class="font-bold text-ink">{{ $supervisorName }}</span></p>
+                    @endif
+                </div>
             </div>
         </footer>
     </body>

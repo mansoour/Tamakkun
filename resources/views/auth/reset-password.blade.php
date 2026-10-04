@@ -5,9 +5,9 @@
         @csrf
         <input type="hidden" name="token" value="{{ $request->route('token') }}">
 
-        <x-form.input name="email" type="email" label="البريد الإلكتروني" :value="$request->email" required autofocus autocomplete="username" dir="ltr" class="text-start" />
-        <x-form.input name="password" type="password" label="كلمة المرور الجديدة" required autocomplete="new-password" dir="ltr" class="text-start" />
-        <x-form.input name="password_confirmation" type="password" label="تأكيد كلمة المرور" required autocomplete="new-password" dir="ltr" class="text-start" />
+        <x-form.input name="email" type="email" label="البريد الإلكتروني" :value="$request->email" required autofocus autocomplete="username" />
+        <x-form.input name="password" type="password" label="كلمة المرور الجديدة" required autocomplete="new-password" />
+        <x-form.input name="password_confirmation" type="password" label="تأكيد كلمة المرور" required autocomplete="new-password" />
 
         <x-primary-button class="w-full">حفظ كلمة المرور</x-primary-button>
     </form>

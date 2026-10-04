@@ -32,6 +32,11 @@ return [
         'about_text' => null,
         'privacy_text' => null,
         'terms_text' => null,
+        // Who runs the platform; shown on the home page, login page and footer.
+        'supervisor_name' => 'أ. فاطمة الشهراني',
+        'supervisor_title' => 'إشراف وإدارة المنصة',
+        // Student self-registration: open (active at once), approval (an admin activates) or closed.
+        'student_registration' => 'open',
     ],
 
 ];

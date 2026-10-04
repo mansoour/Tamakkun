@@ -12,7 +12,18 @@
                     hint="يظهر في الشعار وعنوان الصفحات." />
                 <x-form.input name="tagline" label="العبارة التعريفية" maxlength="120" :value="$settings['tagline']"
                     hint="تظهر في الصفحة الرئيسية وصفحة الدخول." />
+                <x-form.input name="supervisor_name" label="اسم المشرفة" maxlength="80" :value="$settings['supervisor_name']"
+                    hint="يظهر في الصفحة الرئيسية وصفحة الدخول وتذييل الموقع." />
+                <x-form.input name="supervisor_title" label="صفة الإشراف" maxlength="80" :value="$settings['supervisor_title']"
+                    hint="مثال: إشراف وإدارة المنصة." />
             </div>
+        </section>
+
+        <section aria-labelledby="registration-title" class="space-y-4 border-t border-line pt-6">
+            <h2 id="registration-title" class="font-heading text-lg font-bold text-ink">تسجيل الطالبات</h2>
+            <x-form.select name="student_registration" label="إنشاء الطالبة حسابها بنفسها" :value="$settings['student_registration']"
+                :options="['open' => 'مفتوح: يُفعَّل الحساب فورًا', 'approval' => 'مفتوح بموافقة: تفعّل الإدارة الحساب', 'closed' => 'مغلق: الحسابات تُنشأ من المدرسة فقط']"
+                hint="تختار الطالبة مدرستها وصفّها وفصلها من القوائم. تظهر المدارس النشطة ذات العام الدراسي الحالي فقط." />
         </section>
 
         <section aria-labelledby="security-title" class="space-y-3 border-t border-line pt-6">
@@ -56,9 +67,9 @@
         <section aria-labelledby="support-title" class="space-y-4 border-t border-line pt-6">
             <h2 id="support-title" class="font-heading text-lg font-bold text-ink">التواصل</h2>
             <div class="grid gap-4 sm:grid-cols-2">
-                <x-form.input name="support_email" type="email" dir="ltr" label="بريد الدعم" :value="$settings['support_email']"
+                <x-form.input name="support_email" type="email" label="بريد الدعم" :value="$settings['support_email']"
                     hint="يظهر في صفحة عن المنصة وأسفل الصفحات العامة. اتركيه فارغًا لإخفائه." />
-                <x-form.input name="support_phone" type="tel" dir="ltr" label="هاتف الدعم" :value="$settings['support_phone']"
+                <x-form.input name="support_phone" type="tel" label="هاتف الدعم" :value="$settings['support_phone']"
                     hint="اتركيه فارغًا لإخفائه." />
             </div>
         </section>
@@ -69,10 +80,10 @@
             <x-form.textarea name="about_text" label="نص صفحة «عن المنصة»" rows="5" maxlength="20000" :value="$settings['about_text']"
                 hint="إذا تُرك فارغًا يظهر الوصف العام للمنصة." />
             <x-form.textarea name="privacy_text" label="نص سياسة الخصوصية" rows="6" maxlength="20000" :value="$settings['privacy_text']" />
-            <x-form.input name="privacy_url" type="url" dir="ltr" label="رابط خارجي لسياسة الخصوصية (اختياري)" :value="$settings['privacy_url']"
+            <x-form.input name="privacy_url" type="url" label="رابط خارجي لسياسة الخصوصية (اختياري)" :value="$settings['privacy_url']"
                 hint="إن وُجدت نسخة رسمية في موقع آخر. يجب أن يبدأ بـ https://" />
             <x-form.textarea name="terms_text" label="نص الشروط والأحكام" rows="6" maxlength="20000" :value="$settings['terms_text']" />
-            <x-form.input name="terms_url" type="url" dir="ltr" label="رابط خارجي للشروط والأحكام (اختياري)" :value="$settings['terms_url']"
+            <x-form.input name="terms_url" type="url" label="رابط خارجي للشروط والأحكام (اختياري)" :value="$settings['terms_url']"
                 hint="يجب أن يبدأ بـ https://" />
         </section>
 

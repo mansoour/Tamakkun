@@ -5,6 +5,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- «تجميعات المنصف 1500 سؤال» (free PDF) at the top of القدرات الكمي ← مراجع وتجميعات, source المنصف.
 - 20 real «تحدي اليوم» challenges (60 questions with explanations: كمي، لفظي، تحصيلي), scheduled one per day from the day the migration runs, and 16 real «دفعة اليوم» motivation items.
 - Twelve free القدرات sample tests (Google Forms), each in the category it tests, including a placement test for each section. The listing store is not recorded as a source.
 - Privacy warning on every external link (content «فتح المصدر», «روابط مهمة», public resources): do not enter real personal details; use a dummy phone number such as 0500000000 if one is required.

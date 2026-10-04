@@ -71,6 +71,22 @@ class QuduratContentImportTest extends TestCase
         $this->assertFalse($content->fresh()->is_published);
     }
 
+    public function test_almunsif_1500_opens_the_quantitative_references_once(): void
+    {
+        $this->import();
+        $migration = require database_path('migrations/2026_10_17_000001_add_almunsif_1500_collection.php');
+        $migration->importContent();
+        $migration->importContent();
+
+        $content = Content::where('slug', 'almunsif-1500')->sole();
+        $this->assertSame('المنصف', $content->source->name);
+        $this->assertSame('مراجع وتجميعات', $content->category->name);
+        $this->assertSame('quantitative', $content->section->value);
+
+        $this->actingAs(User::factory()->student()->create())->get('/student/quantitative')
+            ->assertSeeInOrder(['مراجع وتجميعات', 'تجميعات المنصف 1500 سؤال', 'تجميعات 1447هـ: الخميس – الفترة الأولى']);
+    }
+
     public function test_student_sees_imported_content_in_its_category(): void
     {
         $this->import();

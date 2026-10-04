@@ -68,3 +68,11 @@ Twelve free sample tests (Google Forms) listed on a test-preparation store's pub
 ## External-link warning
 
 Every place that sends a student to another website shows `<x-external-link-notice>`: the content page above «فتح المصدر», the «روابط مهمة» page and the public resources page. It tells students not to enter real personal data (phone, ID, address, passwords), to use a dummy phone number such as 0500000000 if one is required, and that a first name is enough. On the link lists it adds that sites marked «مصدر رسمي» (for example قياس) need real details. Embedded YouTube/Vimeo videos do not show it, because they ask for nothing.
+
+## تجميعات المنصف 1500 سؤال (migration `2026_10_17_000001`)
+
+The free PDF edition on Google Drive (its file title reads «المنصف 1500 (مجاني)»), linked as the first item of القدرات الكمي ← مراجع وتجميعات, with the seeded source المنصف.
+
+## Not imported: «تأسيس أينشتاين» playlist re-upload
+
+The YouTube playlist «تاسيس قدرات اينشتاين من الصفر» (57 lectures) is uploaded by the channel «قدراتي مهاراتي», not by أينشتاين. Its descriptions also point students to "leaked" courses on Telegram. Under the rule "never re-host or link re-uploads of paid courses" above, it is left out until the course is available from أينشتاين's own channel or with the owner's permission.

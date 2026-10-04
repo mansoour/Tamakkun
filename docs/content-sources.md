@@ -73,6 +73,8 @@ Every place that sends a student to another website shows `<x-external-link-noti
 
 The free PDF edition on Google Drive (its file title reads «المنصف 1500 (مجاني)»), linked as the first item of القدرات الكمي ← مراجع وتجميعات, with the seeded source المنصف.
 
-## Not imported: «تأسيس أينشتاين» playlist re-upload
+## «تأسيس أينشتاين» foundation course (migration `2026_10_17_000002`)
 
-The YouTube playlist «تاسيس قدرات اينشتاين من الصفر» (57 lectures) is uploaded by the channel «قدراتي مهاراتي», not by أينشتاين. Its descriptions also point students to "leaked" courses on Telegram. Under the rule "never re-host or link re-uploads of paid courses" above, it is left out until the course is available from أينشتاين's own channel or with the owner's permission.
+The 61-video YouTube playlist «تاسيس قدرات اينشتاين من الصفر» is its own category, **تأسيس أينشتاين**, at the top of القدرات الكمي. It opens with the study-advice video, then lectures 1–57 in number order (each «تكملة» right after its lecture). All videos are at stage تأسيس, with the source «أينشتاين» (no website URL). Rows are in `database/data/einstein-foundation.php`.
+
+**Caveat (stakeholder decision, pending review):** the playlist is uploaded by the channel «قدراتي مهاراتي», not by أينشتاين, and its descriptions point students to "leaked" courses on Telegram. It was added at the stakeholder's explicit request, to be replaced when an official source is available. To swap it, change the URLs in the data file and update the rows (or hide the category) in the admin area.

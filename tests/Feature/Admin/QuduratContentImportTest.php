@@ -22,8 +22,8 @@ class QuduratContentImportTest extends TestCase
     public function test_categories_are_placed_around_the_seeded_ones(): void
     {
         $this->assertSame(
-            ['استراتيجيات الحل', 'الأعداد'],
-            Category::where('section', 'quantitative')->ordered()->limit(2)->pluck('name')->all(),
+            ['تأسيس أينشتاين', 'استراتيجيات الحل', 'الأعداد'],
+            Category::where('section', 'quantitative')->ordered()->limit(3)->pluck('name')->all(),
         );
         $this->assertSame(
             ['أسئلة المقارنة', 'نماذج وتجميعات محلولة', 'اختبارات شاملة ومحاكية', 'مراجع وتجميعات'],
@@ -85,6 +85,23 @@ class QuduratContentImportTest extends TestCase
 
         $this->actingAs(User::factory()->student()->create())->get('/student/quantitative')
             ->assertSeeInOrder(['مراجع وتجميعات', 'تجميعات المنصف 1500 سؤال', 'تجميعات 1447هـ: الخميس – الفترة الأولى']);
+    }
+
+    public function test_einstein_course_is_imported_in_lecture_order_at_the_top(): void
+    {
+        $this->import();
+        $migration = require database_path('migrations/2026_10_17_000002_import_einstein_foundation_course.php');
+        $migration->importContent();
+        $migration->importContent();
+
+        $videos = Content::whereHas('category', fn ($q) => $q->where('name', 'تأسيس أينشتاين'))->ordered()->get();
+        $this->assertCount(61, $videos);
+        $this->assertTrue($videos->every(fn (Content $c) => VideoEmbed::isSupported($c->video_url) && $c->source->name === 'أينشتاين'));
+        $this->assertSame('تأسيس أينشتاين: المحاضرة 1', $videos[1]->title);
+        $this->assertSame('تأسيس أينشتاين: المحاضرة 57', $videos->last()->title);
+
+        $this->actingAs(User::factory()->student()->create())->get('/student/quantitative')
+            ->assertSeeInOrder(['تأسيس أينشتاين', 'المحاضرة 1', 'تكملة المحاضرة 24', 'المحاضرة 25', 'استراتيجيات الحل']);
     }
 
     public function test_student_sees_imported_content_in_its_category(): void

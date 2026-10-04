@@ -5,6 +5,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 ## [Unreleased]
 
 ### Added
+- Site graphics from docs/graphics.md: 8 illustrations (home page, learning paths, steps, counselor, supervision, login/register panel), the link-preview image, and new app icons and favicon.
 - «تأسيس أينشتاين»: a 61-video foundation course for القدرات الكمي (YouTube playlist), in its own category at the top of the section, in lecture order, with the new source «أينشتاين». See the source caveat in docs/content-sources.md.
 - «تجميعات المنصف 1500 سؤال» (free PDF) at the top of القدرات الكمي ← مراجع وتجميعات, source المنصف.
 - 20 real «تحدي اليوم» challenges (60 questions with explanations: كمي، لفظي، تحصيلي), scheduled one per day from the day the migration runs, and 16 real «دفعة اليوم» motivation items.

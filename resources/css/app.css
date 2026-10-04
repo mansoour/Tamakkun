@@ -40,6 +40,17 @@
         text-align: right;
     }
 
+    /*
+     * @tailwindcss/forms draws the dropdown arrow on the right with right
+     * padding. In RTL the arrow belongs at the far left (the end of the field),
+     * so the text starts on the right without overlapping it.
+     */
+    [dir='rtl'] select:not([multiple]):not([size]) {
+        background-position: left 0.5rem center;
+        padding-left: 2.5rem;
+        padding-right: 0.75rem;
+    }
+
     body {
         @apply bg-canvas font-sans text-ink antialiased;
     }

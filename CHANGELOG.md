@@ -22,6 +22,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
 
 ### Fixed
+- Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - Every form field is now right-to-left (usernames, email, URLs, phone numbers and passwords used to be forced left-to-right).
 - The page scrollbar is on the left, as on an Arabic site, on desktop and laptop screens: the body is the scroll container, so it follows `dir="rtl"`. Touch devices keep normal page scrolling.
 
@@ -46,6 +47,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Accessibility fixes from an axe-core audit of 40 pages at 375px and 1280px: score card heading level, the desktop notification bell inside a landmark, contrast of unearned badges, keyboard-scrollable tables. Quiz answers with numbers render in the correct direction.
 
 ### Fixed
+- Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - CI: the production-cache step now uses the file cache store, because `optimize:clear` flushed the database cache and CI has no MySQL server.
 
 ### Removed
@@ -62,6 +64,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Docs: `docs/reports.md`, plus updates to email, security (review table), backups (verified run), deployment, permissions, architecture, testing and decisions.
 
 ### Fixed
+- Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - Open redirect: notification links are now followed only for this exact host.
 - CSV exports neutralise spreadsheet formula injection.
 
@@ -93,6 +96,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Docs: `docs/alerts.md`, plus updates to the schema, architecture, permissions, testing, deployment and decisions docs.
 
 ### Fixed
+- Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - Signed numbers such as "+6" now display correctly inside RTL text.
 
 ## [v0.5.0] — 2026-10-08 — Exam tracking
@@ -160,6 +164,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Docs: `docs/imports.md`, plus updates to the schema, permissions, architecture, testing and decisions docs.
 
 ### Fixed
+- Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - Screen-reader-only table headers could widen the page on phones.
 
 ## [v0.1.0] — 2026-10-03 — Foundation/Auth

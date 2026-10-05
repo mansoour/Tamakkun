@@ -6,7 +6,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 
 ### Added
 - README: cover image, highlights with content numbers, and a screenshot gallery (`screenshots/`, WebP).
-- Public navbar on every public page (الرئيسية، المحتوى، لوحة الشرف، عن المنصة، مصادر رسمية), with a phone menu.
+- Public navbar on every public page (الرئيسية، عن المنصة، المحتوى، لوحة الشرف، مصادر رسمية), with a phone menu.
 - Public content catalogue (`/content`): visitors browse every section, category, chapter and lesson title. Opening a lesson, game, test or file requires an account; no video or external URL is sent to guests.
 - «لوحة الشرف» (`/leaderboard`): top students this month and all time (first name and family initial only), with an admin switch.
 - Footer credit «تمكّن © 2026 · تطوير Mansoour» (links to mansoour.com; the year becomes a range automatically) on every page; LICENSE file and copyright notices (© 2026 Mansoour, mansoour.com) in the code, README, composer.json, package.json and page metadata.

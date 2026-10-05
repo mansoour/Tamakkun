@@ -115,9 +115,9 @@ class PublicPageService
     {
         return array_values(array_filter([
             ['label' => 'الرئيسية', 'route' => 'home', 'icon' => 'home'],
+            ['label' => 'عن المنصة', 'route' => 'about', 'icon' => 'information-circle'],
             ['label' => 'المحتوى', 'route' => 'browse', 'icon' => 'book-open', 'active' => 'browse*'],
             app(LeaderboardService::class)->enabled() ? ['label' => 'لوحة الشرف', 'route' => 'leaderboard', 'icon' => 'trophy'] : null,
-            ['label' => 'عن المنصة', 'route' => 'about', 'icon' => 'information-circle'],
             ['label' => 'مصادر رسمية', 'route' => 'resources', 'icon' => 'link'],
         ]));
     }

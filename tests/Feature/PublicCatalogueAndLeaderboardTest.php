@@ -48,7 +48,7 @@ class PublicCatalogueAndLeaderboardTest extends TestCase
 
     public function test_navbar_lists_the_public_pages(): void
     {
-        $this->get('/')->assertOk()->assertSeeInOrder(['الرئيسية', 'المحتوى', 'لوحة الشرف', 'عن المنصة', 'مصادر رسمية'])
+        $this->get('/')->assertOk()->assertSeeInOrder(['الرئيسية', 'عن المنصة', 'المحتوى', 'لوحة الشرف', 'مصادر رسمية'])
             ->assertSee('https://mansoour.com', false)->assertSee('Mansoour');
     }
 

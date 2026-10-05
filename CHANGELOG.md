@@ -31,6 +31,7 @@ All notable changes to Tamakkun are documented here. Versions follow the roadmap
 - Fonts: headings and display text use Alexandria 700/800 (page titles 800); body and UI text use IBM Plex Sans Arabic 400/500/700. Only these weights are loaded; `font-semibold` (600) is no longer used. Emails list IBM Plex Sans Arabic first, where the reader's device has it.
 
 ### Fixed
+- Browser tab icon: the pages now declare the favicon (with a version number so browsers and Cloudflare refresh it), instead of relying on the browser guessing `/favicon.ico`.
 - Behind Cloudflare, trust only Cloudflare's IP ranges so rate limits and the audit log see each visitor's real IP and links stay HTTPS.
 - Dropdown arrows sit at the far left of every select field (RTL), instead of on the right where the text starts.
 - Every form field is now right-to-left (usernames, email, URLs, phone numbers and passwords used to be forced left-to-right).

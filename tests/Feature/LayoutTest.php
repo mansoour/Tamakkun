@@ -31,7 +31,8 @@ class LayoutTest extends TestCase
             ->assertOk()
             ->assertSee('خطوتك اليوم… تصنع نتيجتك غدًا')
             ->assertSee('دخول الطالبة')
-            ->assertSee('دخول الموجهة الطلابية');
+            ->assertSee('دخول الموجهة الطلابية')
+            ->assertSee('<link rel="icon" href="'.asset('favicon.ico').'?v=', false);
     }
 
     public function test_every_navigation_item_points_to_a_real_route(): void

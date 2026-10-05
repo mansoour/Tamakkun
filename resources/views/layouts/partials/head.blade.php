@@ -7,7 +7,10 @@
 <meta name="author" content="Mansoour (mansoour.com)">
 <meta name="copyright" content="© 2026 Mansoour (mansoour.com)">
 <link rel="manifest" href="{{ route('manifest') }}">
-<link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}">
+{{-- Tab icon. The ?v= changes whenever the file changes, so browsers and Cloudflare never keep an old icon. --}}
+<link rel="icon" href="{{ asset('favicon.ico') }}?v={{ @filemtime(public_path('favicon.ico')) }}" sizes="32x32">
+<link rel="icon" type="image/png" href="{{ asset('icons/icon-192.png') }}?v={{ @filemtime(public_path('icons/icon-192.png')) }}" sizes="192x192">
+<link rel="apple-touch-icon" href="{{ asset('icons/apple-touch-icon.png') }}?v={{ @filemtime(public_path('icons/apple-touch-icon.png')) }}">
 <meta name="apple-mobile-web-app-title" content="{{ $platformName }}">
 
 <title>{{ isset($title) && $title ? $title.' — ' : '' }}{{ $platformName }}</title>
